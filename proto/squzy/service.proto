@@ -3,48 +3,10 @@ syntax = 'proto3';
 package squzy.core.v1.server;
 
 service Server {
-    rpc Run (RunRequest) returns (RunResponse);
-    rpc Stop (StopRequest) returns (StopResponse);
+    rpc GetList (GetListRequest) returns (GetListResponse);
 }
 
-message RunRequest {
-    int32 port = 1;
+message GetListRequest {
 }
 
-message StopRequest {}
-
-message RunResponse {
-    oneof result {
-        bool status = 1;
-        Error error = 2;
-    }
-    message Error {
-        Code code = 1;
-        string message = 2;
-        enum Code {
-            // Internal error
-            INTERNAL_ERROR = 0;
-
-            // Already stoped
-            ALREADY_RUN = 1;
-        }
-    }
-}
-
-message StopResponse {
-    oneof result {
-        bool status = 1;
-        Error error = 2;
-    }
-    message Error {
-        Code code = 1;
-        string message = 2;
-        enum Code {
-            // Internal error
-            INTERNAL_ERROR = 0;
-
-            // Already stoped
-            ALREADY_STOP = 1;
-        }
-    }
-}
+message GetListResponse {}
