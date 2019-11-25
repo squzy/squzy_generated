@@ -8,21 +8,22 @@ service Logger {
     rpc SendLogMessage (SendLogMessageRequest) returns (SendLogMessageResponse);
 }
 
-enum ErrorCode {
+enum Type {
     Tcp = 0;
     Grpc = 1;
     Http = 2;
     SiteMap = 3;
 }
 
-message ErrorMsg {
-    ErrorCode code = 1;
-    string msg = 2;
-    MetaData meta = 3;
+enum StatusCode {
+    OK = 0;
+    Error = 1;
 }
 
-message InfoMsg {
-    MetaData meta = 2;
+message Log {
+    StatusCode code = 1;
+    string description = 2;
+    MetaData meta = 3;
 }
 
 message MetaData {
@@ -30,13 +31,11 @@ message MetaData {
     string location = 2;
     int32 port = 3;
     google.protobuf.Timestamp time = 4;
+    Type type = 5;
 }
 
 message SendLogMessageRequest {
-    oneof msg {
-        InfoMsg info = 1;
-        ErrorMsg error = 2;
-    }
+    Log log = 1;
 }
 
 message SendLogMessageResponse {
