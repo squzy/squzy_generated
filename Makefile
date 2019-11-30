@@ -1,9 +1,9 @@
-squzy: .gen_squzy
+init: .init
 
-logger: .logger
+generate: .generate
 
-.gen_squzy:
-	protoc -I./proto -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis --go_out=plugins=grpc,request_context=true:./generated proto/squzy/service.proto;
+.init:
+	init.sh
 
-.logger:
-	protoc -I./proto -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis --go_out=plugins=grpc,request_context=true:./generated proto/logger/service.proto;
+.generate:
+	gen.sh
