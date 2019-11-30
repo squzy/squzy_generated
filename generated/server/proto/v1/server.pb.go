@@ -341,7 +341,7 @@ func (*AddSchedulerRequest) XXX_OneofWrappers() []interface{} {
 }
 
 type AddSchedulerResponse struct {
-	Success              bool     `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -372,11 +372,245 @@ func (m *AddSchedulerResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AddSchedulerResponse proto.InternalMessageInfo
 
-func (m *AddSchedulerResponse) GetSuccess() bool {
+func (m *AddSchedulerResponse) GetId() string {
 	if m != nil {
-		return m.Success
+		return m.Id
 	}
-	return false
+	return ""
+}
+
+type RemoveSchedulerRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RemoveSchedulerRequest) Reset()         { *m = RemoveSchedulerRequest{} }
+func (m *RemoveSchedulerRequest) String() string { return proto.CompactTextString(m) }
+func (*RemoveSchedulerRequest) ProtoMessage()    {}
+func (*RemoveSchedulerRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_84c2b3ce2e73d961, []int{7}
+}
+
+func (m *RemoveSchedulerRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemoveSchedulerRequest.Unmarshal(m, b)
+}
+func (m *RemoveSchedulerRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemoveSchedulerRequest.Marshal(b, m, deterministic)
+}
+func (m *RemoveSchedulerRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemoveSchedulerRequest.Merge(m, src)
+}
+func (m *RemoveSchedulerRequest) XXX_Size() int {
+	return xxx_messageInfo_RemoveSchedulerRequest.Size(m)
+}
+func (m *RemoveSchedulerRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemoveSchedulerRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RemoveSchedulerRequest proto.InternalMessageInfo
+
+func (m *RemoveSchedulerRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type RemoveSchedulerResponse struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RemoveSchedulerResponse) Reset()         { *m = RemoveSchedulerResponse{} }
+func (m *RemoveSchedulerResponse) String() string { return proto.CompactTextString(m) }
+func (*RemoveSchedulerResponse) ProtoMessage()    {}
+func (*RemoveSchedulerResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_84c2b3ce2e73d961, []int{8}
+}
+
+func (m *RemoveSchedulerResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemoveSchedulerResponse.Unmarshal(m, b)
+}
+func (m *RemoveSchedulerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemoveSchedulerResponse.Marshal(b, m, deterministic)
+}
+func (m *RemoveSchedulerResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemoveSchedulerResponse.Merge(m, src)
+}
+func (m *RemoveSchedulerResponse) XXX_Size() int {
+	return xxx_messageInfo_RemoveSchedulerResponse.Size(m)
+}
+func (m *RemoveSchedulerResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemoveSchedulerResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RemoveSchedulerResponse proto.InternalMessageInfo
+
+func (m *RemoveSchedulerResponse) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type RunSchedulerRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RunSchedulerRequest) Reset()         { *m = RunSchedulerRequest{} }
+func (m *RunSchedulerRequest) String() string { return proto.CompactTextString(m) }
+func (*RunSchedulerRequest) ProtoMessage()    {}
+func (*RunSchedulerRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_84c2b3ce2e73d961, []int{9}
+}
+
+func (m *RunSchedulerRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RunSchedulerRequest.Unmarshal(m, b)
+}
+func (m *RunSchedulerRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RunSchedulerRequest.Marshal(b, m, deterministic)
+}
+func (m *RunSchedulerRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RunSchedulerRequest.Merge(m, src)
+}
+func (m *RunSchedulerRequest) XXX_Size() int {
+	return xxx_messageInfo_RunSchedulerRequest.Size(m)
+}
+func (m *RunSchedulerRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RunSchedulerRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RunSchedulerRequest proto.InternalMessageInfo
+
+func (m *RunSchedulerRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type StopSchedulerRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *StopSchedulerRequest) Reset()         { *m = StopSchedulerRequest{} }
+func (m *StopSchedulerRequest) String() string { return proto.CompactTextString(m) }
+func (*StopSchedulerRequest) ProtoMessage()    {}
+func (*StopSchedulerRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_84c2b3ce2e73d961, []int{10}
+}
+
+func (m *StopSchedulerRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_StopSchedulerRequest.Unmarshal(m, b)
+}
+func (m *StopSchedulerRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_StopSchedulerRequest.Marshal(b, m, deterministic)
+}
+func (m *StopSchedulerRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StopSchedulerRequest.Merge(m, src)
+}
+func (m *StopSchedulerRequest) XXX_Size() int {
+	return xxx_messageInfo_StopSchedulerRequest.Size(m)
+}
+func (m *StopSchedulerRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_StopSchedulerRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StopSchedulerRequest proto.InternalMessageInfo
+
+func (m *StopSchedulerRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type RunSchedulerResponse struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RunSchedulerResponse) Reset()         { *m = RunSchedulerResponse{} }
+func (m *RunSchedulerResponse) String() string { return proto.CompactTextString(m) }
+func (*RunSchedulerResponse) ProtoMessage()    {}
+func (*RunSchedulerResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_84c2b3ce2e73d961, []int{11}
+}
+
+func (m *RunSchedulerResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RunSchedulerResponse.Unmarshal(m, b)
+}
+func (m *RunSchedulerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RunSchedulerResponse.Marshal(b, m, deterministic)
+}
+func (m *RunSchedulerResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RunSchedulerResponse.Merge(m, src)
+}
+func (m *RunSchedulerResponse) XXX_Size() int {
+	return xxx_messageInfo_RunSchedulerResponse.Size(m)
+}
+func (m *RunSchedulerResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RunSchedulerResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RunSchedulerResponse proto.InternalMessageInfo
+
+func (m *RunSchedulerResponse) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type StopSchedulerResponse struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *StopSchedulerResponse) Reset()         { *m = StopSchedulerResponse{} }
+func (m *StopSchedulerResponse) String() string { return proto.CompactTextString(m) }
+func (*StopSchedulerResponse) ProtoMessage()    {}
+func (*StopSchedulerResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_84c2b3ce2e73d961, []int{12}
+}
+
+func (m *StopSchedulerResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_StopSchedulerResponse.Unmarshal(m, b)
+}
+func (m *StopSchedulerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_StopSchedulerResponse.Marshal(b, m, deterministic)
+}
+func (m *StopSchedulerResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StopSchedulerResponse.Merge(m, src)
+}
+func (m *StopSchedulerResponse) XXX_Size() int {
+	return xxx_messageInfo_StopSchedulerResponse.Size(m)
+}
+func (m *StopSchedulerResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_StopSchedulerResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StopSchedulerResponse proto.InternalMessageInfo
+
+func (m *StopSchedulerResponse) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
 }
 
 func init() {
@@ -388,38 +622,50 @@ func init() {
 	proto.RegisterType((*TcpCheck)(nil), "squzy.server.v1.service.TcpCheck")
 	proto.RegisterType((*AddSchedulerRequest)(nil), "squzy.server.v1.service.AddSchedulerRequest")
 	proto.RegisterType((*AddSchedulerResponse)(nil), "squzy.server.v1.service.AddSchedulerResponse")
+	proto.RegisterType((*RemoveSchedulerRequest)(nil), "squzy.server.v1.service.RemoveSchedulerRequest")
+	proto.RegisterType((*RemoveSchedulerResponse)(nil), "squzy.server.v1.service.RemoveSchedulerResponse")
+	proto.RegisterType((*RunSchedulerRequest)(nil), "squzy.server.v1.service.RunSchedulerRequest")
+	proto.RegisterType((*StopSchedulerRequest)(nil), "squzy.server.v1.service.StopSchedulerRequest")
+	proto.RegisterType((*RunSchedulerResponse)(nil), "squzy.server.v1.service.RunSchedulerResponse")
+	proto.RegisterType((*StopSchedulerResponse)(nil), "squzy.server.v1.service.StopSchedulerResponse")
 }
 
 func init() { proto.RegisterFile("proto/v1/server.proto", fileDescriptor_84c2b3ce2e73d961) }
 
 var fileDescriptor_84c2b3ce2e73d961 = []byte{
-	// 413 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x53, 0xcd, 0xaf, 0xd2, 0x40,
-	0x10, 0xa7, 0xf0, 0x68, 0xfb, 0x06, 0xc4, 0xba, 0x6a, 0x6c, 0xb8, 0xd8, 0xd7, 0xc4, 0xd8, 0x10,
-	0x2d, 0x52, 0x0f, 0xde, 0x8c, 0x1f, 0x10, 0x31, 0x41, 0xc4, 0x2d, 0xde, 0x48, 0x4c, 0xdd, 0x6e,
-	0xc2, 0x86, 0x8f, 0x96, 0xee, 0xb6, 0x89, 0xfe, 0x89, 0x5e, 0xfd, 0x87, 0x4c, 0x97, 0x2d, 0x01,
-	0x63, 0xe3, 0xbb, 0xcd, 0xcc, 0xce, 0xfc, 0x3e, 0x66, 0x5a, 0x78, 0x98, 0x66, 0x89, 0x48, 0x86,
-	0xc5, 0x68, 0xc8, 0x69, 0x56, 0xd0, 0xcc, 0x97, 0x39, 0x7a, 0xc4, 0x0f, 0xf9, 0xcf, 0x1f, 0xbe,
-	0xaa, 0x15, 0x23, 0x19, 0x31, 0x42, 0xdd, 0x15, 0xdc, 0x0b, 0xc9, 0x9a, 0xc6, 0xf9, 0x96, 0x66,
-	0x33, 0xc6, 0xc5, 0x47, 0x41, 0x77, 0xa8, 0x07, 0x4d, 0x16, 0xdb, 0x9a, 0xa3, 0x79, 0xd7, 0xb8,
-	0xc9, 0x62, 0xf4, 0x0a, 0x74, 0x2e, 0x22, 0x91, 0x73, 0xbb, 0xe9, 0x68, 0x5e, 0x2f, 0x78, 0xec,
-	0xd7, 0xc0, 0xf9, 0xa1, 0x6c, 0xc3, 0xaa, 0xdd, 0xb5, 0xa0, 0xf7, 0x81, 0x8a, 0x12, 0x17, 0xd3,
-	0x43, 0x4e, 0xb9, 0x70, 0xbf, 0xc0, 0xdd, 0x53, 0x85, 0xa7, 0xc9, 0x9e, 0x53, 0xf4, 0x1a, 0xae,
-	0xb6, 0x8c, 0x0b, 0x5b, 0x73, 0x5a, 0x5e, 0x27, 0x18, 0xd4, 0x63, 0xff, 0xad, 0x13, 0xcb, 0x39,
-	0xd7, 0x81, 0x6e, 0xc8, 0x04, 0xfd, 0x14, 0xa5, 0xef, 0xd7, 0x94, 0x6c, 0x90, 0x05, 0xad, 0x3c,
-	0xdb, 0x2a, 0xf9, 0x65, 0xe8, 0x06, 0x60, 0x2e, 0x89, 0x7a, 0x45, 0x70, 0xb5, 0x4e, 0x24, 0x5b,
-	0xf9, 0x2c, 0xe3, 0xb2, 0x96, 0x26, 0x99, 0x90, 0xee, 0xda, 0x58, 0xc6, 0xee, 0x2f, 0x0d, 0xee,
-	0xbf, 0x8d, 0xe3, 0x13, 0xa9, 0x32, 0x80, 0xfa, 0x60, 0xb2, 0xbd, 0xa0, 0x59, 0x11, 0x1d, 0x29,
-	0xda, 0xf8, 0x94, 0xa3, 0x37, 0x70, 0x2d, 0x48, 0xfa, 0x8d, 0x94, 0x44, 0x12, 0xac, 0x13, 0xdc,
-	0xd4, 0xda, 0xa9, 0x14, 0x4d, 0x1b, 0xd8, 0x14, 0x95, 0xba, 0x19, 0xdc, 0xe1, 0x4c, 0xd0, 0x5d,
-	0x54, 0xa1, 0xb4, 0x24, 0xca, 0x93, 0xfa, 0xa5, 0x9c, 0x39, 0x9f, 0x36, 0x70, 0x57, 0x4d, 0xcb,
-	0xfc, 0x9d, 0x01, 0x6d, 0x89, 0xe2, 0xbe, 0x80, 0x07, 0x97, 0x5e, 0xd4, 0xea, 0x6d, 0x30, 0x78,
-	0x4e, 0x08, 0xe5, 0x5c, 0x7a, 0x31, 0x71, 0x95, 0x0e, 0x6e, 0x40, 0x3f, 0xde, 0x12, 0x01, 0xe8,
-	0xf8, 0xeb, 0x7c, 0x3e, 0x19, 0x5b, 0x0d, 0xd4, 0x01, 0x23, 0x5c, 0x7e, 0x5e, 0x2c, 0x26, 0x63,
-	0x4b, 0x0b, 0x7e, 0x6b, 0xa0, 0x87, 0x52, 0x10, 0x5a, 0x81, 0xa1, 0xae, 0x8a, 0x9e, 0xd6, 0x4a,
-	0xbd, 0xfc, 0x12, 0xfa, 0xde, 0xff, 0x1b, 0x95, 0xca, 0x0d, 0x74, 0xcf, 0xd5, 0xa3, 0x67, 0xb5,
-	0x93, 0xff, 0x38, 0x58, 0xff, 0xf9, 0x2d, 0xbb, 0x8f, 0x64, 0xdf, 0x75, 0xf9, 0xc3, 0xbc, 0xfc,
-	0x13, 0x00, 0x00, 0xff, 0xff, 0x0f, 0x69, 0x43, 0x9e, 0x49, 0x03, 0x00, 0x00,
+	// 501 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x54, 0x5d, 0x4f, 0xdb, 0x30,
+	0x14, 0x6d, 0xfa, 0x91, 0x96, 0xdb, 0x52, 0x3a, 0x03, 0xa3, 0xca, 0xcb, 0x4a, 0x24, 0x20, 0x43,
+	0x23, 0x1d, 0xd9, 0xc3, 0xde, 0xa6, 0x7d, 0x80, 0xc6, 0x24, 0xc6, 0x98, 0xc3, 0xde, 0x90, 0xa6,
+	0x2e, 0xb1, 0x54, 0x8b, 0xb6, 0x09, 0xb1, 0x13, 0x69, 0xfb, 0x41, 0xfb, 0x31, 0xfb, 0x55, 0x53,
+	0x5c, 0xb7, 0xb4, 0x69, 0xdc, 0xe6, 0xed, 0xda, 0x39, 0xf7, 0x9c, 0x7b, 0x7c, 0x8f, 0x02, 0xfb,
+	0x61, 0x14, 0xf0, 0xa0, 0x9f, 0x9c, 0xf7, 0x19, 0x89, 0x12, 0x12, 0xd9, 0xe2, 0x8c, 0x0e, 0xd8,
+	0x63, 0xfc, 0xe7, 0xb7, 0x2d, 0xef, 0x92, 0x73, 0x51, 0x51, 0x8f, 0x98, 0xf7, 0xf0, 0xcc, 0xf5,
+	0x86, 0xc4, 0x8f, 0x47, 0x24, 0xba, 0xa6, 0x8c, 0x7f, 0xe1, 0x64, 0x8c, 0xda, 0x50, 0xa6, 0x7e,
+	0x57, 0xeb, 0x69, 0xd6, 0x16, 0x2e, 0x53, 0x1f, 0xbd, 0x05, 0x9d, 0xf1, 0x01, 0x8f, 0x59, 0xb7,
+	0xdc, 0xd3, 0xac, 0xb6, 0xf3, 0xc2, 0x56, 0xd0, 0xd9, 0xae, 0x80, 0x61, 0x09, 0x37, 0x3b, 0xd0,
+	0xfe, 0x4c, 0x78, 0xca, 0x8b, 0xc9, 0x63, 0x4c, 0x18, 0x37, 0xbf, 0xc3, 0xce, 0xfc, 0x86, 0x85,
+	0xc1, 0x84, 0x11, 0xf4, 0x0e, 0xaa, 0x23, 0xca, 0x78, 0x57, 0xeb, 0x55, 0xac, 0xa6, 0x73, 0xaa,
+	0xe6, 0xce, 0xce, 0x89, 0x45, 0x9f, 0xd9, 0x83, 0x96, 0x4b, 0x39, 0xf9, 0x3a, 0x08, 0x3f, 0x0d,
+	0x89, 0xf7, 0x80, 0x3a, 0x50, 0x89, 0xa3, 0x91, 0x1c, 0x3f, 0x2d, 0x4d, 0x07, 0x1a, 0x77, 0x9e,
+	0xfc, 0x8a, 0xa0, 0x3a, 0x0c, 0x84, 0x5a, 0xfa, 0x59, 0xd4, 0xe9, 0x5d, 0x18, 0x44, 0x5c, 0xb8,
+	0xab, 0x61, 0x51, 0x9b, 0xff, 0x34, 0xd8, 0xfd, 0xe0, 0xfb, 0x73, 0x51, 0x69, 0x00, 0x19, 0xd0,
+	0xa0, 0x13, 0x4e, 0xa2, 0x64, 0x30, 0x95, 0xa8, 0xe1, 0xf9, 0x19, 0xbd, 0x87, 0x2d, 0xee, 0x85,
+	0x3f, 0xbd, 0x54, 0x48, 0x90, 0x35, 0x9d, 0x43, 0xa5, 0x9d, 0xd9, 0x44, 0x57, 0x25, 0xdc, 0xe0,
+	0xb3, 0xe9, 0xae, 0x61, 0x9b, 0x51, 0x4e, 0xc6, 0x83, 0x19, 0x4b, 0x45, 0xb0, 0x1c, 0xa9, 0x1f,
+	0x65, 0xc1, 0xf9, 0x55, 0x09, 0xb7, 0x64, 0xb7, 0x38, 0x7f, 0xac, 0x43, 0x4d, 0xb0, 0x98, 0xc7,
+	0xb0, 0xb7, 0xec, 0x45, 0x3e, 0x7d, 0x66, 0xd1, 0xa6, 0x05, 0xcf, 0x31, 0x19, 0x07, 0x09, 0x59,
+	0xb1, 0x9d, 0x45, 0xbe, 0x84, 0x83, 0x15, 0xa4, 0x82, 0xf4, 0x08, 0x76, 0x71, 0x3c, 0xd9, 0xc8,
+	0x78, 0x0c, 0x7b, 0x2e, 0x0f, 0xc2, 0x22, 0xb8, 0x65, 0x3a, 0x85, 0xec, 0x09, 0xec, 0x67, 0xf8,
+	0xf2, 0x81, 0xa7, 0x87, 0xa0, 0x4f, 0x63, 0x8b, 0x00, 0x74, 0xfc, 0xe3, 0xe6, 0xe6, 0xf2, 0xa2,
+	0x53, 0x42, 0x4d, 0xa8, 0xbb, 0x77, 0xdf, 0x6e, 0x6f, 0x2f, 0x2f, 0x3a, 0x9a, 0xf3, 0xb7, 0x0a,
+	0xba, 0x2b, 0xde, 0x1e, 0xdd, 0x43, 0x5d, 0x06, 0x18, 0x9d, 0x28, 0xb7, 0xb2, 0x1c, 0x7a, 0xc3,
+	0xda, 0x0c, 0x94, 0xb3, 0x3d, 0x40, 0x6b, 0x71, 0x51, 0xe8, 0x95, 0xb2, 0x33, 0x27, 0x9b, 0xc6,
+	0x59, 0x41, 0xb4, 0x14, 0xe3, 0xb0, 0x93, 0xd9, 0x21, 0xea, 0x2b, 0x19, 0xf2, 0x73, 0x61, 0xbc,
+	0x2e, 0xde, 0xf0, 0x64, 0x71, 0x71, 0x7f, 0x6b, 0x2c, 0xe6, 0xa4, 0x66, 0x8d, 0xc5, 0xdc, 0x50,
+	0x4c, 0x60, 0x7b, 0x29, 0x04, 0xe8, 0x6c, 0xcd, 0xaf, 0x6b, 0x35, 0x7c, 0x86, 0x5d, 0x14, 0x3e,
+	0xd5, 0xfb, 0xa5, 0x8b, 0xdf, 0xed, 0x9b, 0xff, 0x01, 0x00, 0x00, 0xff, 0xff, 0x7e, 0xc8, 0x5b,
+	0x19, 0x87, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -436,6 +682,9 @@ const _ = grpc.SupportPackageIsVersion4
 type ServerClient interface {
 	GetList(ctx context.Context, in *GetListRequest, opts ...grpc.CallOption) (*GetListResponse, error)
 	AddScheduler(ctx context.Context, in *AddSchedulerRequest, opts ...grpc.CallOption) (*AddSchedulerResponse, error)
+	RemoveScheduler(ctx context.Context, in *RemoveSchedulerRequest, opts ...grpc.CallOption) (*RemoveSchedulerResponse, error)
+	RunScheduler(ctx context.Context, in *RunSchedulerRequest, opts ...grpc.CallOption) (*RunSchedulerResponse, error)
+	StopScheduler(ctx context.Context, in *StopSchedulerRequest, opts ...grpc.CallOption) (*StopSchedulerResponse, error)
 }
 
 type serverClient struct {
@@ -464,10 +713,40 @@ func (c *serverClient) AddScheduler(ctx context.Context, in *AddSchedulerRequest
 	return out, nil
 }
 
+func (c *serverClient) RemoveScheduler(ctx context.Context, in *RemoveSchedulerRequest, opts ...grpc.CallOption) (*RemoveSchedulerResponse, error) {
+	out := new(RemoveSchedulerResponse)
+	err := c.cc.Invoke(ctx, "/squzy.server.v1.service.Server/RemoveScheduler", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serverClient) RunScheduler(ctx context.Context, in *RunSchedulerRequest, opts ...grpc.CallOption) (*RunSchedulerResponse, error) {
+	out := new(RunSchedulerResponse)
+	err := c.cc.Invoke(ctx, "/squzy.server.v1.service.Server/RunScheduler", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serverClient) StopScheduler(ctx context.Context, in *StopSchedulerRequest, opts ...grpc.CallOption) (*StopSchedulerResponse, error) {
+	out := new(StopSchedulerResponse)
+	err := c.cc.Invoke(ctx, "/squzy.server.v1.service.Server/StopScheduler", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServerServer is the server API for Server service.
 type ServerServer interface {
 	GetList(context.Context, *GetListRequest) (*GetListResponse, error)
 	AddScheduler(context.Context, *AddSchedulerRequest) (*AddSchedulerResponse, error)
+	RemoveScheduler(context.Context, *RemoveSchedulerRequest) (*RemoveSchedulerResponse, error)
+	RunScheduler(context.Context, *RunSchedulerRequest) (*RunSchedulerResponse, error)
+	StopScheduler(context.Context, *StopSchedulerRequest) (*StopSchedulerResponse, error)
 }
 
 // UnimplementedServerServer can be embedded to have forward compatible implementations.
@@ -479,6 +758,15 @@ func (*UnimplementedServerServer) GetList(ctx context.Context, req *GetListReque
 }
 func (*UnimplementedServerServer) AddScheduler(ctx context.Context, req *AddSchedulerRequest) (*AddSchedulerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddScheduler not implemented")
+}
+func (*UnimplementedServerServer) RemoveScheduler(ctx context.Context, req *RemoveSchedulerRequest) (*RemoveSchedulerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveScheduler not implemented")
+}
+func (*UnimplementedServerServer) RunScheduler(ctx context.Context, req *RunSchedulerRequest) (*RunSchedulerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RunScheduler not implemented")
+}
+func (*UnimplementedServerServer) StopScheduler(ctx context.Context, req *StopSchedulerRequest) (*StopSchedulerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StopScheduler not implemented")
 }
 
 func RegisterServerServer(s *grpc.Server, srv ServerServer) {
@@ -521,6 +809,60 @@ func _Server_AddScheduler_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Server_RemoveScheduler_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveSchedulerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServerServer).RemoveScheduler(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.server.v1.service.Server/RemoveScheduler",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServerServer).RemoveScheduler(ctx, req.(*RemoveSchedulerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Server_RunScheduler_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RunSchedulerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServerServer).RunScheduler(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.server.v1.service.Server/RunScheduler",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServerServer).RunScheduler(ctx, req.(*RunSchedulerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Server_StopScheduler_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StopSchedulerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServerServer).StopScheduler(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.server.v1.service.Server/StopScheduler",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServerServer).StopScheduler(ctx, req.(*StopSchedulerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Server_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "squzy.server.v1.service.Server",
 	HandlerType: (*ServerServer)(nil),
@@ -532,6 +874,18 @@ var _Server_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddScheduler",
 			Handler:    _Server_AddScheduler_Handler,
+		},
+		{
+			MethodName: "RemoveScheduler",
+			Handler:    _Server_RemoveScheduler_Handler,
+		},
+		{
+			MethodName: "RunScheduler",
+			Handler:    _Server_RunScheduler_Handler,
+		},
+		{
+			MethodName: "StopScheduler",
+			Handler:    _Server_StopScheduler_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
