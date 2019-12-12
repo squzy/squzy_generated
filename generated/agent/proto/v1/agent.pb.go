@@ -169,57 +169,57 @@ func (m *AgentItem) GetStatus() AgentStatus {
 	return AgentStatus_RUNNED
 }
 
-type HostInformation struct {
+type HostInfo struct {
 	HostName             string        `protobuf:"bytes,1,opt,name=host_name,json=hostName,proto3" json:"host_name,omitempty"`
 	Os                   string        `protobuf:"bytes,2,opt,name=os,proto3" json:"os,omitempty"`
-	Platform             *PlatformInfo `protobuf:"bytes,3,opt,name=platform,proto3" json:"platform,omitempty"`
+	PlatformInfo         *PlatformInfo `protobuf:"bytes,3,opt,name=platform_info,json=platformInfo,proto3" json:"platform_info,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
 }
 
-func (m *HostInformation) Reset()         { *m = HostInformation{} }
-func (m *HostInformation) String() string { return proto.CompactTextString(m) }
-func (*HostInformation) ProtoMessage()    {}
-func (*HostInformation) Descriptor() ([]byte, []int) {
+func (m *HostInfo) Reset()         { *m = HostInfo{} }
+func (m *HostInfo) String() string { return proto.CompactTextString(m) }
+func (*HostInfo) ProtoMessage()    {}
+func (*HostInfo) Descriptor() ([]byte, []int) {
 	return fileDescriptor_06a40c128db68bfe, []int{3}
 }
 
-func (m *HostInformation) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_HostInformation.Unmarshal(m, b)
+func (m *HostInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_HostInfo.Unmarshal(m, b)
 }
-func (m *HostInformation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_HostInformation.Marshal(b, m, deterministic)
+func (m *HostInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_HostInfo.Marshal(b, m, deterministic)
 }
-func (m *HostInformation) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_HostInformation.Merge(m, src)
+func (m *HostInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_HostInfo.Merge(m, src)
 }
-func (m *HostInformation) XXX_Size() int {
-	return xxx_messageInfo_HostInformation.Size(m)
+func (m *HostInfo) XXX_Size() int {
+	return xxx_messageInfo_HostInfo.Size(m)
 }
-func (m *HostInformation) XXX_DiscardUnknown() {
-	xxx_messageInfo_HostInformation.DiscardUnknown(m)
+func (m *HostInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_HostInfo.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_HostInformation proto.InternalMessageInfo
+var xxx_messageInfo_HostInfo proto.InternalMessageInfo
 
-func (m *HostInformation) GetHostName() string {
+func (m *HostInfo) GetHostName() string {
 	if m != nil {
 		return m.HostName
 	}
 	return ""
 }
 
-func (m *HostInformation) GetOs() string {
+func (m *HostInfo) GetOs() string {
 	if m != nil {
 		return m.Os
 	}
 	return ""
 }
 
-func (m *HostInformation) GetPlatform() *PlatformInfo {
+func (m *HostInfo) GetPlatformInfo() *PlatformInfo {
 	if m != nil {
-		return m.Platform
+		return m.PlatformInfo
 	}
 	return nil
 }
@@ -279,45 +279,6 @@ func (m *PlatformInfo) GetVersion() string {
 	return ""
 }
 
-type RegisterRequest struct {
-	HostInformation      *HostInformation `protobuf:"bytes,1,opt,name=host_information,json=hostInformation,proto3" json:"host_information,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
-	XXX_unrecognized     []byte           `json:"-"`
-	XXX_sizecache        int32            `json:"-"`
-}
-
-func (m *RegisterRequest) Reset()         { *m = RegisterRequest{} }
-func (m *RegisterRequest) String() string { return proto.CompactTextString(m) }
-func (*RegisterRequest) ProtoMessage()    {}
-func (*RegisterRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_06a40c128db68bfe, []int{5}
-}
-
-func (m *RegisterRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RegisterRequest.Unmarshal(m, b)
-}
-func (m *RegisterRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RegisterRequest.Marshal(b, m, deterministic)
-}
-func (m *RegisterRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RegisterRequest.Merge(m, src)
-}
-func (m *RegisterRequest) XXX_Size() int {
-	return xxx_messageInfo_RegisterRequest.Size(m)
-}
-func (m *RegisterRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_RegisterRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_RegisterRequest proto.InternalMessageInfo
-
-func (m *RegisterRequest) GetHostInformation() *HostInformation {
-	if m != nil {
-		return m.HostInformation
-	}
-	return nil
-}
-
 type RegisterResponse struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -329,7 +290,7 @@ func (m *RegisterResponse) Reset()         { *m = RegisterResponse{} }
 func (m *RegisterResponse) String() string { return proto.CompactTextString(m) }
 func (*RegisterResponse) ProtoMessage()    {}
 func (*RegisterResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_06a40c128db68bfe, []int{6}
+	return fileDescriptor_06a40c128db68bfe, []int{5}
 }
 
 func (m *RegisterResponse) XXX_Unmarshal(b []byte) error {
@@ -357,172 +318,71 @@ func (m *RegisterResponse) GetId() string {
 	return ""
 }
 
-type UnRegisterRequest struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *UnRegisterRequest) Reset()         { *m = UnRegisterRequest{} }
-func (m *UnRegisterRequest) String() string { return proto.CompactTextString(m) }
-func (*UnRegisterRequest) ProtoMessage()    {}
-func (*UnRegisterRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_06a40c128db68bfe, []int{7}
-}
-
-func (m *UnRegisterRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UnRegisterRequest.Unmarshal(m, b)
-}
-func (m *UnRegisterRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UnRegisterRequest.Marshal(b, m, deterministic)
-}
-func (m *UnRegisterRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UnRegisterRequest.Merge(m, src)
-}
-func (m *UnRegisterRequest) XXX_Size() int {
-	return xxx_messageInfo_UnRegisterRequest.Size(m)
-}
-func (m *UnRegisterRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_UnRegisterRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_UnRegisterRequest proto.InternalMessageInfo
-
-func (m *UnRegisterRequest) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-type UnRegisterResponse struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *UnRegisterResponse) Reset()         { *m = UnRegisterResponse{} }
-func (m *UnRegisterResponse) String() string { return proto.CompactTextString(m) }
-func (*UnRegisterResponse) ProtoMessage()    {}
-func (*UnRegisterResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_06a40c128db68bfe, []int{8}
-}
-
-func (m *UnRegisterResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UnRegisterResponse.Unmarshal(m, b)
-}
-func (m *UnRegisterResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UnRegisterResponse.Marshal(b, m, deterministic)
-}
-func (m *UnRegisterResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UnRegisterResponse.Merge(m, src)
-}
-func (m *UnRegisterResponse) XXX_Size() int {
-	return xxx_messageInfo_UnRegisterResponse.Size(m)
-}
-func (m *UnRegisterResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_UnRegisterResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_UnRegisterResponse proto.InternalMessageInfo
-
-func (m *UnRegisterResponse) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-type GetStatsRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *GetStatsRequest) Reset()         { *m = GetStatsRequest{} }
-func (m *GetStatsRequest) String() string { return proto.CompactTextString(m) }
-func (*GetStatsRequest) ProtoMessage()    {}
-func (*GetStatsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_06a40c128db68bfe, []int{9}
-}
-
-func (m *GetStatsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetStatsRequest.Unmarshal(m, b)
-}
-func (m *GetStatsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetStatsRequest.Marshal(b, m, deterministic)
-}
-func (m *GetStatsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetStatsRequest.Merge(m, src)
-}
-func (m *GetStatsRequest) XXX_Size() int {
-	return xxx_messageInfo_GetStatsRequest.Size(m)
-}
-func (m *GetStatsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetStatsRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetStatsRequest proto.InternalMessageInfo
-
-type GetStatsResponse struct {
-	CpuInfo              *CpuInfo    `protobuf:"bytes,1,opt,name=cpu_info,json=cpuInfo,proto3" json:"cpu_info,omitempty"`
-	MemoryInfo           *MemoryInfo `protobuf:"bytes,2,opt,name=memory_info,json=memoryInfo,proto3" json:"memory_info,omitempty"`
-	DiskInfo             *DiskInfo   `protobuf:"bytes,3,opt,name=disk_info,json=diskInfo,proto3" json:"disk_info,omitempty"`
-	NetInfo              *NetInfo    `protobuf:"bytes,4,opt,name=net_info,json=netInfo,proto3" json:"net_info,omitempty"`
+type SendStat struct {
+	HostInfo             *HostInfo   `protobuf:"bytes,1,opt,name=hostInfo,proto3" json:"hostInfo,omitempty"`
+	CpuInfo              *CpuInfo    `protobuf:"bytes,2,opt,name=cpu_info,json=cpuInfo,proto3" json:"cpu_info,omitempty"`
+	MemoryInfo           *MemoryInfo `protobuf:"bytes,3,opt,name=memory_info,json=memoryInfo,proto3" json:"memory_info,omitempty"`
+	DiskInfo             *DiskInfo   `protobuf:"bytes,4,opt,name=disk_info,json=diskInfo,proto3" json:"disk_info,omitempty"`
+	NetInfo              *NetInfo    `protobuf:"bytes,5,opt,name=net_info,json=netInfo,proto3" json:"net_info,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
 	XXX_unrecognized     []byte      `json:"-"`
 	XXX_sizecache        int32       `json:"-"`
 }
 
-func (m *GetStatsResponse) Reset()         { *m = GetStatsResponse{} }
-func (m *GetStatsResponse) String() string { return proto.CompactTextString(m) }
-func (*GetStatsResponse) ProtoMessage()    {}
-func (*GetStatsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_06a40c128db68bfe, []int{10}
+func (m *SendStat) Reset()         { *m = SendStat{} }
+func (m *SendStat) String() string { return proto.CompactTextString(m) }
+func (*SendStat) ProtoMessage()    {}
+func (*SendStat) Descriptor() ([]byte, []int) {
+	return fileDescriptor_06a40c128db68bfe, []int{6}
 }
 
-func (m *GetStatsResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetStatsResponse.Unmarshal(m, b)
+func (m *SendStat) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SendStat.Unmarshal(m, b)
 }
-func (m *GetStatsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetStatsResponse.Marshal(b, m, deterministic)
+func (m *SendStat) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SendStat.Marshal(b, m, deterministic)
 }
-func (m *GetStatsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetStatsResponse.Merge(m, src)
+func (m *SendStat) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SendStat.Merge(m, src)
 }
-func (m *GetStatsResponse) XXX_Size() int {
-	return xxx_messageInfo_GetStatsResponse.Size(m)
+func (m *SendStat) XXX_Size() int {
+	return xxx_messageInfo_SendStat.Size(m)
 }
-func (m *GetStatsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetStatsResponse.DiscardUnknown(m)
+func (m *SendStat) XXX_DiscardUnknown() {
+	xxx_messageInfo_SendStat.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetStatsResponse proto.InternalMessageInfo
+var xxx_messageInfo_SendStat proto.InternalMessageInfo
 
-func (m *GetStatsResponse) GetCpuInfo() *CpuInfo {
+func (m *SendStat) GetHostInfo() *HostInfo {
+	if m != nil {
+		return m.HostInfo
+	}
+	return nil
+}
+
+func (m *SendStat) GetCpuInfo() *CpuInfo {
 	if m != nil {
 		return m.CpuInfo
 	}
 	return nil
 }
 
-func (m *GetStatsResponse) GetMemoryInfo() *MemoryInfo {
+func (m *SendStat) GetMemoryInfo() *MemoryInfo {
 	if m != nil {
 		return m.MemoryInfo
 	}
 	return nil
 }
 
-func (m *GetStatsResponse) GetDiskInfo() *DiskInfo {
+func (m *SendStat) GetDiskInfo() *DiskInfo {
 	if m != nil {
 		return m.DiskInfo
 	}
 	return nil
 }
 
-func (m *GetStatsResponse) GetNetInfo() *NetInfo {
+func (m *SendStat) GetNetInfo() *NetInfo {
 	if m != nil {
 		return m.NetInfo
 	}
@@ -540,7 +400,7 @@ func (m *CpuInfo) Reset()         { *m = CpuInfo{} }
 func (m *CpuInfo) String() string { return proto.CompactTextString(m) }
 func (*CpuInfo) ProtoMessage()    {}
 func (*CpuInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_06a40c128db68bfe, []int{11}
+	return fileDescriptor_06a40c128db68bfe, []int{7}
 }
 
 func (m *CpuInfo) XXX_Unmarshal(b []byte) error {
@@ -579,7 +439,7 @@ func (m *CpuInfo_CPU) Reset()         { *m = CpuInfo_CPU{} }
 func (m *CpuInfo_CPU) String() string { return proto.CompactTextString(m) }
 func (*CpuInfo_CPU) ProtoMessage()    {}
 func (*CpuInfo_CPU) Descriptor() ([]byte, []int) {
-	return fileDescriptor_06a40c128db68bfe, []int{11, 0}
+	return fileDescriptor_06a40c128db68bfe, []int{7, 0}
 }
 
 func (m *CpuInfo_CPU) XXX_Unmarshal(b []byte) error {
@@ -619,7 +479,7 @@ func (m *MemoryInfo) Reset()         { *m = MemoryInfo{} }
 func (m *MemoryInfo) String() string { return proto.CompactTextString(m) }
 func (*MemoryInfo) ProtoMessage()    {}
 func (*MemoryInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_06a40c128db68bfe, []int{12}
+	return fileDescriptor_06a40c128db68bfe, []int{8}
 }
 
 func (m *MemoryInfo) XXX_Unmarshal(b []byte) error {
@@ -669,7 +529,7 @@ func (m *MemoryInfo_Memory) Reset()         { *m = MemoryInfo_Memory{} }
 func (m *MemoryInfo_Memory) String() string { return proto.CompactTextString(m) }
 func (*MemoryInfo_Memory) ProtoMessage()    {}
 func (*MemoryInfo_Memory) Descriptor() ([]byte, []int) {
-	return fileDescriptor_06a40c128db68bfe, []int{12, 0}
+	return fileDescriptor_06a40c128db68bfe, []int{8, 0}
 }
 
 func (m *MemoryInfo_Memory) XXX_Unmarshal(b []byte) error {
@@ -736,7 +596,7 @@ func (m *DiskInfo) Reset()         { *m = DiskInfo{} }
 func (m *DiskInfo) String() string { return proto.CompactTextString(m) }
 func (*DiskInfo) ProtoMessage()    {}
 func (*DiskInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_06a40c128db68bfe, []int{13}
+	return fileDescriptor_06a40c128db68bfe, []int{9}
 }
 
 func (m *DiskInfo) XXX_Unmarshal(b []byte) error {
@@ -778,7 +638,7 @@ func (m *DiskInfo_Disk) Reset()         { *m = DiskInfo_Disk{} }
 func (m *DiskInfo_Disk) String() string { return proto.CompactTextString(m) }
 func (*DiskInfo_Disk) ProtoMessage()    {}
 func (*DiskInfo_Disk) Descriptor() ([]byte, []int) {
-	return fileDescriptor_06a40c128db68bfe, []int{13, 0}
+	return fileDescriptor_06a40c128db68bfe, []int{9, 0}
 }
 
 func (m *DiskInfo_Disk) XXX_Unmarshal(b []byte) error {
@@ -849,7 +709,7 @@ func (m *NetInfo) Reset()         { *m = NetInfo{} }
 func (m *NetInfo) String() string { return proto.CompactTextString(m) }
 func (*NetInfo) ProtoMessage()    {}
 func (*NetInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_06a40c128db68bfe, []int{14}
+	return fileDescriptor_06a40c128db68bfe, []int{10}
 }
 
 func (m *NetInfo) XXX_Unmarshal(b []byte) error {
@@ -931,14 +791,10 @@ func init() {
 	proto.RegisterType((*GetListRequest)(nil), "squzy.agents.v1.agent.GetListRequest")
 	proto.RegisterType((*GetListResponse)(nil), "squzy.agents.v1.agent.GetListResponse")
 	proto.RegisterType((*AgentItem)(nil), "squzy.agents.v1.agent.AgentItem")
-	proto.RegisterType((*HostInformation)(nil), "squzy.agents.v1.agent.HostInformation")
+	proto.RegisterType((*HostInfo)(nil), "squzy.agents.v1.agent.HostInfo")
 	proto.RegisterType((*PlatformInfo)(nil), "squzy.agents.v1.agent.PlatformInfo")
-	proto.RegisterType((*RegisterRequest)(nil), "squzy.agents.v1.agent.RegisterRequest")
 	proto.RegisterType((*RegisterResponse)(nil), "squzy.agents.v1.agent.RegisterResponse")
-	proto.RegisterType((*UnRegisterRequest)(nil), "squzy.agents.v1.agent.UnRegisterRequest")
-	proto.RegisterType((*UnRegisterResponse)(nil), "squzy.agents.v1.agent.UnRegisterResponse")
-	proto.RegisterType((*GetStatsRequest)(nil), "squzy.agents.v1.agent.GetStatsRequest")
-	proto.RegisterType((*GetStatsResponse)(nil), "squzy.agents.v1.agent.GetStatsResponse")
+	proto.RegisterType((*SendStat)(nil), "squzy.agents.v1.agent.SendStat")
 	proto.RegisterType((*CpuInfo)(nil), "squzy.agents.v1.agent.CpuInfo")
 	proto.RegisterType((*CpuInfo_CPU)(nil), "squzy.agents.v1.agent.CpuInfo.CPU")
 	proto.RegisterType((*MemoryInfo)(nil), "squzy.agents.v1.agent.MemoryInfo")
@@ -952,64 +808,59 @@ func init() {
 func init() { proto.RegisterFile("proto/v1/agent.proto", fileDescriptor_06a40c128db68bfe) }
 
 var fileDescriptor_06a40c128db68bfe = []byte{
-	// 898 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x56, 0xdd, 0x6f, 0x1b, 0x45,
-	0x10, 0xcf, 0x9d, 0xcf, 0x5f, 0xe3, 0x2a, 0xb9, 0x8e, 0x02, 0x3a, 0x0c, 0x02, 0xb3, 0x2d, 0xc5,
-	0xf4, 0xc1, 0xa5, 0x46, 0x42, 0x21, 0xaa, 0xc4, 0x87, 0x6d, 0x81, 0x05, 0x38, 0x66, 0x93, 0x08,
-	0x09, 0x01, 0xd5, 0xd5, 0xde, 0x34, 0xa7, 0xf8, 0x3e, 0x7a, 0xbb, 0x67, 0x64, 0x5e, 0xe0, 0x15,
-	0x9e, 0xf9, 0x37, 0xf8, 0xc3, 0xf8, 0x2f, 0xd0, 0x7e, 0x9c, 0x7d, 0x71, 0x7a, 0x71, 0x5e, 0xac,
-	0x99, 0xb9, 0xf9, 0xcd, 0xcc, 0x6f, 0x66, 0x77, 0xd6, 0x70, 0x98, 0xa4, 0xb1, 0x88, 0x9f, 0x2c,
-	0x9f, 0x3e, 0xf1, 0x5f, 0xb2, 0x48, 0xf4, 0x94, 0x8a, 0x6f, 0xf0, 0x57, 0xd9, 0xef, 0xab, 0x9e,
-	0x32, 0xf1, 0xde, 0xf2, 0xa9, 0x96, 0x88, 0x0b, 0xfb, 0x5f, 0x33, 0xf1, 0x5d, 0xc0, 0x05, 0x65,
-	0xaf, 0x32, 0xc6, 0x05, 0xf9, 0x16, 0x0e, 0xd6, 0x16, 0x9e, 0xc4, 0x11, 0x67, 0x78, 0x04, 0x35,
-	0x8d, 0xf3, 0xac, 0x4e, 0xa5, 0xdb, 0xea, 0x77, 0x7a, 0xaf, 0x0d, 0xd6, 0xfb, 0x52, 0xfe, 0x8e,
-	0x05, 0x0b, 0xa9, 0xf1, 0x27, 0x3f, 0x42, 0x73, 0x6d, 0xc4, 0x7d, 0xb0, 0x83, 0xb9, 0x67, 0x75,
-	0xac, 0x6e, 0x93, 0xda, 0xc1, 0x1c, 0x8f, 0xa1, 0xc6, 0x85, 0x2f, 0x32, 0xee, 0xd9, 0x1d, 0xab,
-	0xbb, 0xdf, 0x27, 0xb7, 0x85, 0x3d, 0x55, 0x9e, 0xd4, 0x20, 0xc8, 0x1f, 0x70, 0xf0, 0x4d, 0xcc,
-	0xc5, 0x38, 0xba, 0x88, 0xd3, 0xd0, 0x17, 0x41, 0x1c, 0xe1, 0xdb, 0xd0, 0xbc, 0x8c, 0xb9, 0x78,
-	0x1e, 0xf9, 0x21, 0x33, 0x59, 0x1a, 0xd2, 0x30, 0xf1, 0x43, 0x26, 0x73, 0xc7, 0x3a, 0x4f, 0x93,
-	0xda, 0x31, 0xc7, 0xcf, 0xa1, 0x91, 0x2c, 0x7c, 0x21, 0xd1, 0x5e, 0xa5, 0x63, 0x75, 0x5b, 0xfd,
-	0x07, 0x25, 0xd9, 0xa7, 0xc6, 0x4d, 0xa6, 0xa2, 0x6b, 0x10, 0x39, 0x83, 0x7b, 0xc5, 0x2f, 0x88,
-	0xe0, 0x14, 0x12, 0x2b, 0x19, 0xdf, 0x84, 0xda, 0x85, 0x1f, 0x06, 0x8b, 0x95, 0x49, 0x6c, 0x34,
-	0xf4, 0xa0, 0xbe, 0x64, 0x29, 0x0f, 0xe2, 0x48, 0xe5, 0x6e, 0xd2, 0x5c, 0x25, 0x73, 0x38, 0xa0,
-	0xec, 0x65, 0xc0, 0x05, 0x4b, 0xcd, 0x3c, 0xf0, 0x07, 0x70, 0x15, 0xad, 0x60, 0x43, 0x55, 0x25,
-	0x69, 0xf5, 0x1f, 0x95, 0x54, 0xbc, 0xd5, 0x18, 0x7a, 0x70, 0x79, 0xdd, 0x40, 0x08, 0xb8, 0x9b,
-	0x2c, 0x66, 0xc6, 0x5b, 0xc3, 0x21, 0x0f, 0xe0, 0xfe, 0x79, 0xb4, 0x5d, 0xcb, 0xb6, 0xd3, 0x43,
-	0xc0, 0xa2, 0x53, 0x49, 0xa8, 0xfb, 0xea, 0x44, 0xc9, 0x01, 0xf2, 0xfc, 0x90, 0xfd, 0x6d, 0x83,
-	0xbb, 0xb1, 0x19, 0xdc, 0x67, 0xd0, 0x98, 0x25, 0x99, 0x22, 0x6a, 0x18, 0xbe, 0x5b, 0xc2, 0x70,
-	0x90, 0x64, 0x6a, 0x1c, 0xf5, 0x99, 0x16, 0xf0, 0x2b, 0x68, 0x85, 0x2c, 0x8c, 0xd3, 0x95, 0x46,
-	0xdb, 0x0a, 0xfd, 0x7e, 0x09, 0xfa, 0x7b, 0xe5, 0xa9, 0x02, 0x40, 0xb8, 0x96, 0xf1, 0x19, 0x34,
-	0xe7, 0x01, 0xbf, 0xd2, 0x11, 0xf4, 0x99, 0x78, 0xaf, 0x24, 0xc2, 0x30, 0xe0, 0x57, 0xfa, 0x3c,
-	0xcc, 0x8d, 0x24, 0x8b, 0x8f, 0x98, 0x9e, 0x92, 0xe7, 0xdc, 0x5a, 0xfc, 0x84, 0x09, 0x5d, 0x7c,
-	0xa4, 0x05, 0xf2, 0x33, 0xd4, 0x0d, 0x21, 0xfc, 0x14, 0x9c, 0x59, 0x92, 0xe5, 0xf7, 0x8c, 0xdc,
-	0x4e, 0xbf, 0x37, 0x98, 0x9e, 0x53, 0xe5, 0xdf, 0x7e, 0x0b, 0x2a, 0x83, 0xe9, 0xb9, 0x3c, 0x84,
-	0x8b, 0xd8, 0xd7, 0xbd, 0xb7, 0xa8, 0x92, 0xc9, 0x5f, 0x36, 0xc0, 0x86, 0x31, 0x1e, 0x43, 0x25,
-	0x64, 0xa1, 0xe9, 0x6f, 0x77, 0x67, 0x87, 0x8c, 0x48, 0x25, 0x08, 0x9f, 0x81, 0xc3, 0x7f, 0xf3,
-	0x13, 0xd3, 0xde, 0xbb, 0x83, 0x15, 0xaa, 0xfd, 0xa7, 0x05, 0x35, 0x6d, 0xc0, 0x43, 0xa8, 0x8a,
-	0x58, 0xf8, 0x0b, 0x55, 0x86, 0x43, 0xb5, 0x22, 0xab, 0xcf, 0x38, 0x9b, 0xab, 0xf0, 0x0e, 0x55,
-	0xb2, 0xb4, 0x5d, 0xa4, 0x8c, 0xa9, 0x79, 0x38, 0x54, 0xc9, 0xf2, 0x5a, 0xf1, 0x4b, 0x3f, 0x65,
-	0x73, 0xd5, 0x68, 0x87, 0x1a, 0x0d, 0x3b, 0xd0, 0x92, 0x98, 0x29, 0x4b, 0x67, 0x2c, 0x12, 0x5e,
-	0x55, 0x35, 0xa1, 0x68, 0x22, 0xff, 0xd8, 0xd0, 0xc8, 0x67, 0x87, 0x5f, 0x40, 0x55, 0x4e, 0x2f,
-	0x6f, 0xf6, 0xe3, 0x1d, 0xb3, 0x56, 0x02, 0x1f, 0x45, 0x22, 0x5d, 0x51, 0x0d, 0x6c, 0x5f, 0x80,
-	0x23, 0x8d, 0xe5, 0x74, 0x54, 0xe9, 0x76, 0xa1, 0xf4, 0x9c, 0x62, 0xa5, 0x40, 0x71, 0xab, 0x6c,
-	0xe7, 0x46, 0xd9, 0xed, 0x5f, 0x01, 0x36, 0xc9, 0xd1, 0x85, 0xca, 0x15, 0x5b, 0x99, 0xfb, 0x25,
-	0x45, 0x3c, 0x86, 0xea, 0xd2, 0x5f, 0x64, 0xcc, 0x0c, 0xe6, 0xe1, 0x5d, 0x98, 0x50, 0x0d, 0x39,
-	0xb6, 0x8f, 0x2c, 0xf2, 0x9f, 0x05, 0x75, 0x73, 0x2a, 0xf1, 0x1d, 0x68, 0xbe, 0x58, 0x09, 0xc6,
-	0x4f, 0x65, 0x2d, 0x9a, 0xcf, 0xc6, 0xb0, 0xfe, 0x4a, 0xd9, 0x6c, 0x69, 0x88, 0x6d, 0x0c, 0x92,
-	0x49, 0xe2, 0xcf, 0xae, 0x98, 0xd0, 0x68, 0x4d, 0xb2, 0x68, 0x2a, 0x78, 0xa8, 0x08, 0xce, 0x35,
-	0x0f, 0x15, 0xe3, 0x10, 0xaa, 0x2c, 0x4d, 0xc7, 0x91, 0x1a, 0x9f, 0x43, 0xb5, 0x22, 0x47, 0xce,
-	0xd2, 0xf4, 0x24, 0x13, 0x5e, 0x4d, 0x8f, 0x5c, 0x6b, 0xd2, 0x3e, 0x4f, 0xe3, 0x64, 0x1c, 0x79,
-	0x75, 0x6d, 0xd7, 0x9a, 0xdc, 0xb0, 0x52, 0x92, 0x80, 0x86, 0xfa, 0x90, 0xab, 0x8f, 0x8f, 0xa0,
-	0x55, 0x78, 0x4f, 0x10, 0xa0, 0x46, 0xcf, 0x27, 0x93, 0xd1, 0xd0, 0xdd, 0xc3, 0x16, 0xd4, 0x4f,
-	0xcf, 0x4e, 0xa6, 0xd3, 0xd1, 0xd0, 0xb5, 0xd0, 0x85, 0x7b, 0xc3, 0xf1, 0xe9, 0xe0, 0x64, 0x32,
-	0x19, 0x0d, 0xce, 0x46, 0x43, 0xd7, 0xee, 0xff, 0x6b, 0xe7, 0x50, 0x96, 0x2e, 0x59, 0x8a, 0xbf,
-	0x40, 0x23, 0x5f, 0x7d, 0x58, 0xb6, 0x8a, 0xb7, 0x16, 0x68, 0xfb, 0xc3, 0x9d, 0x7e, 0x7a, 0x17,
-	0x92, 0x3d, 0x9c, 0x01, 0x6c, 0x76, 0x2b, 0x96, 0x5d, 0xb6, 0x1b, 0x3b, 0xba, 0xfd, 0xd1, 0x1d,
-	0x3c, 0xd7, 0x49, 0x7e, 0x82, 0xba, 0x79, 0xec, 0xf1, 0x83, 0x12, 0xdc, 0xf5, 0xbf, 0x07, 0xed,
-	0x47, 0xbb, 0xdc, 0xf2, 0xd8, 0xfd, 0x4b, 0xa8, 0xaa, 0x76, 0xe1, 0x73, 0x68, 0xe4, 0xbb, 0x1e,
-	0x6f, 0x81, 0x17, 0x1f, 0x88, 0xd2, 0x46, 0x6d, 0x3f, 0x1a, 0x64, 0xef, 0x63, 0xeb, 0x45, 0x4d,
-	0xfd, 0xc5, 0xf9, 0xe4, 0xff, 0x00, 0x00, 0x00, 0xff, 0xff, 0x67, 0xe7, 0x5a, 0x3f, 0xfa, 0x08,
-	0x00, 0x00,
+	// 823 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x55, 0x5d, 0x6f, 0xe2, 0x46,
+	0x14, 0x8d, 0x8d, 0xc1, 0x70, 0x49, 0x53, 0x34, 0x4a, 0x2b, 0x4a, 0xab, 0x96, 0xba, 0x5f, 0x28,
+	0x0f, 0xa4, 0xa1, 0x52, 0x95, 0xd2, 0x3c, 0xb4, 0x05, 0xd4, 0xa0, 0xb6, 0x04, 0x0d, 0x89, 0x2a,
+	0x45, 0x55, 0x23, 0x07, 0x0f, 0x89, 0x05, 0xfe, 0xc8, 0xcc, 0x98, 0x8a, 0x3e, 0xed, 0x3e, 0xee,
+	0xfb, 0xfe, 0x9f, 0x7d, 0xda, 0x1f, 0xb3, 0xff, 0x62, 0x35, 0x1f, 0x06, 0x27, 0xbb, 0x26, 0x79,
+	0x41, 0xf7, 0x5e, 0xdf, 0x73, 0xe7, 0x9c, 0x7b, 0xcc, 0x18, 0xf6, 0x63, 0x1a, 0xf1, 0xe8, 0x70,
+	0x79, 0x74, 0xe8, 0xde, 0x90, 0x90, 0xb7, 0x65, 0x8a, 0x3e, 0x62, 0x77, 0xc9, 0xff, 0xab, 0xb6,
+	0x2c, 0xb1, 0xf6, 0xf2, 0x48, 0x45, 0x4e, 0x0d, 0xf6, 0x7e, 0x27, 0xfc, 0x4f, 0x9f, 0x71, 0x4c,
+	0xee, 0x12, 0xc2, 0xb8, 0xf3, 0x07, 0x7c, 0xb8, 0xae, 0xb0, 0x38, 0x0a, 0x19, 0x41, 0xc7, 0x50,
+	0x52, 0xb8, 0xba, 0xd1, 0x2c, 0xb4, 0xaa, 0x9d, 0x66, 0xfb, 0xbd, 0xc3, 0xda, 0xbf, 0x8a, 0xdf,
+	0x21, 0x27, 0x01, 0xd6, 0xfd, 0xce, 0xdf, 0x50, 0x59, 0x17, 0xd1, 0x1e, 0x98, 0xbe, 0x57, 0x37,
+	0x9a, 0x46, 0xab, 0x82, 0x4d, 0xdf, 0x43, 0x5d, 0x28, 0x31, 0xee, 0xf2, 0x84, 0xd5, 0xcd, 0xa6,
+	0xd1, 0xda, 0xeb, 0x38, 0xdb, 0xc6, 0x4e, 0x64, 0x27, 0xd6, 0x08, 0xe7, 0xb9, 0x01, 0xe5, 0xd3,
+	0x88, 0xf1, 0x61, 0x38, 0x8b, 0xd0, 0xa7, 0x50, 0xb9, 0x8d, 0x18, 0xbf, 0x0a, 0xdd, 0x80, 0xe8,
+	0xf9, 0x65, 0x51, 0x18, 0xb9, 0x01, 0x11, 0xa7, 0x46, 0xea, 0x84, 0x0a, 0x36, 0x23, 0x86, 0x4e,
+	0xe1, 0x83, 0x78, 0xe1, 0xf2, 0x59, 0x44, 0x83, 0x2b, 0x3f, 0x9c, 0x45, 0xf5, 0x42, 0xd3, 0x68,
+	0x55, 0x3b, 0x5f, 0xe5, 0x1c, 0x3e, 0xd6, 0xbd, 0xe2, 0x20, 0xbc, 0x1b, 0x67, 0x32, 0xe7, 0x1c,
+	0x76, 0xb3, 0x4f, 0x11, 0x02, 0x2b, 0xc3, 0x40, 0xc6, 0xe8, 0x63, 0x28, 0xcd, 0xdc, 0xc0, 0x5f,
+	0xac, 0x34, 0x03, 0x9d, 0xa1, 0x3a, 0xd8, 0x4b, 0x42, 0x99, 0x1f, 0x85, 0xf2, 0xfc, 0x0a, 0x4e,
+	0x53, 0xc7, 0x81, 0x1a, 0x26, 0x37, 0x3e, 0xe3, 0x84, 0xae, 0x0d, 0x78, 0xb0, 0x39, 0xe7, 0x95,
+	0x09, 0xe5, 0x09, 0x09, 0x3d, 0xb1, 0x14, 0xf4, 0x33, 0x48, 0xb1, 0x82, 0x82, 0x6c, 0xa9, 0x76,
+	0xbe, 0xc8, 0xd1, 0x92, 0x2e, 0x0c, 0xaf, 0x01, 0xe8, 0x27, 0x28, 0x4f, 0xe3, 0x44, 0x2d, 0xc2,
+	0x94, 0xe0, 0xcf, 0x73, 0xc0, 0xbd, 0x38, 0x91, 0x58, 0x7b, 0xaa, 0x02, 0xf4, 0x1b, 0x54, 0x03,
+	0x12, 0x44, 0x74, 0x95, 0x5d, 0xe3, 0x97, 0x39, 0xe8, 0xbf, 0x64, 0xa7, 0x1c, 0x00, 0xc1, 0x3a,
+	0x46, 0x27, 0x50, 0xf1, 0x7c, 0x36, 0x57, 0x13, 0xac, 0xad, 0xe4, 0xfb, 0x3e, 0x9b, 0x2b, 0xf2,
+	0x9e, 0x8e, 0x04, 0xf9, 0x90, 0x70, 0x05, 0x2e, 0x6e, 0x25, 0x3f, 0x22, 0x4a, 0xb8, 0x1d, 0xaa,
+	0xc0, 0xf9, 0x07, 0x6c, 0x2d, 0x08, 0xfd, 0x08, 0xd6, 0x34, 0x4e, 0xd2, 0x77, 0xdb, 0xd9, 0x2e,
+	0xbf, 0xdd, 0x1b, 0x5f, 0x60, 0xd9, 0xdf, 0xf8, 0x04, 0x0a, 0xbd, 0xf1, 0x85, 0x70, 0x7d, 0x11,
+	0xb9, 0xca, 0x1d, 0x03, 0xcb, 0xd8, 0x79, 0x61, 0x02, 0x6c, 0x14, 0xa3, 0x2e, 0x14, 0x02, 0x12,
+	0x68, 0x73, 0x5a, 0x8f, 0x6e, 0x48, 0x87, 0x58, 0x80, 0xd0, 0x09, 0x58, 0xec, 0x3f, 0x37, 0xd6,
+	0xe6, 0x3c, 0x1d, 0x2c, 0x51, 0x8d, 0x67, 0x06, 0x94, 0x54, 0x01, 0xed, 0x43, 0x91, 0x47, 0xdc,
+	0x5d, 0x48, 0x1a, 0x16, 0x56, 0x89, 0x60, 0x9f, 0x30, 0xe2, 0xc9, 0xf1, 0x16, 0x96, 0xb1, 0xa8,
+	0xcd, 0x28, 0x21, 0xd2, 0x51, 0x0b, 0xcb, 0x58, 0xbc, 0xc7, 0xec, 0xd6, 0xa5, 0xc4, 0x93, 0x2e,
+	0x59, 0x58, 0x67, 0xa8, 0x09, 0x55, 0x81, 0x19, 0x13, 0x3a, 0x25, 0x21, 0x97, 0x2e, 0x18, 0x38,
+	0x5b, 0x72, 0x5e, 0x9a, 0x50, 0x4e, 0xbd, 0x43, 0xbf, 0x40, 0x51, 0xb8, 0x97, 0x2e, 0xfb, 0xe0,
+	0x11, 0xaf, 0x65, 0xc0, 0x06, 0x21, 0xa7, 0x2b, 0xac, 0x80, 0x8d, 0x19, 0x58, 0xa2, 0x98, 0x2f,
+	0x47, 0x52, 0x37, 0x33, 0xd4, 0x53, 0x89, 0x85, 0x8c, 0xc4, 0x07, 0xb4, 0xad, 0x77, 0x68, 0x37,
+	0xfe, 0x05, 0xd8, 0x1c, 0x8e, 0x6a, 0x50, 0x98, 0x93, 0x95, 0xfe, 0x07, 0x8a, 0x10, 0x75, 0xa1,
+	0xb8, 0x74, 0x17, 0x09, 0xd1, 0xc6, 0x7c, 0xfd, 0x14, 0x25, 0x58, 0x41, 0xba, 0xe6, 0xb1, 0xe1,
+	0xbc, 0x31, 0xc0, 0xd6, 0x6f, 0x25, 0xfa, 0x0c, 0x2a, 0xd7, 0x2b, 0x4e, 0xd8, 0x44, 0x70, 0x51,
+	0x7a, 0x36, 0x85, 0xf5, 0x53, 0x4c, 0xa6, 0x4b, 0x2d, 0x6c, 0x53, 0x10, 0x4a, 0x62, 0x77, 0x3a,
+	0x27, 0x5c, 0xa1, 0x95, 0xc8, 0x6c, 0x29, 0xd3, 0x21, 0x27, 0x58, 0xf7, 0x3a, 0xe4, 0x8c, 0x7d,
+	0x28, 0x12, 0x4a, 0x87, 0xa1, 0xb4, 0xcf, 0xc2, 0x2a, 0x11, 0x96, 0x13, 0x4a, 0xcf, 0x12, 0x5e,
+	0x2f, 0x29, 0xcb, 0x55, 0x26, 0xea, 0x1e, 0x8d, 0xe2, 0x61, 0x58, 0xb7, 0x55, 0x5d, 0x65, 0xe2,
+	0x4a, 0x13, 0x91, 0x00, 0x94, 0xe5, 0x83, 0x34, 0x3d, 0x38, 0x86, 0x6a, 0xe6, 0x0e, 0x47, 0x00,
+	0x25, 0x7c, 0x31, 0x1a, 0x0d, 0xfa, 0xb5, 0x1d, 0x54, 0x05, 0x7b, 0x72, 0x7e, 0x36, 0x1e, 0x0f,
+	0xfa, 0x35, 0x03, 0xd5, 0x60, 0xb7, 0x3f, 0x9c, 0xf4, 0xce, 0x46, 0xa3, 0x41, 0xef, 0x7c, 0xd0,
+	0xaf, 0x99, 0x9d, 0xd7, 0x46, 0x0a, 0x25, 0x74, 0x49, 0x28, 0xba, 0x84, 0x72, 0x7a, 0x39, 0xa2,
+	0xbc, 0x8b, 0x22, 0xbd, 0x18, 0x1b, 0xdf, 0xe5, 0x34, 0x3c, 0xbc, 0x5e, 0x9d, 0x9d, 0x96, 0xf1,
+	0xbd, 0x81, 0x2e, 0xc1, 0xd6, 0x1f, 0x3e, 0xf4, 0x4d, 0x0e, 0xf2, 0xfe, 0xa7, 0xb2, 0xf1, 0xed,
+	0x63, 0x6d, 0xe9, 0xfc, 0xeb, 0x92, 0xfc, 0x08, 0xff, 0xf0, 0x36, 0x00, 0x00, 0xff, 0xff, 0x87,
+	0x4e, 0x72, 0xda, 0x9c, 0x07, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -1024,8 +875,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AgentServerClient interface {
-	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
-	UnRegister(ctx context.Context, in *UnRegisterRequest, opts ...grpc.CallOption) (*UnRegisterResponse, error)
+	Register(ctx context.Context, opts ...grpc.CallOption) (AgentServer_RegisterClient, error)
 	GetList(ctx context.Context, in *GetListRequest, opts ...grpc.CallOption) (*GetListResponse, error)
 }
 
@@ -1037,22 +887,35 @@ func NewAgentServerClient(cc *grpc.ClientConn) AgentServerClient {
 	return &agentServerClient{cc}
 }
 
-func (c *agentServerClient) Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
-	out := new(RegisterResponse)
-	err := c.cc.Invoke(ctx, "/squzy.agents.v1.agent.AgentServer/Register", in, out, opts...)
+func (c *agentServerClient) Register(ctx context.Context, opts ...grpc.CallOption) (AgentServer_RegisterClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_AgentServer_serviceDesc.Streams[0], "/squzy.agents.v1.agent.AgentServer/Register", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &agentServerRegisterClient{stream}
+	return x, nil
 }
 
-func (c *agentServerClient) UnRegister(ctx context.Context, in *UnRegisterRequest, opts ...grpc.CallOption) (*UnRegisterResponse, error) {
-	out := new(UnRegisterResponse)
-	err := c.cc.Invoke(ctx, "/squzy.agents.v1.agent.AgentServer/UnRegister", in, out, opts...)
-	if err != nil {
+type AgentServer_RegisterClient interface {
+	Send(*SendStat) error
+	Recv() (*RegisterResponse, error)
+	grpc.ClientStream
+}
+
+type agentServerRegisterClient struct {
+	grpc.ClientStream
+}
+
+func (x *agentServerRegisterClient) Send(m *SendStat) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *agentServerRegisterClient) Recv() (*RegisterResponse, error) {
+	m := new(RegisterResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
-	return out, nil
+	return m, nil
 }
 
 func (c *agentServerClient) GetList(ctx context.Context, in *GetListRequest, opts ...grpc.CallOption) (*GetListResponse, error) {
@@ -1066,8 +929,7 @@ func (c *agentServerClient) GetList(ctx context.Context, in *GetListRequest, opt
 
 // AgentServerServer is the server API for AgentServer service.
 type AgentServerServer interface {
-	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
-	UnRegister(context.Context, *UnRegisterRequest) (*UnRegisterResponse, error)
+	Register(AgentServer_RegisterServer) error
 	GetList(context.Context, *GetListRequest) (*GetListResponse, error)
 }
 
@@ -1075,11 +937,8 @@ type AgentServerServer interface {
 type UnimplementedAgentServerServer struct {
 }
 
-func (*UnimplementedAgentServerServer) Register(ctx context.Context, req *RegisterRequest) (*RegisterResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
-}
-func (*UnimplementedAgentServerServer) UnRegister(ctx context.Context, req *UnRegisterRequest) (*UnRegisterResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UnRegister not implemented")
+func (*UnimplementedAgentServerServer) Register(srv AgentServer_RegisterServer) error {
+	return status.Errorf(codes.Unimplemented, "method Register not implemented")
 }
 func (*UnimplementedAgentServerServer) GetList(ctx context.Context, req *GetListRequest) (*GetListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetList not implemented")
@@ -1089,40 +948,30 @@ func RegisterAgentServerServer(s *grpc.Server, srv AgentServerServer) {
 	s.RegisterService(&_AgentServer_serviceDesc, srv)
 }
 
-func _AgentServer_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RegisterRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AgentServerServer).Register(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/squzy.agents.v1.agent.AgentServer/Register",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentServerServer).Register(ctx, req.(*RegisterRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+func _AgentServer_Register_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(AgentServerServer).Register(&agentServerRegisterServer{stream})
 }
 
-func _AgentServer_UnRegister_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UnRegisterRequest)
-	if err := dec(in); err != nil {
+type AgentServer_RegisterServer interface {
+	Send(*RegisterResponse) error
+	Recv() (*SendStat, error)
+	grpc.ServerStream
+}
+
+type agentServerRegisterServer struct {
+	grpc.ServerStream
+}
+
+func (x *agentServerRegisterServer) Send(m *RegisterResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *agentServerRegisterServer) Recv() (*SendStat, error) {
+	m := new(SendStat)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
-	if interceptor == nil {
-		return srv.(AgentServerServer).UnRegister(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/squzy.agents.v1.agent.AgentServer/UnRegister",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AgentServerServer).UnRegister(ctx, req.(*UnRegisterRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	return m, nil
 }
 
 func _AgentServer_GetList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1148,116 +997,16 @@ var _AgentServer_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*AgentServerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Register",
-			Handler:    _AgentServer_Register_Handler,
-		},
-		{
-			MethodName: "UnRegister",
-			Handler:    _AgentServer_UnRegister_Handler,
-		},
-		{
 			MethodName: "GetList",
 			Handler:    _AgentServer_GetList_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/v1/agent.proto",
-}
-
-// AgentClient is the client API for Agent service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type AgentClient interface {
-	GetStats(ctx context.Context, in *GetStatsRequest, opts ...grpc.CallOption) (Agent_GetStatsClient, error)
-}
-
-type agentClient struct {
-	cc *grpc.ClientConn
-}
-
-func NewAgentClient(cc *grpc.ClientConn) AgentClient {
-	return &agentClient{cc}
-}
-
-func (c *agentClient) GetStats(ctx context.Context, in *GetStatsRequest, opts ...grpc.CallOption) (Agent_GetStatsClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Agent_serviceDesc.Streams[0], "/squzy.agents.v1.agent.Agent/GetStats", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &agentGetStatsClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type Agent_GetStatsClient interface {
-	Recv() (*GetStatsResponse, error)
-	grpc.ClientStream
-}
-
-type agentGetStatsClient struct {
-	grpc.ClientStream
-}
-
-func (x *agentGetStatsClient) Recv() (*GetStatsResponse, error) {
-	m := new(GetStatsResponse)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-// AgentServer is the server API for Agent service.
-type AgentServer interface {
-	GetStats(*GetStatsRequest, Agent_GetStatsServer) error
-}
-
-// UnimplementedAgentServer can be embedded to have forward compatible implementations.
-type UnimplementedAgentServer struct {
-}
-
-func (*UnimplementedAgentServer) GetStats(req *GetStatsRequest, srv Agent_GetStatsServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetStats not implemented")
-}
-
-func RegisterAgentServer(s *grpc.Server, srv AgentServer) {
-	s.RegisterService(&_Agent_serviceDesc, srv)
-}
-
-func _Agent_GetStats_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(GetStatsRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(AgentServer).GetStats(m, &agentGetStatsServer{stream})
-}
-
-type Agent_GetStatsServer interface {
-	Send(*GetStatsResponse) error
-	grpc.ServerStream
-}
-
-type agentGetStatsServer struct {
-	grpc.ServerStream
-}
-
-func (x *agentGetStatsServer) Send(m *GetStatsResponse) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-var _Agent_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "squzy.agents.v1.agent.Agent",
-	HandlerType: (*AgentServer)(nil),
-	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "GetStats",
-			Handler:       _Agent_GetStats_Handler,
+			StreamName:    "Register",
+			Handler:       _AgentServer_Register_Handler,
 			ServerStreams: true,
+			ClientStreams: true,
 		},
 	},
 	Metadata: "proto/v1/agent.proto",
