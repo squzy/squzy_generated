@@ -27,40 +27,77 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type SchedulerResponseCode int32
+type TypeAgentStat int32
 
 const (
-	SchedulerResponseCode_OK    SchedulerResponseCode = 0
-	SchedulerResponseCode_Error SchedulerResponseCode = 1
+	TypeAgentStat_AGENT_STATS_TYPE_UNSPECIFIED TypeAgentStat = 0
+	TypeAgentStat_ALL                          TypeAgentStat = 1
+	TypeAgentStat_CPU                          TypeAgentStat = 2
+	TypeAgentStat_DISK                         TypeAgentStat = 3
+	TypeAgentStat_MEMORY                       TypeAgentStat = 4
+	TypeAgentStat_NET                          TypeAgentStat = 5
 )
 
-var SchedulerResponseCode_name = map[int32]string{
-	0: "OK",
-	1: "Error",
+var TypeAgentStat_name = map[int32]string{
+	0: "AGENT_STATS_TYPE_UNSPECIFIED",
+	1: "ALL",
+	2: "CPU",
+	3: "DISK",
+	4: "MEMORY",
+	5: "NET",
 }
 
-var SchedulerResponseCode_value = map[string]int32{
-	"OK":    0,
-	"Error": 1,
+var TypeAgentStat_value = map[string]int32{
+	"AGENT_STATS_TYPE_UNSPECIFIED": 0,
+	"ALL":                          1,
+	"CPU":                          2,
+	"DISK":                         3,
+	"MEMORY":                       4,
+	"NET":                          5,
 }
 
-func (x SchedulerResponseCode) String() string {
-	return proto.EnumName(SchedulerResponseCode_name, int32(x))
+func (x TypeAgentStat) String() string {
+	return proto.EnumName(TypeAgentStat_name, int32(x))
 }
 
-func (SchedulerResponseCode) EnumDescriptor() ([]byte, []int) {
+func (TypeAgentStat) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_4c3bbf174c8621b4, []int{0}
 }
 
+type SchedulerCode int32
+
+const (
+	SchedulerCode_SCHEDULER_CODE_UNSPECIFIED SchedulerCode = 0
+	SchedulerCode_OK                         SchedulerCode = 1
+	SchedulerCode_ERROR                      SchedulerCode = 2
+)
+
+var SchedulerCode_name = map[int32]string{
+	0: "SCHEDULER_CODE_UNSPECIFIED",
+	1: "OK",
+	2: "ERROR",
+}
+
+var SchedulerCode_value = map[string]int32{
+	"SCHEDULER_CODE_UNSPECIFIED": 0,
+	"OK":                         1,
+	"ERROR":                      2,
+}
+
+func (x SchedulerCode) String() string {
+	return proto.EnumName(SchedulerCode_name, int32(x))
+}
+
+func (SchedulerCode) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{1}
+}
+
 type SchedulerResponse struct {
-	SchedulerId          string                      `protobuf:"bytes,1,opt,name=schedulerId,proto3" json:"schedulerId,omitempty"`
-	Code                 SchedulerResponseCode       `protobuf:"varint,2,opt,name=code,proto3,enum=squzy.v1.storage.SchedulerResponseCode" json:"code,omitempty"`
-	Type                 SchedulerType               `protobuf:"varint,3,opt,name=type,proto3,enum=squzy.v1.monitoring.SchedulerType" json:"type,omitempty"`
-	Error                *SchedulerResponse_Error    `protobuf:"bytes,4,opt,name=error,proto3" json:"error,omitempty"`
-	Meta                 *SchedulerResponse_MetaData `protobuf:"bytes,5,opt,name=meta,proto3" json:"meta,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                    `json:"-"`
-	XXX_unrecognized     []byte                      `json:"-"`
-	XXX_sizecache        int32                       `json:"-"`
+	SchedulerId          string             `protobuf:"bytes,1,opt,name=scheduler_id,json=schedulerId,proto3" json:"scheduler_id,omitempty"`
+	Snapshot             *SchedulerSnapshot `protobuf:"bytes,2,opt,name=snapshot,proto3" json:"snapshot,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
 }
 
 func (m *SchedulerResponse) Reset()         { *m = SchedulerResponse{} }
@@ -95,168 +132,627 @@ func (m *SchedulerResponse) GetSchedulerId() string {
 	return ""
 }
 
-func (m *SchedulerResponse) GetCode() SchedulerResponseCode {
+func (m *SchedulerResponse) GetSnapshot() *SchedulerSnapshot {
+	if m != nil {
+		return m.Snapshot
+	}
+	return nil
+}
+
+type SchedulerSnapshot struct {
+	Code                 SchedulerCode               `protobuf:"varint,2,opt,name=code,proto3,enum=squzy.v1.storage.SchedulerCode" json:"code,omitempty"`
+	Type                 SchedulerType               `protobuf:"varint,3,opt,name=type,proto3,enum=squzy.v1.monitoring.SchedulerType" json:"type,omitempty"`
+	Error                *SchedulerSnapshot_Error    `protobuf:"bytes,4,opt,name=error,proto3" json:"error,omitempty"`
+	Meta                 *SchedulerSnapshot_MetaData `protobuf:"bytes,5,opt,name=meta,proto3" json:"meta,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                    `json:"-"`
+	XXX_unrecognized     []byte                      `json:"-"`
+	XXX_sizecache        int32                       `json:"-"`
+}
+
+func (m *SchedulerSnapshot) Reset()         { *m = SchedulerSnapshot{} }
+func (m *SchedulerSnapshot) String() string { return proto.CompactTextString(m) }
+func (*SchedulerSnapshot) ProtoMessage()    {}
+func (*SchedulerSnapshot) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{1}
+}
+
+func (m *SchedulerSnapshot) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SchedulerSnapshot.Unmarshal(m, b)
+}
+func (m *SchedulerSnapshot) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SchedulerSnapshot.Marshal(b, m, deterministic)
+}
+func (m *SchedulerSnapshot) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SchedulerSnapshot.Merge(m, src)
+}
+func (m *SchedulerSnapshot) XXX_Size() int {
+	return xxx_messageInfo_SchedulerSnapshot.Size(m)
+}
+func (m *SchedulerSnapshot) XXX_DiscardUnknown() {
+	xxx_messageInfo_SchedulerSnapshot.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SchedulerSnapshot proto.InternalMessageInfo
+
+func (m *SchedulerSnapshot) GetCode() SchedulerCode {
 	if m != nil {
 		return m.Code
 	}
-	return SchedulerResponseCode_OK
+	return SchedulerCode_SCHEDULER_CODE_UNSPECIFIED
 }
 
-func (m *SchedulerResponse) GetType() SchedulerType {
+func (m *SchedulerSnapshot) GetType() SchedulerType {
 	if m != nil {
 		return m.Type
 	}
-	return SchedulerType_Tcp
+	return SchedulerType_SCHEDULER_TYPE_UNSPECIFIED
 }
 
-func (m *SchedulerResponse) GetError() *SchedulerResponse_Error {
+func (m *SchedulerSnapshot) GetError() *SchedulerSnapshot_Error {
 	if m != nil {
 		return m.Error
 	}
 	return nil
 }
 
-func (m *SchedulerResponse) GetMeta() *SchedulerResponse_MetaData {
+func (m *SchedulerSnapshot) GetMeta() *SchedulerSnapshot_MetaData {
 	if m != nil {
 		return m.Meta
 	}
 	return nil
 }
 
-type SchedulerResponse_Error struct {
+type SchedulerSnapshot_Error struct {
 	Message              string   `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *SchedulerResponse_Error) Reset()         { *m = SchedulerResponse_Error{} }
-func (m *SchedulerResponse_Error) String() string { return proto.CompactTextString(m) }
-func (*SchedulerResponse_Error) ProtoMessage()    {}
-func (*SchedulerResponse_Error) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{0, 0}
+func (m *SchedulerSnapshot_Error) Reset()         { *m = SchedulerSnapshot_Error{} }
+func (m *SchedulerSnapshot_Error) String() string { return proto.CompactTextString(m) }
+func (*SchedulerSnapshot_Error) ProtoMessage()    {}
+func (*SchedulerSnapshot_Error) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{1, 0}
 }
 
-func (m *SchedulerResponse_Error) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SchedulerResponse_Error.Unmarshal(m, b)
+func (m *SchedulerSnapshot_Error) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SchedulerSnapshot_Error.Unmarshal(m, b)
 }
-func (m *SchedulerResponse_Error) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SchedulerResponse_Error.Marshal(b, m, deterministic)
+func (m *SchedulerSnapshot_Error) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SchedulerSnapshot_Error.Marshal(b, m, deterministic)
 }
-func (m *SchedulerResponse_Error) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SchedulerResponse_Error.Merge(m, src)
+func (m *SchedulerSnapshot_Error) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SchedulerSnapshot_Error.Merge(m, src)
 }
-func (m *SchedulerResponse_Error) XXX_Size() int {
-	return xxx_messageInfo_SchedulerResponse_Error.Size(m)
+func (m *SchedulerSnapshot_Error) XXX_Size() int {
+	return xxx_messageInfo_SchedulerSnapshot_Error.Size(m)
 }
-func (m *SchedulerResponse_Error) XXX_DiscardUnknown() {
-	xxx_messageInfo_SchedulerResponse_Error.DiscardUnknown(m)
+func (m *SchedulerSnapshot_Error) XXX_DiscardUnknown() {
+	xxx_messageInfo_SchedulerSnapshot_Error.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_SchedulerResponse_Error proto.InternalMessageInfo
+var xxx_messageInfo_SchedulerSnapshot_Error proto.InternalMessageInfo
 
-func (m *SchedulerResponse_Error) GetMessage() string {
+func (m *SchedulerSnapshot_Error) GetMessage() string {
 	if m != nil {
 		return m.Message
 	}
 	return ""
 }
 
-type SchedulerResponse_MetaData struct {
-	StartTime            *timestamp.Timestamp `protobuf:"bytes,1,opt,name=startTime,proto3" json:"startTime,omitempty"`
-	EndTime              *timestamp.Timestamp `protobuf:"bytes,2,opt,name=endTime,proto3" json:"endTime,omitempty"`
+type SchedulerSnapshot_MetaData struct {
+	StartTime            *timestamp.Timestamp `protobuf:"bytes,1,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
+	EndTime              *timestamp.Timestamp `protobuf:"bytes,2,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
 	Value                *_struct.Value       `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
 	XXX_unrecognized     []byte               `json:"-"`
 	XXX_sizecache        int32                `json:"-"`
 }
 
-func (m *SchedulerResponse_MetaData) Reset()         { *m = SchedulerResponse_MetaData{} }
-func (m *SchedulerResponse_MetaData) String() string { return proto.CompactTextString(m) }
-func (*SchedulerResponse_MetaData) ProtoMessage()    {}
-func (*SchedulerResponse_MetaData) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{0, 1}
+func (m *SchedulerSnapshot_MetaData) Reset()         { *m = SchedulerSnapshot_MetaData{} }
+func (m *SchedulerSnapshot_MetaData) String() string { return proto.CompactTextString(m) }
+func (*SchedulerSnapshot_MetaData) ProtoMessage()    {}
+func (*SchedulerSnapshot_MetaData) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{1, 1}
 }
 
-func (m *SchedulerResponse_MetaData) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SchedulerResponse_MetaData.Unmarshal(m, b)
+func (m *SchedulerSnapshot_MetaData) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SchedulerSnapshot_MetaData.Unmarshal(m, b)
 }
-func (m *SchedulerResponse_MetaData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SchedulerResponse_MetaData.Marshal(b, m, deterministic)
+func (m *SchedulerSnapshot_MetaData) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SchedulerSnapshot_MetaData.Marshal(b, m, deterministic)
 }
-func (m *SchedulerResponse_MetaData) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SchedulerResponse_MetaData.Merge(m, src)
+func (m *SchedulerSnapshot_MetaData) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SchedulerSnapshot_MetaData.Merge(m, src)
 }
-func (m *SchedulerResponse_MetaData) XXX_Size() int {
-	return xxx_messageInfo_SchedulerResponse_MetaData.Size(m)
+func (m *SchedulerSnapshot_MetaData) XXX_Size() int {
+	return xxx_messageInfo_SchedulerSnapshot_MetaData.Size(m)
 }
-func (m *SchedulerResponse_MetaData) XXX_DiscardUnknown() {
-	xxx_messageInfo_SchedulerResponse_MetaData.DiscardUnknown(m)
+func (m *SchedulerSnapshot_MetaData) XXX_DiscardUnknown() {
+	xxx_messageInfo_SchedulerSnapshot_MetaData.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_SchedulerResponse_MetaData proto.InternalMessageInfo
+var xxx_messageInfo_SchedulerSnapshot_MetaData proto.InternalMessageInfo
 
-func (m *SchedulerResponse_MetaData) GetStartTime() *timestamp.Timestamp {
+func (m *SchedulerSnapshot_MetaData) GetStartTime() *timestamp.Timestamp {
 	if m != nil {
 		return m.StartTime
 	}
 	return nil
 }
 
-func (m *SchedulerResponse_MetaData) GetEndTime() *timestamp.Timestamp {
+func (m *SchedulerSnapshot_MetaData) GetEndTime() *timestamp.Timestamp {
 	if m != nil {
 		return m.EndTime
 	}
 	return nil
 }
 
-func (m *SchedulerResponse_MetaData) GetValue() *_struct.Value {
+func (m *SchedulerSnapshot_MetaData) GetValue() *_struct.Value {
 	if m != nil {
 		return m.Value
 	}
 	return nil
 }
 
+type TimeFilter struct {
+	From                 *timestamp.Timestamp `protobuf:"bytes,1,opt,name=from,proto3" json:"from,omitempty"`
+	To                   *timestamp.Timestamp `protobuf:"bytes,2,opt,name=to,proto3" json:"to,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *TimeFilter) Reset()         { *m = TimeFilter{} }
+func (m *TimeFilter) String() string { return proto.CompactTextString(m) }
+func (*TimeFilter) ProtoMessage()    {}
+func (*TimeFilter) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{2}
+}
+
+func (m *TimeFilter) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TimeFilter.Unmarshal(m, b)
+}
+func (m *TimeFilter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TimeFilter.Marshal(b, m, deterministic)
+}
+func (m *TimeFilter) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TimeFilter.Merge(m, src)
+}
+func (m *TimeFilter) XXX_Size() int {
+	return xxx_messageInfo_TimeFilter.Size(m)
+}
+func (m *TimeFilter) XXX_DiscardUnknown() {
+	xxx_messageInfo_TimeFilter.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TimeFilter proto.InternalMessageInfo
+
+func (m *TimeFilter) GetFrom() *timestamp.Timestamp {
+	if m != nil {
+		return m.From
+	}
+	return nil
+}
+
+func (m *TimeFilter) GetTo() *timestamp.Timestamp {
+	if m != nil {
+		return m.To
+	}
+	return nil
+}
+
+type Pagination struct {
+	Page                 int32    `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	Limit                int32    `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Pagination) Reset()         { *m = Pagination{} }
+func (m *Pagination) String() string { return proto.CompactTextString(m) }
+func (*Pagination) ProtoMessage()    {}
+func (*Pagination) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{3}
+}
+
+func (m *Pagination) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Pagination.Unmarshal(m, b)
+}
+func (m *Pagination) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Pagination.Marshal(b, m, deterministic)
+}
+func (m *Pagination) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pagination.Merge(m, src)
+}
+func (m *Pagination) XXX_Size() int {
+	return xxx_messageInfo_Pagination.Size(m)
+}
+func (m *Pagination) XXX_DiscardUnknown() {
+	xxx_messageInfo_Pagination.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Pagination proto.InternalMessageInfo
+
+func (m *Pagination) GetPage() int32 {
+	if m != nil {
+		return m.Page
+	}
+	return 0
+}
+
+func (m *Pagination) GetLimit() int32 {
+	if m != nil {
+		return m.Limit
+	}
+	return 0
+}
+
+type GetSchedulerInformationRequest struct {
+	SchedulerId          string      `protobuf:"bytes,1,opt,name=scheduler_id,json=schedulerId,proto3" json:"scheduler_id,omitempty"`
+	Pagination           *Pagination `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	TimeRange            *TimeFilter `protobuf:"bytes,3,opt,name=time_range,json=timeRange,proto3" json:"time_range,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *GetSchedulerInformationRequest) Reset()         { *m = GetSchedulerInformationRequest{} }
+func (m *GetSchedulerInformationRequest) String() string { return proto.CompactTextString(m) }
+func (*GetSchedulerInformationRequest) ProtoMessage()    {}
+func (*GetSchedulerInformationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{4}
+}
+
+func (m *GetSchedulerInformationRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetSchedulerInformationRequest.Unmarshal(m, b)
+}
+func (m *GetSchedulerInformationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetSchedulerInformationRequest.Marshal(b, m, deterministic)
+}
+func (m *GetSchedulerInformationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetSchedulerInformationRequest.Merge(m, src)
+}
+func (m *GetSchedulerInformationRequest) XXX_Size() int {
+	return xxx_messageInfo_GetSchedulerInformationRequest.Size(m)
+}
+func (m *GetSchedulerInformationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetSchedulerInformationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetSchedulerInformationRequest proto.InternalMessageInfo
+
+func (m *GetSchedulerInformationRequest) GetSchedulerId() string {
+	if m != nil {
+		return m.SchedulerId
+	}
+	return ""
+}
+
+func (m *GetSchedulerInformationRequest) GetPagination() *Pagination {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+func (m *GetSchedulerInformationRequest) GetTimeRange() *TimeFilter {
+	if m != nil {
+		return m.TimeRange
+	}
+	return nil
+}
+
+type GetSchedulerInformationResponse struct {
+	Snapshots            []*SchedulerSnapshot `protobuf:"bytes,1,rep,name=snapshots,proto3" json:"snapshots,omitempty"`
+	Count                int32                `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *GetSchedulerInformationResponse) Reset()         { *m = GetSchedulerInformationResponse{} }
+func (m *GetSchedulerInformationResponse) String() string { return proto.CompactTextString(m) }
+func (*GetSchedulerInformationResponse) ProtoMessage()    {}
+func (*GetSchedulerInformationResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{5}
+}
+
+func (m *GetSchedulerInformationResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetSchedulerInformationResponse.Unmarshal(m, b)
+}
+func (m *GetSchedulerInformationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetSchedulerInformationResponse.Marshal(b, m, deterministic)
+}
+func (m *GetSchedulerInformationResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetSchedulerInformationResponse.Merge(m, src)
+}
+func (m *GetSchedulerInformationResponse) XXX_Size() int {
+	return xxx_messageInfo_GetSchedulerInformationResponse.Size(m)
+}
+func (m *GetSchedulerInformationResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetSchedulerInformationResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetSchedulerInformationResponse proto.InternalMessageInfo
+
+func (m *GetSchedulerInformationResponse) GetSnapshots() []*SchedulerSnapshot {
+	if m != nil {
+		return m.Snapshots
+	}
+	return nil
+}
+
+func (m *GetSchedulerInformationResponse) GetCount() int32 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
+type GetAgentInformationRequest struct {
+	AgentId              string        `protobuf:"bytes,1,opt,name=agent_id,json=agentId,proto3" json:"agent_id,omitempty"`
+	Type                 TypeAgentStat `protobuf:"varint,2,opt,name=type,proto3,enum=squzy.v1.storage.TypeAgentStat" json:"type,omitempty"`
+	Pagination           *Pagination   `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	TimeRange            *TimeFilter   `protobuf:"bytes,4,opt,name=time_range,json=timeRange,proto3" json:"time_range,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
+}
+
+func (m *GetAgentInformationRequest) Reset()         { *m = GetAgentInformationRequest{} }
+func (m *GetAgentInformationRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAgentInformationRequest) ProtoMessage()    {}
+func (*GetAgentInformationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{6}
+}
+
+func (m *GetAgentInformationRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAgentInformationRequest.Unmarshal(m, b)
+}
+func (m *GetAgentInformationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAgentInformationRequest.Marshal(b, m, deterministic)
+}
+func (m *GetAgentInformationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAgentInformationRequest.Merge(m, src)
+}
+func (m *GetAgentInformationRequest) XXX_Size() int {
+	return xxx_messageInfo_GetAgentInformationRequest.Size(m)
+}
+func (m *GetAgentInformationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAgentInformationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAgentInformationRequest proto.InternalMessageInfo
+
+func (m *GetAgentInformationRequest) GetAgentId() string {
+	if m != nil {
+		return m.AgentId
+	}
+	return ""
+}
+
+func (m *GetAgentInformationRequest) GetType() TypeAgentStat {
+	if m != nil {
+		return m.Type
+	}
+	return TypeAgentStat_AGENT_STATS_TYPE_UNSPECIFIED
+}
+
+func (m *GetAgentInformationRequest) GetPagination() *Pagination {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+func (m *GetAgentInformationRequest) GetTimeRange() *TimeFilter {
+	if m != nil {
+		return m.TimeRange
+	}
+	return nil
+}
+
+type GetAgentInformationResponse struct {
+	Stats                []*GetAgentInformationResponse_Statistic `protobuf:"bytes,1,rep,name=stats,proto3" json:"stats,omitempty"`
+	Count                int32                                    `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                                 `json:"-"`
+	XXX_unrecognized     []byte                                   `json:"-"`
+	XXX_sizecache        int32                                    `json:"-"`
+}
+
+func (m *GetAgentInformationResponse) Reset()         { *m = GetAgentInformationResponse{} }
+func (m *GetAgentInformationResponse) String() string { return proto.CompactTextString(m) }
+func (*GetAgentInformationResponse) ProtoMessage()    {}
+func (*GetAgentInformationResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{7}
+}
+
+func (m *GetAgentInformationResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAgentInformationResponse.Unmarshal(m, b)
+}
+func (m *GetAgentInformationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAgentInformationResponse.Marshal(b, m, deterministic)
+}
+func (m *GetAgentInformationResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAgentInformationResponse.Merge(m, src)
+}
+func (m *GetAgentInformationResponse) XXX_Size() int {
+	return xxx_messageInfo_GetAgentInformationResponse.Size(m)
+}
+func (m *GetAgentInformationResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAgentInformationResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAgentInformationResponse proto.InternalMessageInfo
+
+func (m *GetAgentInformationResponse) GetStats() []*GetAgentInformationResponse_Statistic {
+	if m != nil {
+		return m.Stats
+	}
+	return nil
+}
+
+func (m *GetAgentInformationResponse) GetCount() int32 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
+type GetAgentInformationResponse_Statistic struct {
+	Time                 *timestamp.Timestamp `protobuf:"bytes,1,opt,name=time,proto3" json:"time,omitempty"`
+	CpuInfo              *CpuInfo             `protobuf:"bytes,2,opt,name=cpu_info,json=cpuInfo,proto3" json:"cpu_info,omitempty"`
+	MemoryInfo           *MemoryInfo          `protobuf:"bytes,3,opt,name=memory_info,json=memoryInfo,proto3" json:"memory_info,omitempty"`
+	DiskInfo             *DiskInfo            `protobuf:"bytes,4,opt,name=disk_info,json=diskInfo,proto3" json:"disk_info,omitempty"`
+	NetInfo              *NetInfo             `protobuf:"bytes,5,opt,name=net_info,json=netInfo,proto3" json:"net_info,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *GetAgentInformationResponse_Statistic) Reset()         { *m = GetAgentInformationResponse_Statistic{} }
+func (m *GetAgentInformationResponse_Statistic) String() string { return proto.CompactTextString(m) }
+func (*GetAgentInformationResponse_Statistic) ProtoMessage()    {}
+func (*GetAgentInformationResponse_Statistic) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{7, 0}
+}
+
+func (m *GetAgentInformationResponse_Statistic) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAgentInformationResponse_Statistic.Unmarshal(m, b)
+}
+func (m *GetAgentInformationResponse_Statistic) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAgentInformationResponse_Statistic.Marshal(b, m, deterministic)
+}
+func (m *GetAgentInformationResponse_Statistic) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAgentInformationResponse_Statistic.Merge(m, src)
+}
+func (m *GetAgentInformationResponse_Statistic) XXX_Size() int {
+	return xxx_messageInfo_GetAgentInformationResponse_Statistic.Size(m)
+}
+func (m *GetAgentInformationResponse_Statistic) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAgentInformationResponse_Statistic.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAgentInformationResponse_Statistic proto.InternalMessageInfo
+
+func (m *GetAgentInformationResponse_Statistic) GetTime() *timestamp.Timestamp {
+	if m != nil {
+		return m.Time
+	}
+	return nil
+}
+
+func (m *GetAgentInformationResponse_Statistic) GetCpuInfo() *CpuInfo {
+	if m != nil {
+		return m.CpuInfo
+	}
+	return nil
+}
+
+func (m *GetAgentInformationResponse_Statistic) GetMemoryInfo() *MemoryInfo {
+	if m != nil {
+		return m.MemoryInfo
+	}
+	return nil
+}
+
+func (m *GetAgentInformationResponse_Statistic) GetDiskInfo() *DiskInfo {
+	if m != nil {
+		return m.DiskInfo
+	}
+	return nil
+}
+
+func (m *GetAgentInformationResponse_Statistic) GetNetInfo() *NetInfo {
+	if m != nil {
+		return m.NetInfo
+	}
+	return nil
+}
+
 func init() {
-	proto.RegisterEnum("squzy.v1.storage.SchedulerResponseCode", SchedulerResponseCode_name, SchedulerResponseCode_value)
+	proto.RegisterEnum("squzy.v1.storage.TypeAgentStat", TypeAgentStat_name, TypeAgentStat_value)
+	proto.RegisterEnum("squzy.v1.storage.SchedulerCode", SchedulerCode_name, SchedulerCode_value)
 	proto.RegisterType((*SchedulerResponse)(nil), "squzy.v1.storage.SchedulerResponse")
-	proto.RegisterType((*SchedulerResponse_Error)(nil), "squzy.v1.storage.SchedulerResponse.Error")
-	proto.RegisterType((*SchedulerResponse_MetaData)(nil), "squzy.v1.storage.SchedulerResponse.MetaData")
+	proto.RegisterType((*SchedulerSnapshot)(nil), "squzy.v1.storage.SchedulerSnapshot")
+	proto.RegisterType((*SchedulerSnapshot_Error)(nil), "squzy.v1.storage.SchedulerSnapshot.Error")
+	proto.RegisterType((*SchedulerSnapshot_MetaData)(nil), "squzy.v1.storage.SchedulerSnapshot.MetaData")
+	proto.RegisterType((*TimeFilter)(nil), "squzy.v1.storage.TimeFilter")
+	proto.RegisterType((*Pagination)(nil), "squzy.v1.storage.Pagination")
+	proto.RegisterType((*GetSchedulerInformationRequest)(nil), "squzy.v1.storage.GetSchedulerInformationRequest")
+	proto.RegisterType((*GetSchedulerInformationResponse)(nil), "squzy.v1.storage.GetSchedulerInformationResponse")
+	proto.RegisterType((*GetAgentInformationRequest)(nil), "squzy.v1.storage.GetAgentInformationRequest")
+	proto.RegisterType((*GetAgentInformationResponse)(nil), "squzy.v1.storage.GetAgentInformationResponse")
+	proto.RegisterType((*GetAgentInformationResponse_Statistic)(nil), "squzy.v1.storage.GetAgentInformationResponse.Statistic")
 }
 
 func init() { proto.RegisterFile("proto/v1/squzy_storage.proto", fileDescriptor_4c3bbf174c8621b4) }
 
 var fileDescriptor_4c3bbf174c8621b4 = []byte{
-	// 457 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x92, 0x6f, 0x8b, 0xd3, 0x40,
-	0x10, 0xc6, 0x4d, 0xdb, 0x5c, 0xed, 0x14, 0xa4, 0x2e, 0x9c, 0xc4, 0x78, 0x70, 0xbd, 0xf3, 0x85,
-	0xf5, 0x38, 0xb6, 0x5c, 0x14, 0x11, 0x7c, 0xe1, 0xdf, 0x13, 0x44, 0x0e, 0x61, 0x5b, 0x44, 0x7c,
-	0x73, 0xec, 0x35, 0x63, 0x0c, 0x34, 0xd9, 0xdc, 0xee, 0xa4, 0x10, 0x3f, 0x91, 0x1f, 0xc1, 0xef,
-	0xe6, 0x1b, 0xc9, 0x26, 0xb9, 0x96, 0x54, 0xb1, 0x2f, 0xf3, 0xcc, 0xf3, 0x9b, 0xcd, 0xcc, 0x3c,
-	0x70, 0x90, 0x69, 0x45, 0x6a, 0xba, 0x3a, 0x9b, 0x9a, 0xeb, 0xfc, 0x47, 0x71, 0x69, 0x48, 0x69,
-	0x19, 0x21, 0xb7, 0x32, 0x1b, 0x59, 0x91, 0xaf, 0xce, 0x78, 0xad, 0xfb, 0x87, 0x91, 0x52, 0xd1,
-	0x12, 0xa7, 0xb6, 0x7e, 0x95, 0x7f, 0x9b, 0x52, 0x9c, 0xa0, 0x21, 0x99, 0x64, 0x15, 0xe2, 0x1f,
-	0xb4, 0x0d, 0x86, 0x74, 0xbe, 0xa0, 0xba, 0x7a, 0xd8, 0x7a, 0x2e, 0x51, 0x69, 0x4c, 0x4a, 0xc7,
-	0x69, 0x54, 0x1b, 0x8e, 0x5a, 0x06, 0x19, 0x61, 0x4a, 0x97, 0x06, 0xf5, 0x0a, 0x75, 0x6d, 0x79,
-	0xd0, 0x7e, 0x01, 0x93, 0x8c, 0x8a, 0xaa, 0x78, 0xfc, 0xbb, 0x0b, 0x77, 0x67, 0x8b, 0xef, 0x18,
-	0xe6, 0x4b, 0xd4, 0x02, 0x4d, 0xa6, 0x52, 0x83, 0x6c, 0x0c, 0x43, 0xd3, 0x88, 0x1f, 0x42, 0xcf,
-	0x19, 0x3b, 0x93, 0x81, 0xd8, 0x94, 0xd8, 0x0b, 0xe8, 0x2d, 0x54, 0x88, 0x5e, 0x67, 0xec, 0x4c,
-	0xee, 0x04, 0x8f, 0x78, 0x7b, 0x70, 0xbe, 0xd5, 0xf4, 0xad, 0x0a, 0x51, 0x58, 0x88, 0x3d, 0x83,
-	0x1e, 0x15, 0x19, 0x7a, 0x5d, 0x0b, 0x1f, 0xaf, 0xe1, 0x8d, 0xf1, 0x6e, 0xf8, 0x79, 0x91, 0xa1,
-	0xb0, 0x7e, 0xf6, 0x12, 0x5c, 0xd4, 0x5a, 0x69, 0xaf, 0x37, 0x76, 0x26, 0xc3, 0xe0, 0xf1, 0x0e,
-	0xaf, 0xf2, 0xf3, 0x12, 0x10, 0x15, 0xc7, 0x5e, 0x41, 0x2f, 0x41, 0x92, 0x9e, 0x6b, 0xf9, 0xd3,
-	0x5d, 0xf8, 0x0b, 0x24, 0xf9, 0x4e, 0x92, 0x14, 0x96, 0xf4, 0x8f, 0xc0, 0xb5, 0x1d, 0x99, 0x07,
-	0xfd, 0x04, 0x8d, 0x91, 0x11, 0xd6, 0xeb, 0x69, 0x3e, 0xfd, 0x9f, 0x0e, 0xdc, 0x6e, 0x28, 0xf6,
-	0x1c, 0x06, 0x86, 0xa4, 0xa6, 0x79, 0x9c, 0x54, 0xc6, 0x61, 0xe0, 0xf3, 0xea, 0x20, 0xbc, 0x39,
-	0x08, 0x9f, 0x37, 0x99, 0x10, 0x6b, 0x33, 0x7b, 0x0a, 0x7d, 0x4c, 0x43, 0xcb, 0x75, 0xfe, 0xcb,
-	0x35, 0x56, 0x76, 0x0a, 0xee, 0x4a, 0x2e, 0xf3, 0x6a, 0xb7, 0xc3, 0xe0, 0xde, 0x16, 0xf3, 0xb9,
-	0xac, 0x8a, 0xca, 0x74, 0x72, 0x02, 0xfb, 0x7f, 0xbd, 0x13, 0xdb, 0x83, 0xce, 0xa7, 0x8f, 0xa3,
-	0x5b, 0x6c, 0x50, 0x8f, 0x3b, 0x72, 0x82, 0x5f, 0x0e, 0xf4, 0x67, 0xd5, 0x9a, 0xd8, 0x17, 0xb8,
-	0x3f, 0xc3, 0x34, 0x6c, 0x90, 0xf7, 0x5a, 0x25, 0x37, 0x7d, 0xd8, 0xc3, 0x1d, 0xd6, 0xea, 0x6f,
-	0xff, 0xd8, 0x79, 0x99, 0x4a, 0x36, 0x83, 0xfd, 0x76, 0xe7, 0xd7, 0x65, 0xa4, 0xd9, 0x46, 0x4a,
-	0x6c, 0xc6, 0x79, 0x69, 0xbb, 0x40, 0xd2, 0xf1, 0xc2, 0x08, 0xbc, 0xce, 0xd1, 0xd0, 0xbf, 0x9a,
-	0xbe, 0x71, 0xbf, 0x76, 0x65, 0x16, 0x5f, 0xed, 0x59, 0xf9, 0xc9, 0x9f, 0x00, 0x00, 0x00, 0xff,
-	0xff, 0x0f, 0xaf, 0x6c, 0x0c, 0xc4, 0x03, 0x00, 0x00,
+	// 951 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x56, 0xd1, 0x6e, 0xdb, 0x36,
+	0x14, 0x9d, 0x2d, 0x2b, 0xb6, 0xaf, 0xd7, 0xc1, 0xe3, 0xb6, 0xd6, 0x55, 0x83, 0x26, 0xf1, 0x5e,
+	0xba, 0x20, 0x53, 0x16, 0x17, 0xed, 0x30, 0x74, 0x40, 0xe7, 0xda, 0x4a, 0x66, 0x34, 0x4e, 0x02,
+	0xca, 0x19, 0xd6, 0xbd, 0x08, 0x8a, 0xc5, 0x38, 0x42, 0x2d, 0x51, 0x25, 0xe9, 0x0c, 0xee, 0xc3,
+	0x7e, 0x63, 0x2f, 0x7b, 0xd8, 0xf3, 0x3e, 0x62, 0x3f, 0xb1, 0x8f, 0xd8, 0x6f, 0x0c, 0x24, 0x25,
+	0x39, 0xb1, 0x9d, 0xcc, 0x41, 0xdf, 0x48, 0xde, 0x73, 0x2e, 0x2f, 0x0f, 0xef, 0xa1, 0x04, 0xeb,
+	0x09, 0xa3, 0x82, 0xee, 0x5e, 0xee, 0xed, 0xf2, 0x77, 0x93, 0xf7, 0x53, 0x8f, 0x0b, 0xca, 0xfc,
+	0x11, 0xb1, 0xd5, 0x32, 0xaa, 0xab, 0x45, 0xfb, 0x72, 0xcf, 0x4e, 0xd7, 0xad, 0x47, 0x23, 0x4a,
+	0x47, 0x63, 0xb2, 0xab, 0xe2, 0x67, 0x93, 0xf3, 0x5d, 0x12, 0x25, 0x62, 0xaa, 0xe1, 0xd6, 0xfa,
+	0x7c, 0x90, 0x0b, 0x36, 0x19, 0x8a, 0x34, 0xba, 0x31, 0x1f, 0x15, 0x61, 0x44, 0xb8, 0xf0, 0xa3,
+	0x24, 0x05, 0x6c, 0xcd, 0xd5, 0xe2, 0x8f, 0x48, 0x2c, 0x3c, 0x4e, 0xd8, 0x25, 0x61, 0x59, 0x8e,
+	0x39, 0x48, 0x44, 0xe3, 0x50, 0x50, 0x16, 0xc6, 0x23, 0x0d, 0x68, 0xfe, 0x0a, 0x9f, 0xba, 0xc3,
+	0x0b, 0x12, 0x4c, 0xc6, 0x84, 0x61, 0xc2, 0x13, 0x1a, 0x73, 0x82, 0xb6, 0xe0, 0x63, 0x9e, 0x2d,
+	0x7a, 0x61, 0xd0, 0x28, 0x6c, 0x16, 0x9e, 0x54, 0x71, 0x2d, 0x5f, 0xeb, 0x05, 0xe8, 0x25, 0x54,
+	0x78, 0xec, 0x27, 0xfc, 0x82, 0x8a, 0x46, 0x71, 0xb3, 0xf0, 0xa4, 0xd6, 0xfa, 0xd2, 0x9e, 0x3f,
+	0xbc, 0x9d, 0x67, 0x76, 0x53, 0x28, 0xce, 0x49, 0xcd, 0x7f, 0x8c, 0x2b, 0x3b, 0x67, 0x71, 0xf4,
+	0x14, 0x4a, 0x43, 0x1a, 0x10, 0x95, 0xf2, 0x93, 0xd6, 0xc6, 0x2d, 0x29, 0x3b, 0x34, 0x20, 0x58,
+	0x81, 0xd1, 0x73, 0x28, 0x89, 0x69, 0x42, 0x1a, 0x86, 0x22, 0x35, 0x67, 0xa4, 0x2b, 0xa7, 0xcd,
+	0x79, 0x83, 0x69, 0x42, 0xb0, 0xc2, 0xa3, 0x97, 0x60, 0x12, 0xc6, 0x28, 0x6b, 0x94, 0xd4, 0x01,
+	0xbe, 0x5a, 0xe1, 0x00, 0xb6, 0x23, 0x09, 0x58, 0xf3, 0xd0, 0x0f, 0x50, 0x8a, 0x88, 0xf0, 0x1b,
+	0xa6, 0xe2, 0xef, 0xac, 0xc2, 0xef, 0x13, 0xe1, 0x77, 0x7d, 0xe1, 0x63, 0xc5, 0xb4, 0xb6, 0xc0,
+	0x54, 0x19, 0x51, 0x03, 0xca, 0x11, 0xe1, 0xdc, 0x1f, 0x91, 0x54, 0xed, 0x6c, 0x6a, 0xfd, 0x55,
+	0x80, 0x4a, 0xc6, 0x42, 0xdf, 0x01, 0x70, 0xe1, 0x33, 0xe1, 0xc9, 0x5e, 0x50, 0xc8, 0x5a, 0xcb,
+	0xb2, 0x75, 0xa3, 0xd8, 0x59, 0xa3, 0xd8, 0x83, 0xac, 0x51, 0x70, 0x55, 0xa1, 0xe5, 0x1c, 0x3d,
+	0x83, 0x0a, 0x89, 0x03, 0x4d, 0x2c, 0xfe, 0x2f, 0xb1, 0x4c, 0xe2, 0x40, 0xd1, 0x76, 0xc0, 0xbc,
+	0xf4, 0xc7, 0x13, 0xad, 0x6e, 0xad, 0x75, 0x7f, 0x81, 0xf3, 0x93, 0x8c, 0x62, 0x0d, 0x6a, 0x5e,
+	0x00, 0x48, 0xd6, 0x7e, 0x38, 0x16, 0x84, 0x21, 0x1b, 0x4a, 0xe7, 0x8c, 0x46, 0x2b, 0xd4, 0xa9,
+	0x70, 0x68, 0x1b, 0x8a, 0x82, 0xae, 0x50, 0x5c, 0x51, 0xd0, 0xe6, 0x73, 0x80, 0x13, 0x7f, 0x14,
+	0xc6, 0xbe, 0x08, 0x69, 0x8c, 0x10, 0x94, 0x92, 0x4c, 0x3b, 0x13, 0xab, 0x31, 0xfa, 0x1c, 0xcc,
+	0x71, 0x18, 0x85, 0xba, 0x3f, 0x4d, 0xac, 0x27, 0xcd, 0xbf, 0x0b, 0xf0, 0xf8, 0x80, 0x88, 0xfc,
+	0x66, 0x7a, 0xf1, 0x39, 0x65, 0x91, 0xca, 0x82, 0xc9, 0xbb, 0x09, 0xe1, 0x62, 0x95, 0xf6, 0xff,
+	0x1e, 0x20, 0xc9, 0x77, 0x4f, 0x2b, 0x5e, 0x5f, 0xbc, 0xff, 0x59, 0x85, 0xf8, 0x0a, 0x1e, 0xbd,
+	0x00, 0x90, 0xd7, 0xe0, 0x31, 0x3f, 0x1e, 0x65, 0xc2, 0x2e, 0x61, 0xcf, 0x94, 0xc4, 0x55, 0x89,
+	0xc7, 0x12, 0xde, 0x7c, 0x0f, 0x1b, 0x37, 0xd6, 0x9f, 0xfa, 0xb7, 0x0d, 0xd5, 0xcc, 0x67, 0xbc,
+	0x51, 0xd8, 0x34, 0x56, 0x75, 0xe7, 0x8c, 0x25, 0xc5, 0x1b, 0xd2, 0x49, 0x9c, 0x8b, 0xa7, 0x26,
+	0xcd, 0x7f, 0x0b, 0x60, 0x1d, 0x10, 0xd1, 0x96, 0x0f, 0xcd, 0x12, 0xe1, 0x1e, 0x42, 0x45, 0xbf,
+	0x41, 0xb9, 0x68, 0x65, 0x35, 0xef, 0x05, 0xd2, 0xd8, 0xca, 0xa3, 0x37, 0x1a, 0x5b, 0xfa, 0x52,
+	0xe5, 0x75, 0x85, 0x2f, 0x52, 0x83, 0x5e, 0x57, 0xd9, 0xf8, 0x20, 0x95, 0x4b, 0x77, 0x53, 0xf9,
+	0x0f, 0x03, 0x1e, 0x2d, 0x3d, 0x69, 0x2a, 0x71, 0x1f, 0x4c, 0x2e, 0xfc, 0x5c, 0xde, 0x6f, 0x17,
+	0xf3, 0xde, 0xc2, 0xb6, 0xe5, 0x19, 0x43, 0x2e, 0xc2, 0x21, 0xd6, 0x59, 0x96, 0xcb, 0x6d, 0xfd,
+	0x5e, 0x84, 0x6a, 0x0e, 0x95, 0x6e, 0x5a, 0xd1, 0xf5, 0x0a, 0x87, 0x5a, 0x50, 0x19, 0x26, 0x13,
+	0x2f, 0x8c, 0xcf, 0x33, 0x4f, 0x3d, 0x98, 0x55, 0xa9, 0xee, 0xc5, 0xee, 0x24, 0x13, 0x59, 0x1e,
+	0x2e, 0x0f, 0xf5, 0x00, 0xbd, 0x80, 0x5a, 0x44, 0x22, 0xca, 0xa6, 0x9a, 0x66, 0xa4, 0x5b, 0xcd,
+	0xd1, 0xfa, 0x0a, 0xa2, 0x98, 0x10, 0xe5, 0x63, 0xf4, 0x0c, 0xaa, 0x41, 0xc8, 0xdf, 0x6a, 0xaa,
+	0xd6, 0xbb, 0x31, 0x4f, 0xed, 0x86, 0xfc, 0xad, 0x22, 0x56, 0x82, 0x74, 0x24, 0xeb, 0x8c, 0x89,
+	0xd0, 0x2c, 0x73, 0x79, 0x9d, 0x47, 0x44, 0xe8, 0x3a, 0x63, 0x3d, 0xd8, 0x3e, 0x83, 0x7b, 0xd7,
+	0x1a, 0x06, 0x6d, 0xc2, 0x7a, 0xfb, 0xc0, 0x39, 0x1a, 0x78, 0xee, 0xa0, 0x3d, 0x70, 0xbd, 0xc1,
+	0x9b, 0x13, 0xc7, 0x3b, 0x3d, 0x72, 0x4f, 0x9c, 0x4e, 0x6f, 0xbf, 0xe7, 0x74, 0xeb, 0x1f, 0xa1,
+	0x32, 0x18, 0xed, 0xc3, 0xc3, 0x7a, 0x41, 0x0e, 0x3a, 0x27, 0xa7, 0xf5, 0x22, 0xaa, 0x40, 0xa9,
+	0xdb, 0x73, 0x5f, 0xd7, 0x0d, 0x04, 0xb0, 0xd6, 0x77, 0xfa, 0xc7, 0xf8, 0x4d, 0xbd, 0x24, 0xc3,
+	0x47, 0xce, 0xa0, 0x6e, 0x6e, 0xbf, 0x82, 0x7b, 0xd7, 0xbe, 0x36, 0xe8, 0x31, 0x58, 0x6e, 0xe7,
+	0x47, 0xa7, 0x7b, 0x7a, 0xe8, 0x60, 0xaf, 0x73, 0xdc, 0x9d, 0xdf, 0x61, 0x0d, 0x8a, 0xc7, 0xaf,
+	0xeb, 0x05, 0x54, 0x05, 0xd3, 0xc1, 0xf8, 0x18, 0xd7, 0x8b, 0xad, 0x3f, 0x0d, 0x28, 0xbb, 0xba,
+	0x21, 0xd0, 0xcf, 0xf0, 0xd0, 0x25, 0x71, 0x90, 0x35, 0xc1, 0x3e, 0xa3, 0x51, 0x9e, 0x1f, 0xdd,
+	0xe6, 0xcf, 0x8c, 0x61, 0x2d, 0x3e, 0xbe, 0x8e, 0xfc, 0x9b, 0x40, 0x07, 0xf0, 0xc5, 0x7c, 0x66,
+	0xa5, 0x0c, 0xba, 0xbf, 0x78, 0x73, 0x82, 0x85, 0xc3, 0x1b, 0x13, 0xfd, 0x06, 0x0f, 0x6e, 0x78,
+	0x5b, 0xd0, 0x37, 0x4b, 0x3b, 0xfc, 0x96, 0x67, 0xd4, 0xda, 0xbb, 0x03, 0x23, 0x75, 0x15, 0x83,
+	0xcf, 0x96, 0xd8, 0x06, 0xed, 0xac, 0xe8, 0x2e, 0xbd, 0xef, 0xd7, 0x77, 0xf2, 0xe2, 0x2b, 0xf3,
+	0x17, 0xc3, 0x4f, 0xc2, 0xb3, 0x35, 0x25, 0xc5, 0xd3, 0xff, 0x02, 0x00, 0x00, 0xff, 0xff, 0xf5,
+	0xbc, 0xbd, 0x46, 0xe1, 0x09, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -271,8 +767,18 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type StorageClient interface {
+	//To save info about checkers
+	// protolint:disable:next MAX_LINE_LENGTH
 	SendResponseFromScheduler(ctx context.Context, in *SchedulerResponse, opts ...grpc.CallOption) (*empty.Empty, error)
-	SendResponseFromAgent(ctx context.Context, in *SendMetricsRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	//To save info about agent
+	// protolint:disable:next MAX_LINE_LENGTH
+	SendResponseFromAgent(ctx context.Context, in *Metric, opts ...grpc.CallOption) (*empty.Empty, error)
+	//To send info about checkers
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetSchedulerInformation(ctx context.Context, in *GetSchedulerInformationRequest, opts ...grpc.CallOption) (*GetSchedulerInformationResponse, error)
+	//To send info about about agent
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetAgentInformation(ctx context.Context, in *GetAgentInformationRequest, opts ...grpc.CallOption) (*GetAgentInformationResponse, error)
 }
 
 type storageClient struct {
@@ -292,7 +798,7 @@ func (c *storageClient) SendResponseFromScheduler(ctx context.Context, in *Sched
 	return out, nil
 }
 
-func (c *storageClient) SendResponseFromAgent(ctx context.Context, in *SendMetricsRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *storageClient) SendResponseFromAgent(ctx context.Context, in *Metric, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
 	err := c.cc.Invoke(ctx, "/squzy.v1.storage.Storage/SendResponseFromAgent", in, out, opts...)
 	if err != nil {
@@ -301,10 +807,38 @@ func (c *storageClient) SendResponseFromAgent(ctx context.Context, in *SendMetri
 	return out, nil
 }
 
+func (c *storageClient) GetSchedulerInformation(ctx context.Context, in *GetSchedulerInformationRequest, opts ...grpc.CallOption) (*GetSchedulerInformationResponse, error) {
+	out := new(GetSchedulerInformationResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.storage.Storage/GetSchedulerInformation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageClient) GetAgentInformation(ctx context.Context, in *GetAgentInformationRequest, opts ...grpc.CallOption) (*GetAgentInformationResponse, error) {
+	out := new(GetAgentInformationResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.storage.Storage/GetAgentInformation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // StorageServer is the server API for Storage service.
 type StorageServer interface {
+	//To save info about checkers
+	// protolint:disable:next MAX_LINE_LENGTH
 	SendResponseFromScheduler(context.Context, *SchedulerResponse) (*empty.Empty, error)
-	SendResponseFromAgent(context.Context, *SendMetricsRequest) (*empty.Empty, error)
+	//To save info about agent
+	// protolint:disable:next MAX_LINE_LENGTH
+	SendResponseFromAgent(context.Context, *Metric) (*empty.Empty, error)
+	//To send info about checkers
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetSchedulerInformation(context.Context, *GetSchedulerInformationRequest) (*GetSchedulerInformationResponse, error)
+	//To send info about about agent
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetAgentInformation(context.Context, *GetAgentInformationRequest) (*GetAgentInformationResponse, error)
 }
 
 // UnimplementedStorageServer can be embedded to have forward compatible implementations.
@@ -314,8 +848,14 @@ type UnimplementedStorageServer struct {
 func (*UnimplementedStorageServer) SendResponseFromScheduler(ctx context.Context, req *SchedulerResponse) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendResponseFromScheduler not implemented")
 }
-func (*UnimplementedStorageServer) SendResponseFromAgent(ctx context.Context, req *SendMetricsRequest) (*empty.Empty, error) {
+func (*UnimplementedStorageServer) SendResponseFromAgent(ctx context.Context, req *Metric) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendResponseFromAgent not implemented")
+}
+func (*UnimplementedStorageServer) GetSchedulerInformation(ctx context.Context, req *GetSchedulerInformationRequest) (*GetSchedulerInformationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSchedulerInformation not implemented")
+}
+func (*UnimplementedStorageServer) GetAgentInformation(ctx context.Context, req *GetAgentInformationRequest) (*GetAgentInformationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAgentInformation not implemented")
 }
 
 func RegisterStorageServer(s *grpc.Server, srv StorageServer) {
@@ -341,7 +881,7 @@ func _Storage_SendResponseFromScheduler_Handler(srv interface{}, ctx context.Con
 }
 
 func _Storage_SendResponseFromAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SendMetricsRequest)
+	in := new(Metric)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -353,7 +893,43 @@ func _Storage_SendResponseFromAgent_Handler(srv interface{}, ctx context.Context
 		FullMethod: "/squzy.v1.storage.Storage/SendResponseFromAgent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StorageServer).SendResponseFromAgent(ctx, req.(*SendMetricsRequest))
+		return srv.(StorageServer).SendResponseFromAgent(ctx, req.(*Metric))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Storage_GetSchedulerInformation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSchedulerInformationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).GetSchedulerInformation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.storage.Storage/GetSchedulerInformation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).GetSchedulerInformation(ctx, req.(*GetSchedulerInformationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Storage_GetAgentInformation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAgentInformationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).GetAgentInformation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.storage.Storage/GetAgentInformation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).GetAgentInformation(ctx, req.(*GetAgentInformationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -369,6 +945,14 @@ var _Storage_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendResponseFromAgent",
 			Handler:    _Storage_SendResponseFromAgent_Handler,
+		},
+		{
+			MethodName: "GetSchedulerInformation",
+			Handler:    _Storage_GetSchedulerInformation_Handler,
+		},
+		{
+			MethodName: "GetAgentInformation",
+			Handler:    _Storage_GetAgentInformation_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
