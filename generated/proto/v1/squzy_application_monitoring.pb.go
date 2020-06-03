@@ -204,7 +204,7 @@ type TransactionInfo struct {
 	ParentId string `protobuf:"bytes,3,opt,name=parent_id,json=parentId,proto3" json:"parent_id,omitempty"`
 	// Meta about request
 	Meta *TransactionInfo_Meta `protobuf:"bytes,4,opt,name=meta,proto3" json:"meta,omitempty"`
-	// Name of transactions
+	// Name of transactions (should be uniq per application)
 	Name                 string                 `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
 	StartTime            *timestamp.Timestamp   `protobuf:"bytes,6,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
 	EndTime              *timestamp.Timestamp   `protobuf:"bytes,7,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
