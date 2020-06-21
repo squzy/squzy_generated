@@ -10,6 +10,7 @@ import (
 	empty "github.com/golang/protobuf/ptypes/empty"
 	_struct "github.com/golang/protobuf/ptypes/struct"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
+	wrappers "github.com/golang/protobuf/ptypes/wrappers"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -26,6 +27,133 @@ var _ = math.Inf
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
+
+type SortTransactionList int32
+
+const (
+	SortTransactionList_SORT_TRANSACTION_LIST_UNSPECIFIED SortTransactionList = 0
+	SortTransactionList_DURATION                          SortTransactionList = 1
+	SortTransactionList_BY_TRANSACTION_START_TIME         SortTransactionList = 2
+	SortTransactionList_BY_TRANSACTION_END_TIME           SortTransactionList = 3
+)
+
+var SortTransactionList_name = map[int32]string{
+	0: "SORT_TRANSACTION_LIST_UNSPECIFIED",
+	1: "DURATION",
+	2: "BY_TRANSACTION_START_TIME",
+	3: "BY_TRANSACTION_END_TIME",
+}
+
+var SortTransactionList_value = map[string]int32{
+	"SORT_TRANSACTION_LIST_UNSPECIFIED": 0,
+	"DURATION":                          1,
+	"BY_TRANSACTION_START_TIME":         2,
+	"BY_TRANSACTION_END_TIME":           3,
+}
+
+func (x SortTransactionList) String() string {
+	return proto.EnumName(SortTransactionList_name, int32(x))
+}
+
+func (SortTransactionList) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{0}
+}
+
+type SortDirection int32
+
+const (
+	SortDirection_SORT_DIRECTION_UNSPECIFIED SortDirection = 0
+	SortDirection_ASC                        SortDirection = 1
+	SortDirection_DESC                       SortDirection = 2
+)
+
+var SortDirection_name = map[int32]string{
+	0: "SORT_DIRECTION_UNSPECIFIED",
+	1: "ASC",
+	2: "DESC",
+}
+
+var SortDirection_value = map[string]int32{
+	"SORT_DIRECTION_UNSPECIFIED": 0,
+	"ASC":                        1,
+	"DESC":                       2,
+}
+
+func (x SortDirection) String() string {
+	return proto.EnumName(SortDirection_name, int32(x))
+}
+
+func (SortDirection) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{1}
+}
+
+type SortSchedulerList int32
+
+const (
+	SortSchedulerList_SORT_SCHEDULER_LIST_UNSPECIFIED SortSchedulerList = 0
+	SortSchedulerList_BY_START_TIME                   SortSchedulerList = 1
+	SortSchedulerList_BY_END_TIME                     SortSchedulerList = 2
+	SortSchedulerList_BY_LATENCY                      SortSchedulerList = 3
+)
+
+var SortSchedulerList_name = map[int32]string{
+	0: "SORT_SCHEDULER_LIST_UNSPECIFIED",
+	1: "BY_START_TIME",
+	2: "BY_END_TIME",
+	3: "BY_LATENCY",
+}
+
+var SortSchedulerList_value = map[string]int32{
+	"SORT_SCHEDULER_LIST_UNSPECIFIED": 0,
+	"BY_START_TIME":                   1,
+	"BY_END_TIME":                     2,
+	"BY_LATENCY":                      3,
+}
+
+func (x SortSchedulerList) String() string {
+	return proto.EnumName(SortSchedulerList_name, int32(x))
+}
+
+func (SortSchedulerList) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{2}
+}
+
+type GroupTransaction int32
+
+const (
+	GroupTransaction_GROUP_TRANSACTION_UNSPECIFIED GroupTransaction = 0
+	GroupTransaction_BY_TYPE                       GroupTransaction = 1
+	GroupTransaction_BY_NAME                       GroupTransaction = 2
+	GroupTransaction_BY_METHOD                     GroupTransaction = 3
+	GroupTransaction_BY_HOST                       GroupTransaction = 4
+	GroupTransaction_BY_PATH                       GroupTransaction = 5
+)
+
+var GroupTransaction_name = map[int32]string{
+	0: "GROUP_TRANSACTION_UNSPECIFIED",
+	1: "BY_TYPE",
+	2: "BY_NAME",
+	3: "BY_METHOD",
+	4: "BY_HOST",
+	5: "BY_PATH",
+}
+
+var GroupTransaction_value = map[string]int32{
+	"GROUP_TRANSACTION_UNSPECIFIED": 0,
+	"BY_TYPE":                       1,
+	"BY_NAME":                       2,
+	"BY_METHOD":                     3,
+	"BY_HOST":                       4,
+	"BY_PATH":                       5,
+}
+
+func (x GroupTransaction) String() string {
+	return proto.EnumName(GroupTransaction_name, int32(x))
+}
+
+func (GroupTransaction) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{3}
+}
 
 type TypeAgentStat int32
 
@@ -61,7 +189,7 @@ func (x TypeAgentStat) String() string {
 }
 
 func (TypeAgentStat) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{0}
+	return fileDescriptor_4c3bbf174c8621b4, []int{4}
 }
 
 type SchedulerCode int32
@@ -89,7 +217,692 @@ func (x SchedulerCode) String() string {
 }
 
 func (SchedulerCode) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{5}
+}
+
+type GetSchedulerUptimeRequest struct {
+	SchedulerId          string      `protobuf:"bytes,1,opt,name=scheduler_id,json=schedulerId,proto3" json:"scheduler_id,omitempty"`
+	TimeRange            *TimeFilter `protobuf:"bytes,2,opt,name=time_range,json=timeRange,proto3" json:"time_range,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *GetSchedulerUptimeRequest) Reset()         { *m = GetSchedulerUptimeRequest{} }
+func (m *GetSchedulerUptimeRequest) String() string { return proto.CompactTextString(m) }
+func (*GetSchedulerUptimeRequest) ProtoMessage()    {}
+func (*GetSchedulerUptimeRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{0}
+}
+
+func (m *GetSchedulerUptimeRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetSchedulerUptimeRequest.Unmarshal(m, b)
+}
+func (m *GetSchedulerUptimeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetSchedulerUptimeRequest.Marshal(b, m, deterministic)
+}
+func (m *GetSchedulerUptimeRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetSchedulerUptimeRequest.Merge(m, src)
+}
+func (m *GetSchedulerUptimeRequest) XXX_Size() int {
+	return xxx_messageInfo_GetSchedulerUptimeRequest.Size(m)
+}
+func (m *GetSchedulerUptimeRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetSchedulerUptimeRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetSchedulerUptimeRequest proto.InternalMessageInfo
+
+func (m *GetSchedulerUptimeRequest) GetSchedulerId() string {
+	if m != nil {
+		return m.SchedulerId
+	}
+	return ""
+}
+
+func (m *GetSchedulerUptimeRequest) GetTimeRange() *TimeFilter {
+	if m != nil {
+		return m.TimeRange
+	}
+	return nil
+}
+
+type GetSchedulerUptimeResponse struct {
+	Uptime               float64  `protobuf:"fixed64,1,opt,name=uptime,proto3" json:"uptime,omitempty"`
+	Latency              float64  `protobuf:"fixed64,2,opt,name=latency,proto3" json:"latency,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetSchedulerUptimeResponse) Reset()         { *m = GetSchedulerUptimeResponse{} }
+func (m *GetSchedulerUptimeResponse) String() string { return proto.CompactTextString(m) }
+func (*GetSchedulerUptimeResponse) ProtoMessage()    {}
+func (*GetSchedulerUptimeResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_4c3bbf174c8621b4, []int{1}
+}
+
+func (m *GetSchedulerUptimeResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetSchedulerUptimeResponse.Unmarshal(m, b)
+}
+func (m *GetSchedulerUptimeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetSchedulerUptimeResponse.Marshal(b, m, deterministic)
+}
+func (m *GetSchedulerUptimeResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetSchedulerUptimeResponse.Merge(m, src)
+}
+func (m *GetSchedulerUptimeResponse) XXX_Size() int {
+	return xxx_messageInfo_GetSchedulerUptimeResponse.Size(m)
+}
+func (m *GetSchedulerUptimeResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetSchedulerUptimeResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetSchedulerUptimeResponse proto.InternalMessageInfo
+
+func (m *GetSchedulerUptimeResponse) GetUptime() float64 {
+	if m != nil {
+		return m.Uptime
+	}
+	return 0
+}
+
+func (m *GetSchedulerUptimeResponse) GetLatency() float64 {
+	if m != nil {
+		return m.Latency
+	}
+	return 0
+}
+
+type GetTransactionByIdResponse struct {
+	Transaction          *TransactionInfo   `protobuf:"bytes,1,opt,name=transaction,proto3" json:"transaction,omitempty"`
+	Children             []*TransactionInfo `protobuf:"bytes,2,rep,name=children,proto3" json:"children,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *GetTransactionByIdResponse) Reset()         { *m = GetTransactionByIdResponse{} }
+func (m *GetTransactionByIdResponse) String() string { return proto.CompactTextString(m) }
+func (*GetTransactionByIdResponse) ProtoMessage()    {}
+func (*GetTransactionByIdResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{2}
+}
+
+func (m *GetTransactionByIdResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetTransactionByIdResponse.Unmarshal(m, b)
+}
+func (m *GetTransactionByIdResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetTransactionByIdResponse.Marshal(b, m, deterministic)
+}
+func (m *GetTransactionByIdResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetTransactionByIdResponse.Merge(m, src)
+}
+func (m *GetTransactionByIdResponse) XXX_Size() int {
+	return xxx_messageInfo_GetTransactionByIdResponse.Size(m)
+}
+func (m *GetTransactionByIdResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetTransactionByIdResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetTransactionByIdResponse proto.InternalMessageInfo
+
+func (m *GetTransactionByIdResponse) GetTransaction() *TransactionInfo {
+	if m != nil {
+		return m.Transaction
+	}
+	return nil
+}
+
+func (m *GetTransactionByIdResponse) GetChildren() []*TransactionInfo {
+	if m != nil {
+		return m.Children
+	}
+	return nil
+}
+
+type GetTransactionByNameRequest struct {
+	ApplicationId        string      `protobuf:"bytes,1,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	TransactionName      string      `protobuf:"bytes,2,opt,name=transaction_name,json=transactionName,proto3" json:"transaction_name,omitempty"`
+	Pagination           *Pagination `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	TimeRange            *TimeFilter `protobuf:"bytes,4,opt,name=time_range,json=timeRange,proto3" json:"time_range,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *GetTransactionByNameRequest) Reset()         { *m = GetTransactionByNameRequest{} }
+func (m *GetTransactionByNameRequest) String() string { return proto.CompactTextString(m) }
+func (*GetTransactionByNameRequest) ProtoMessage()    {}
+func (*GetTransactionByNameRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{3}
+}
+
+func (m *GetTransactionByNameRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetTransactionByNameRequest.Unmarshal(m, b)
+}
+func (m *GetTransactionByNameRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetTransactionByNameRequest.Marshal(b, m, deterministic)
+}
+func (m *GetTransactionByNameRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetTransactionByNameRequest.Merge(m, src)
+}
+func (m *GetTransactionByNameRequest) XXX_Size() int {
+	return xxx_messageInfo_GetTransactionByNameRequest.Size(m)
+}
+func (m *GetTransactionByNameRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetTransactionByNameRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetTransactionByNameRequest proto.InternalMessageInfo
+
+func (m *GetTransactionByNameRequest) GetApplicationId() string {
+	if m != nil {
+		return m.ApplicationId
+	}
+	return ""
+}
+
+func (m *GetTransactionByNameRequest) GetTransactionName() string {
+	if m != nil {
+		return m.TransactionName
+	}
+	return ""
+}
+
+func (m *GetTransactionByNameRequest) GetPagination() *Pagination {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+func (m *GetTransactionByNameRequest) GetTimeRange() *TimeFilter {
+	if m != nil {
+		return m.TimeRange
+	}
+	return nil
+}
+
+type GetTransactionByNameResponse struct {
+	Count                int64              `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"`
+	Transactions         []*TransactionInfo `protobuf:"bytes,2,rep,name=transactions,proto3" json:"transactions,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *GetTransactionByNameResponse) Reset()         { *m = GetTransactionByNameResponse{} }
+func (m *GetTransactionByNameResponse) String() string { return proto.CompactTextString(m) }
+func (*GetTransactionByNameResponse) ProtoMessage()    {}
+func (*GetTransactionByNameResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{4}
+}
+
+func (m *GetTransactionByNameResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetTransactionByNameResponse.Unmarshal(m, b)
+}
+func (m *GetTransactionByNameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetTransactionByNameResponse.Marshal(b, m, deterministic)
+}
+func (m *GetTransactionByNameResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetTransactionByNameResponse.Merge(m, src)
+}
+func (m *GetTransactionByNameResponse) XXX_Size() int {
+	return xxx_messageInfo_GetTransactionByNameResponse.Size(m)
+}
+func (m *GetTransactionByNameResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetTransactionByNameResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetTransactionByNameResponse proto.InternalMessageInfo
+
+func (m *GetTransactionByNameResponse) GetCount() int64 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
+func (m *GetTransactionByNameResponse) GetTransactions() []*TransactionInfo {
+	if m != nil {
+		return m.Transactions
+	}
+	return nil
+}
+
+type GetTransactionByIdRequest struct {
+	TransactionId        string   `protobuf:"bytes,1,opt,name=transaction_id,json=transactionId,proto3" json:"transaction_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetTransactionByIdRequest) Reset()         { *m = GetTransactionByIdRequest{} }
+func (m *GetTransactionByIdRequest) String() string { return proto.CompactTextString(m) }
+func (*GetTransactionByIdRequest) ProtoMessage()    {}
+func (*GetTransactionByIdRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{5}
+}
+
+func (m *GetTransactionByIdRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetTransactionByIdRequest.Unmarshal(m, b)
+}
+func (m *GetTransactionByIdRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetTransactionByIdRequest.Marshal(b, m, deterministic)
+}
+func (m *GetTransactionByIdRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetTransactionByIdRequest.Merge(m, src)
+}
+func (m *GetTransactionByIdRequest) XXX_Size() int {
+	return xxx_messageInfo_GetTransactionByIdRequest.Size(m)
+}
+func (m *GetTransactionByIdRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetTransactionByIdRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetTransactionByIdRequest proto.InternalMessageInfo
+
+func (m *GetTransactionByIdRequest) GetTransactionId() string {
+	if m != nil {
+		return m.TransactionId
+	}
+	return ""
+}
+
+type GetTransactionsResponse struct {
+	Count                int64              `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"`
+	Transactions         []*TransactionInfo `protobuf:"bytes,2,rep,name=transactions,proto3" json:"transactions,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *GetTransactionsResponse) Reset()         { *m = GetTransactionsResponse{} }
+func (m *GetTransactionsResponse) String() string { return proto.CompactTextString(m) }
+func (*GetTransactionsResponse) ProtoMessage()    {}
+func (*GetTransactionsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{6}
+}
+
+func (m *GetTransactionsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetTransactionsResponse.Unmarshal(m, b)
+}
+func (m *GetTransactionsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetTransactionsResponse.Marshal(b, m, deterministic)
+}
+func (m *GetTransactionsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetTransactionsResponse.Merge(m, src)
+}
+func (m *GetTransactionsResponse) XXX_Size() int {
+	return xxx_messageInfo_GetTransactionsResponse.Size(m)
+}
+func (m *GetTransactionsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetTransactionsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetTransactionsResponse proto.InternalMessageInfo
+
+func (m *GetTransactionsResponse) GetCount() int64 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
+func (m *GetTransactionsResponse) GetTransactions() []*TransactionInfo {
+	if m != nil {
+		return m.Transactions
+	}
+	return nil
+}
+
+type GetTransactionsRequest struct {
+	ApplicationId string            `protobuf:"bytes,1,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	Pagination    *Pagination       `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	TimeRange     *TimeFilter       `protobuf:"bytes,3,opt,name=time_range,json=timeRange,proto3" json:"time_range,omitempty"`
+	Type          TransactionType   `protobuf:"varint,4,opt,name=type,proto3,enum=squzy.v1.monitoring.TransactionType" json:"type,omitempty"`
+	Status        TransactionStatus `protobuf:"varint,5,opt,name=status,proto3,enum=squzy.v1.monitoring.TransactionStatus" json:"status,omitempty"`
+	// filter is not exists
+	Host                 *wrappers.StringValue   `protobuf:"bytes,6,opt,name=host,proto3" json:"host,omitempty"`
+	Name                 *wrappers.StringValue   `protobuf:"bytes,7,opt,name=name,proto3" json:"name,omitempty"`
+	Path                 *wrappers.StringValue   `protobuf:"bytes,8,opt,name=path,proto3" json:"path,omitempty"`
+	Method               *wrappers.StringValue   `protobuf:"bytes,9,opt,name=method,proto3" json:"method,omitempty"`
+	Sort                 *SortingTransactionList `protobuf:"bytes,10,opt,name=sort,proto3" json:"sort,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
+	XXX_unrecognized     []byte                  `json:"-"`
+	XXX_sizecache        int32                   `json:"-"`
+}
+
+func (m *GetTransactionsRequest) Reset()         { *m = GetTransactionsRequest{} }
+func (m *GetTransactionsRequest) String() string { return proto.CompactTextString(m) }
+func (*GetTransactionsRequest) ProtoMessage()    {}
+func (*GetTransactionsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{7}
+}
+
+func (m *GetTransactionsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetTransactionsRequest.Unmarshal(m, b)
+}
+func (m *GetTransactionsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetTransactionsRequest.Marshal(b, m, deterministic)
+}
+func (m *GetTransactionsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetTransactionsRequest.Merge(m, src)
+}
+func (m *GetTransactionsRequest) XXX_Size() int {
+	return xxx_messageInfo_GetTransactionsRequest.Size(m)
+}
+func (m *GetTransactionsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetTransactionsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetTransactionsRequest proto.InternalMessageInfo
+
+func (m *GetTransactionsRequest) GetApplicationId() string {
+	if m != nil {
+		return m.ApplicationId
+	}
+	return ""
+}
+
+func (m *GetTransactionsRequest) GetPagination() *Pagination {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+func (m *GetTransactionsRequest) GetTimeRange() *TimeFilter {
+	if m != nil {
+		return m.TimeRange
+	}
+	return nil
+}
+
+func (m *GetTransactionsRequest) GetType() TransactionType {
+	if m != nil {
+		return m.Type
+	}
+	return TransactionType_TRANSACTION_TYPE_UNSPECIFIED
+}
+
+func (m *GetTransactionsRequest) GetStatus() TransactionStatus {
+	if m != nil {
+		return m.Status
+	}
+	return TransactionStatus_TRANSACTION_CODE_UNSPECIFIED
+}
+
+func (m *GetTransactionsRequest) GetHost() *wrappers.StringValue {
+	if m != nil {
+		return m.Host
+	}
+	return nil
+}
+
+func (m *GetTransactionsRequest) GetName() *wrappers.StringValue {
+	if m != nil {
+		return m.Name
+	}
+	return nil
+}
+
+func (m *GetTransactionsRequest) GetPath() *wrappers.StringValue {
+	if m != nil {
+		return m.Path
+	}
+	return nil
+}
+
+func (m *GetTransactionsRequest) GetMethod() *wrappers.StringValue {
+	if m != nil {
+		return m.Method
+	}
+	return nil
+}
+
+func (m *GetTransactionsRequest) GetSort() *SortingTransactionList {
+	if m != nil {
+		return m.Sort
+	}
+	return nil
+}
+
+type SortingTransactionList struct {
+	SortBy               SortTransactionList `protobuf:"varint,1,opt,name=sort_by,json=sortBy,proto3,enum=squzy.v1.storage.SortTransactionList" json:"sort_by,omitempty"`
+	Direction            SortDirection       `protobuf:"varint,2,opt,name=direction,proto3,enum=squzy.v1.storage.SortDirection" json:"direction,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
+	XXX_unrecognized     []byte              `json:"-"`
+	XXX_sizecache        int32               `json:"-"`
+}
+
+func (m *SortingTransactionList) Reset()         { *m = SortingTransactionList{} }
+func (m *SortingTransactionList) String() string { return proto.CompactTextString(m) }
+func (*SortingTransactionList) ProtoMessage()    {}
+func (*SortingTransactionList) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{8}
+}
+
+func (m *SortingTransactionList) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SortingTransactionList.Unmarshal(m, b)
+}
+func (m *SortingTransactionList) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SortingTransactionList.Marshal(b, m, deterministic)
+}
+func (m *SortingTransactionList) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SortingTransactionList.Merge(m, src)
+}
+func (m *SortingTransactionList) XXX_Size() int {
+	return xxx_messageInfo_SortingTransactionList.Size(m)
+}
+func (m *SortingTransactionList) XXX_DiscardUnknown() {
+	xxx_messageInfo_SortingTransactionList.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SortingTransactionList proto.InternalMessageInfo
+
+func (m *SortingTransactionList) GetSortBy() SortTransactionList {
+	if m != nil {
+		return m.SortBy
+	}
+	return SortTransactionList_SORT_TRANSACTION_LIST_UNSPECIFIED
+}
+
+func (m *SortingTransactionList) GetDirection() SortDirection {
+	if m != nil {
+		return m.Direction
+	}
+	return SortDirection_SORT_DIRECTION_UNSPECIFIED
+}
+
+type GetTransactionGroupRequest struct {
+	ApplicationId        string            `protobuf:"bytes,1,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	TimeRange            *TimeFilter       `protobuf:"bytes,2,opt,name=time_range,json=timeRange,proto3" json:"time_range,omitempty"`
+	GroupType            GroupTransaction  `protobuf:"varint,3,opt,name=group_type,json=groupType,proto3,enum=squzy.v1.storage.GroupTransaction" json:"group_type,omitempty"`
+	Type                 TransactionType   `protobuf:"varint,4,opt,name=type,proto3,enum=squzy.v1.monitoring.TransactionType" json:"type,omitempty"`
+	Status               TransactionStatus `protobuf:"varint,5,opt,name=status,proto3,enum=squzy.v1.monitoring.TransactionStatus" json:"status,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
+	XXX_sizecache        int32             `json:"-"`
+}
+
+func (m *GetTransactionGroupRequest) Reset()         { *m = GetTransactionGroupRequest{} }
+func (m *GetTransactionGroupRequest) String() string { return proto.CompactTextString(m) }
+func (*GetTransactionGroupRequest) ProtoMessage()    {}
+func (*GetTransactionGroupRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{9}
+}
+
+func (m *GetTransactionGroupRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetTransactionGroupRequest.Unmarshal(m, b)
+}
+func (m *GetTransactionGroupRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetTransactionGroupRequest.Marshal(b, m, deterministic)
+}
+func (m *GetTransactionGroupRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetTransactionGroupRequest.Merge(m, src)
+}
+func (m *GetTransactionGroupRequest) XXX_Size() int {
+	return xxx_messageInfo_GetTransactionGroupRequest.Size(m)
+}
+func (m *GetTransactionGroupRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetTransactionGroupRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetTransactionGroupRequest proto.InternalMessageInfo
+
+func (m *GetTransactionGroupRequest) GetApplicationId() string {
+	if m != nil {
+		return m.ApplicationId
+	}
+	return ""
+}
+
+func (m *GetTransactionGroupRequest) GetTimeRange() *TimeFilter {
+	if m != nil {
+		return m.TimeRange
+	}
+	return nil
+}
+
+func (m *GetTransactionGroupRequest) GetGroupType() GroupTransaction {
+	if m != nil {
+		return m.GroupType
+	}
+	return GroupTransaction_GROUP_TRANSACTION_UNSPECIFIED
+}
+
+func (m *GetTransactionGroupRequest) GetType() TransactionType {
+	if m != nil {
+		return m.Type
+	}
+	return TransactionType_TRANSACTION_TYPE_UNSPECIFIED
+}
+
+func (m *GetTransactionGroupRequest) GetStatus() TransactionStatus {
+	if m != nil {
+		return m.Status
+	}
+	return TransactionStatus_TRANSACTION_CODE_UNSPECIFIED
+}
+
+type TransactionGroup struct {
+	Count                int64    `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"`
+	AverageTime          float64  `protobuf:"fixed64,2,opt,name=average_time,json=averageTime,proto3" json:"average_time,omitempty"`
+	SuccessRatio         float64  `protobuf:"fixed64,3,opt,name=success_ratio,json=successRatio,proto3" json:"success_ratio,omitempty"`
+	MinTime              float64  `protobuf:"fixed64,4,opt,name=min_time,json=minTime,proto3" json:"min_time,omitempty"`
+	MaxTime              float64  `protobuf:"fixed64,5,opt,name=max_time,json=maxTime,proto3" json:"max_time,omitempty"`
+	Throughput           float64  `protobuf:"fixed64,6,opt,name=throughput,proto3" json:"throughput,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *TransactionGroup) Reset()         { *m = TransactionGroup{} }
+func (m *TransactionGroup) String() string { return proto.CompactTextString(m) }
+func (*TransactionGroup) ProtoMessage()    {}
+func (*TransactionGroup) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{10}
+}
+
+func (m *TransactionGroup) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TransactionGroup.Unmarshal(m, b)
+}
+func (m *TransactionGroup) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TransactionGroup.Marshal(b, m, deterministic)
+}
+func (m *TransactionGroup) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TransactionGroup.Merge(m, src)
+}
+func (m *TransactionGroup) XXX_Size() int {
+	return xxx_messageInfo_TransactionGroup.Size(m)
+}
+func (m *TransactionGroup) XXX_DiscardUnknown() {
+	xxx_messageInfo_TransactionGroup.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TransactionGroup proto.InternalMessageInfo
+
+func (m *TransactionGroup) GetCount() int64 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
+func (m *TransactionGroup) GetAverageTime() float64 {
+	if m != nil {
+		return m.AverageTime
+	}
+	return 0
+}
+
+func (m *TransactionGroup) GetSuccessRatio() float64 {
+	if m != nil {
+		return m.SuccessRatio
+	}
+	return 0
+}
+
+func (m *TransactionGroup) GetMinTime() float64 {
+	if m != nil {
+		return m.MinTime
+	}
+	return 0
+}
+
+func (m *TransactionGroup) GetMaxTime() float64 {
+	if m != nil {
+		return m.MaxTime
+	}
+	return 0
+}
+
+func (m *TransactionGroup) GetThroughput() float64 {
+	if m != nil {
+		return m.Throughput
+	}
+	return 0
+}
+
+type GetTransactionGroupResponse struct {
+	Transactions         map[string]*TransactionGroup `protobuf:"bytes,1,rep,name=transactions,proto3" json:"transactions,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}                     `json:"-"`
+	XXX_unrecognized     []byte                       `json:"-"`
+	XXX_sizecache        int32                        `json:"-"`
+}
+
+func (m *GetTransactionGroupResponse) Reset()         { *m = GetTransactionGroupResponse{} }
+func (m *GetTransactionGroupResponse) String() string { return proto.CompactTextString(m) }
+func (*GetTransactionGroupResponse) ProtoMessage()    {}
+func (*GetTransactionGroupResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{11}
+}
+
+func (m *GetTransactionGroupResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetTransactionGroupResponse.Unmarshal(m, b)
+}
+func (m *GetTransactionGroupResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetTransactionGroupResponse.Marshal(b, m, deterministic)
+}
+func (m *GetTransactionGroupResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetTransactionGroupResponse.Merge(m, src)
+}
+func (m *GetTransactionGroupResponse) XXX_Size() int {
+	return xxx_messageInfo_GetTransactionGroupResponse.Size(m)
+}
+func (m *GetTransactionGroupResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetTransactionGroupResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetTransactionGroupResponse proto.InternalMessageInfo
+
+func (m *GetTransactionGroupResponse) GetTransactions() map[string]*TransactionGroup {
+	if m != nil {
+		return m.Transactions
+	}
+	return nil
 }
 
 type SchedulerResponse struct {
@@ -104,7 +917,7 @@ func (m *SchedulerResponse) Reset()         { *m = SchedulerResponse{} }
 func (m *SchedulerResponse) String() string { return proto.CompactTextString(m) }
 func (*SchedulerResponse) ProtoMessage()    {}
 func (*SchedulerResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{0}
+	return fileDescriptor_4c3bbf174c8621b4, []int{12}
 }
 
 func (m *SchedulerResponse) XXX_Unmarshal(b []byte) error {
@@ -153,7 +966,7 @@ func (m *SchedulerSnapshot) Reset()         { *m = SchedulerSnapshot{} }
 func (m *SchedulerSnapshot) String() string { return proto.CompactTextString(m) }
 func (*SchedulerSnapshot) ProtoMessage()    {}
 func (*SchedulerSnapshot) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{1}
+	return fileDescriptor_4c3bbf174c8621b4, []int{13}
 }
 
 func (m *SchedulerSnapshot) XXX_Unmarshal(b []byte) error {
@@ -213,7 +1026,7 @@ func (m *SchedulerSnapshot_Error) Reset()         { *m = SchedulerSnapshot_Error
 func (m *SchedulerSnapshot_Error) String() string { return proto.CompactTextString(m) }
 func (*SchedulerSnapshot_Error) ProtoMessage()    {}
 func (*SchedulerSnapshot_Error) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{1, 0}
+	return fileDescriptor_4c3bbf174c8621b4, []int{13, 0}
 }
 
 func (m *SchedulerSnapshot_Error) XXX_Unmarshal(b []byte) error {
@@ -254,7 +1067,7 @@ func (m *SchedulerSnapshot_MetaData) Reset()         { *m = SchedulerSnapshot_Me
 func (m *SchedulerSnapshot_MetaData) String() string { return proto.CompactTextString(m) }
 func (*SchedulerSnapshot_MetaData) ProtoMessage()    {}
 func (*SchedulerSnapshot_MetaData) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{1, 1}
+	return fileDescriptor_4c3bbf174c8621b4, []int{13, 1}
 }
 
 func (m *SchedulerSnapshot_MetaData) XXX_Unmarshal(b []byte) error {
@@ -308,7 +1121,7 @@ func (m *TimeFilter) Reset()         { *m = TimeFilter{} }
 func (m *TimeFilter) String() string { return proto.CompactTextString(m) }
 func (*TimeFilter) ProtoMessage()    {}
 func (*TimeFilter) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{2}
+	return fileDescriptor_4c3bbf174c8621b4, []int{14}
 }
 
 func (m *TimeFilter) XXX_Unmarshal(b []byte) error {
@@ -355,7 +1168,7 @@ func (m *Pagination) Reset()         { *m = Pagination{} }
 func (m *Pagination) String() string { return proto.CompactTextString(m) }
 func (*Pagination) ProtoMessage()    {}
 func (*Pagination) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{3}
+	return fileDescriptor_4c3bbf174c8621b4, []int{15}
 }
 
 func (m *Pagination) XXX_Unmarshal(b []byte) error {
@@ -390,20 +1203,69 @@ func (m *Pagination) GetLimit() int32 {
 	return 0
 }
 
+type SortingSchedulerList struct {
+	SortBy               SortSchedulerList `protobuf:"varint,1,opt,name=sort_by,json=sortBy,proto3,enum=squzy.v1.storage.SortSchedulerList" json:"sort_by,omitempty"`
+	Direction            SortDirection     `protobuf:"varint,2,opt,name=direction,proto3,enum=squzy.v1.storage.SortDirection" json:"direction,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
+	XXX_sizecache        int32             `json:"-"`
+}
+
+func (m *SortingSchedulerList) Reset()         { *m = SortingSchedulerList{} }
+func (m *SortingSchedulerList) String() string { return proto.CompactTextString(m) }
+func (*SortingSchedulerList) ProtoMessage()    {}
+func (*SortingSchedulerList) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4c3bbf174c8621b4, []int{16}
+}
+
+func (m *SortingSchedulerList) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SortingSchedulerList.Unmarshal(m, b)
+}
+func (m *SortingSchedulerList) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SortingSchedulerList.Marshal(b, m, deterministic)
+}
+func (m *SortingSchedulerList) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SortingSchedulerList.Merge(m, src)
+}
+func (m *SortingSchedulerList) XXX_Size() int {
+	return xxx_messageInfo_SortingSchedulerList.Size(m)
+}
+func (m *SortingSchedulerList) XXX_DiscardUnknown() {
+	xxx_messageInfo_SortingSchedulerList.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SortingSchedulerList proto.InternalMessageInfo
+
+func (m *SortingSchedulerList) GetSortBy() SortSchedulerList {
+	if m != nil {
+		return m.SortBy
+	}
+	return SortSchedulerList_SORT_SCHEDULER_LIST_UNSPECIFIED
+}
+
+func (m *SortingSchedulerList) GetDirection() SortDirection {
+	if m != nil {
+		return m.Direction
+	}
+	return SortDirection_SORT_DIRECTION_UNSPECIFIED
+}
+
 type GetSchedulerInformationRequest struct {
-	SchedulerId          string      `protobuf:"bytes,1,opt,name=scheduler_id,json=schedulerId,proto3" json:"scheduler_id,omitempty"`
-	Pagination           *Pagination `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
-	TimeRange            *TimeFilter `protobuf:"bytes,3,opt,name=time_range,json=timeRange,proto3" json:"time_range,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
-	XXX_unrecognized     []byte      `json:"-"`
-	XXX_sizecache        int32       `json:"-"`
+	SchedulerId          string                `protobuf:"bytes,1,opt,name=scheduler_id,json=schedulerId,proto3" json:"scheduler_id,omitempty"`
+	Pagination           *Pagination           `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	TimeRange            *TimeFilter           `protobuf:"bytes,3,opt,name=time_range,json=timeRange,proto3" json:"time_range,omitempty"`
+	Sort                 *SortingSchedulerList `protobuf:"bytes,4,opt,name=sort,proto3" json:"sort,omitempty"`
+	Status               SchedulerCode         `protobuf:"varint,5,opt,name=status,proto3,enum=squzy.v1.storage.SchedulerCode" json:"status,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
+	XXX_unrecognized     []byte                `json:"-"`
+	XXX_sizecache        int32                 `json:"-"`
 }
 
 func (m *GetSchedulerInformationRequest) Reset()         { *m = GetSchedulerInformationRequest{} }
 func (m *GetSchedulerInformationRequest) String() string { return proto.CompactTextString(m) }
 func (*GetSchedulerInformationRequest) ProtoMessage()    {}
 func (*GetSchedulerInformationRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{4}
+	return fileDescriptor_4c3bbf174c8621b4, []int{17}
 }
 
 func (m *GetSchedulerInformationRequest) XXX_Unmarshal(b []byte) error {
@@ -445,6 +1307,20 @@ func (m *GetSchedulerInformationRequest) GetTimeRange() *TimeFilter {
 	return nil
 }
 
+func (m *GetSchedulerInformationRequest) GetSort() *SortingSchedulerList {
+	if m != nil {
+		return m.Sort
+	}
+	return nil
+}
+
+func (m *GetSchedulerInformationRequest) GetStatus() SchedulerCode {
+	if m != nil {
+		return m.Status
+	}
+	return SchedulerCode_SCHEDULER_CODE_UNSPECIFIED
+}
+
 type GetSchedulerInformationResponse struct {
 	Snapshots            []*SchedulerSnapshot `protobuf:"bytes,1,rep,name=snapshots,proto3" json:"snapshots,omitempty"`
 	Count                int32                `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
@@ -457,7 +1333,7 @@ func (m *GetSchedulerInformationResponse) Reset()         { *m = GetSchedulerInf
 func (m *GetSchedulerInformationResponse) String() string { return proto.CompactTextString(m) }
 func (*GetSchedulerInformationResponse) ProtoMessage()    {}
 func (*GetSchedulerInformationResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{5}
+	return fileDescriptor_4c3bbf174c8621b4, []int{18}
 }
 
 func (m *GetSchedulerInformationResponse) XXX_Unmarshal(b []byte) error {
@@ -506,7 +1382,7 @@ func (m *GetAgentInformationRequest) Reset()         { *m = GetAgentInformationR
 func (m *GetAgentInformationRequest) String() string { return proto.CompactTextString(m) }
 func (*GetAgentInformationRequest) ProtoMessage()    {}
 func (*GetAgentInformationRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{6}
+	return fileDescriptor_4c3bbf174c8621b4, []int{19}
 }
 
 func (m *GetAgentInformationRequest) XXX_Unmarshal(b []byte) error {
@@ -567,7 +1443,7 @@ func (m *GetAgentInformationResponse) Reset()         { *m = GetAgentInformation
 func (m *GetAgentInformationResponse) String() string { return proto.CompactTextString(m) }
 func (*GetAgentInformationResponse) ProtoMessage()    {}
 func (*GetAgentInformationResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{7}
+	return fileDescriptor_4c3bbf174c8621b4, []int{20}
 }
 
 func (m *GetAgentInformationResponse) XXX_Unmarshal(b []byte) error {
@@ -617,7 +1493,7 @@ func (m *GetAgentInformationResponse_Statistic) Reset()         { *m = GetAgentI
 func (m *GetAgentInformationResponse_Statistic) String() string { return proto.CompactTextString(m) }
 func (*GetAgentInformationResponse_Statistic) ProtoMessage()    {}
 func (*GetAgentInformationResponse_Statistic) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4c3bbf174c8621b4, []int{7, 0}
+	return fileDescriptor_4c3bbf174c8621b4, []int{20, 0}
 }
 
 func (m *GetAgentInformationResponse_Statistic) XXX_Unmarshal(b []byte) error {
@@ -674,14 +1550,32 @@ func (m *GetAgentInformationResponse_Statistic) GetNetInfo() *NetInfo {
 }
 
 func init() {
+	proto.RegisterEnum("squzy.v1.storage.SortTransactionList", SortTransactionList_name, SortTransactionList_value)
+	proto.RegisterEnum("squzy.v1.storage.SortDirection", SortDirection_name, SortDirection_value)
+	proto.RegisterEnum("squzy.v1.storage.SortSchedulerList", SortSchedulerList_name, SortSchedulerList_value)
+	proto.RegisterEnum("squzy.v1.storage.GroupTransaction", GroupTransaction_name, GroupTransaction_value)
 	proto.RegisterEnum("squzy.v1.storage.TypeAgentStat", TypeAgentStat_name, TypeAgentStat_value)
 	proto.RegisterEnum("squzy.v1.storage.SchedulerCode", SchedulerCode_name, SchedulerCode_value)
+	proto.RegisterType((*GetSchedulerUptimeRequest)(nil), "squzy.v1.storage.GetSchedulerUptimeRequest")
+	proto.RegisterType((*GetSchedulerUptimeResponse)(nil), "squzy.v1.storage.GetSchedulerUptimeResponse")
+	proto.RegisterType((*GetTransactionByIdResponse)(nil), "squzy.v1.storage.GetTransactionByIdResponse")
+	proto.RegisterType((*GetTransactionByNameRequest)(nil), "squzy.v1.storage.GetTransactionByNameRequest")
+	proto.RegisterType((*GetTransactionByNameResponse)(nil), "squzy.v1.storage.GetTransactionByNameResponse")
+	proto.RegisterType((*GetTransactionByIdRequest)(nil), "squzy.v1.storage.GetTransactionByIdRequest")
+	proto.RegisterType((*GetTransactionsResponse)(nil), "squzy.v1.storage.GetTransactionsResponse")
+	proto.RegisterType((*GetTransactionsRequest)(nil), "squzy.v1.storage.GetTransactionsRequest")
+	proto.RegisterType((*SortingTransactionList)(nil), "squzy.v1.storage.SortingTransactionList")
+	proto.RegisterType((*GetTransactionGroupRequest)(nil), "squzy.v1.storage.GetTransactionGroupRequest")
+	proto.RegisterType((*TransactionGroup)(nil), "squzy.v1.storage.TransactionGroup")
+	proto.RegisterType((*GetTransactionGroupResponse)(nil), "squzy.v1.storage.GetTransactionGroupResponse")
+	proto.RegisterMapType((map[string]*TransactionGroup)(nil), "squzy.v1.storage.GetTransactionGroupResponse.TransactionsEntry")
 	proto.RegisterType((*SchedulerResponse)(nil), "squzy.v1.storage.SchedulerResponse")
 	proto.RegisterType((*SchedulerSnapshot)(nil), "squzy.v1.storage.SchedulerSnapshot")
 	proto.RegisterType((*SchedulerSnapshot_Error)(nil), "squzy.v1.storage.SchedulerSnapshot.Error")
 	proto.RegisterType((*SchedulerSnapshot_MetaData)(nil), "squzy.v1.storage.SchedulerSnapshot.MetaData")
 	proto.RegisterType((*TimeFilter)(nil), "squzy.v1.storage.TimeFilter")
 	proto.RegisterType((*Pagination)(nil), "squzy.v1.storage.Pagination")
+	proto.RegisterType((*SortingSchedulerList)(nil), "squzy.v1.storage.SortingSchedulerList")
 	proto.RegisterType((*GetSchedulerInformationRequest)(nil), "squzy.v1.storage.GetSchedulerInformationRequest")
 	proto.RegisterType((*GetSchedulerInformationResponse)(nil), "squzy.v1.storage.GetSchedulerInformationResponse")
 	proto.RegisterType((*GetAgentInformationRequest)(nil), "squzy.v1.storage.GetAgentInformationRequest")
@@ -692,67 +1586,124 @@ func init() {
 func init() { proto.RegisterFile("proto/v1/squzy_storage.proto", fileDescriptor_4c3bbf174c8621b4) }
 
 var fileDescriptor_4c3bbf174c8621b4 = []byte{
-	// 951 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x56, 0xd1, 0x6e, 0xdb, 0x36,
-	0x14, 0x9d, 0x2d, 0x2b, 0xb6, 0xaf, 0xd7, 0xc1, 0xe3, 0xb6, 0xd6, 0x55, 0x83, 0x26, 0xf1, 0x5e,
-	0xba, 0x20, 0x53, 0x16, 0x17, 0xed, 0x30, 0x74, 0x40, 0xe7, 0xda, 0x4a, 0x66, 0x34, 0x4e, 0x02,
-	0xca, 0x19, 0xd6, 0xbd, 0x08, 0x8a, 0xc5, 0x38, 0x42, 0x2d, 0x51, 0x25, 0xe9, 0x0c, 0xee, 0xc3,
-	0x7e, 0x63, 0x2f, 0x7b, 0xd8, 0xf3, 0x3e, 0x62, 0x3f, 0xb1, 0x8f, 0xd8, 0x6f, 0x0c, 0x24, 0x25,
-	0x39, 0xb1, 0x9d, 0xcc, 0x41, 0xdf, 0x48, 0xde, 0x73, 0x2e, 0x2f, 0x0f, 0xef, 0xa1, 0x04, 0xeb,
-	0x09, 0xa3, 0x82, 0xee, 0x5e, 0xee, 0xed, 0xf2, 0x77, 0x93, 0xf7, 0x53, 0x8f, 0x0b, 0xca, 0xfc,
-	0x11, 0xb1, 0xd5, 0x32, 0xaa, 0xab, 0x45, 0xfb, 0x72, 0xcf, 0x4e, 0xd7, 0xad, 0x47, 0x23, 0x4a,
-	0x47, 0x63, 0xb2, 0xab, 0xe2, 0x67, 0x93, 0xf3, 0x5d, 0x12, 0x25, 0x62, 0xaa, 0xe1, 0xd6, 0xfa,
-	0x7c, 0x90, 0x0b, 0x36, 0x19, 0x8a, 0x34, 0xba, 0x31, 0x1f, 0x15, 0x61, 0x44, 0xb8, 0xf0, 0xa3,
-	0x24, 0x05, 0x6c, 0xcd, 0xd5, 0xe2, 0x8f, 0x48, 0x2c, 0x3c, 0x4e, 0xd8, 0x25, 0x61, 0x59, 0x8e,
-	0x39, 0x48, 0x44, 0xe3, 0x50, 0x50, 0x16, 0xc6, 0x23, 0x0d, 0x68, 0xfe, 0x0a, 0x9f, 0xba, 0xc3,
-	0x0b, 0x12, 0x4c, 0xc6, 0x84, 0x61, 0xc2, 0x13, 0x1a, 0x73, 0x82, 0xb6, 0xe0, 0x63, 0x9e, 0x2d,
-	0x7a, 0x61, 0xd0, 0x28, 0x6c, 0x16, 0x9e, 0x54, 0x71, 0x2d, 0x5f, 0xeb, 0x05, 0xe8, 0x25, 0x54,
-	0x78, 0xec, 0x27, 0xfc, 0x82, 0x8a, 0x46, 0x71, 0xb3, 0xf0, 0xa4, 0xd6, 0xfa, 0xd2, 0x9e, 0x3f,
-	0xbc, 0x9d, 0x67, 0x76, 0x53, 0x28, 0xce, 0x49, 0xcd, 0x7f, 0x8c, 0x2b, 0x3b, 0x67, 0x71, 0xf4,
-	0x14, 0x4a, 0x43, 0x1a, 0x10, 0x95, 0xf2, 0x93, 0xd6, 0xc6, 0x2d, 0x29, 0x3b, 0x34, 0x20, 0x58,
-	0x81, 0xd1, 0x73, 0x28, 0x89, 0x69, 0x42, 0x1a, 0x86, 0x22, 0x35, 0x67, 0xa4, 0x2b, 0xa7, 0xcd,
-	0x79, 0x83, 0x69, 0x42, 0xb0, 0xc2, 0xa3, 0x97, 0x60, 0x12, 0xc6, 0x28, 0x6b, 0x94, 0xd4, 0x01,
-	0xbe, 0x5a, 0xe1, 0x00, 0xb6, 0x23, 0x09, 0x58, 0xf3, 0xd0, 0x0f, 0x50, 0x8a, 0x88, 0xf0, 0x1b,
-	0xa6, 0xe2, 0xef, 0xac, 0xc2, 0xef, 0x13, 0xe1, 0x77, 0x7d, 0xe1, 0x63, 0xc5, 0xb4, 0xb6, 0xc0,
-	0x54, 0x19, 0x51, 0x03, 0xca, 0x11, 0xe1, 0xdc, 0x1f, 0x91, 0x54, 0xed, 0x6c, 0x6a, 0xfd, 0x55,
-	0x80, 0x4a, 0xc6, 0x42, 0xdf, 0x01, 0x70, 0xe1, 0x33, 0xe1, 0xc9, 0x5e, 0x50, 0xc8, 0x5a, 0xcb,
-	0xb2, 0x75, 0xa3, 0xd8, 0x59, 0xa3, 0xd8, 0x83, 0xac, 0x51, 0x70, 0x55, 0xa1, 0xe5, 0x1c, 0x3d,
-	0x83, 0x0a, 0x89, 0x03, 0x4d, 0x2c, 0xfe, 0x2f, 0xb1, 0x4c, 0xe2, 0x40, 0xd1, 0x76, 0xc0, 0xbc,
-	0xf4, 0xc7, 0x13, 0xad, 0x6e, 0xad, 0x75, 0x7f, 0x81, 0xf3, 0x93, 0x8c, 0x62, 0x0d, 0x6a, 0x5e,
-	0x00, 0x48, 0xd6, 0x7e, 0x38, 0x16, 0x84, 0x21, 0x1b, 0x4a, 0xe7, 0x8c, 0x46, 0x2b, 0xd4, 0xa9,
-	0x70, 0x68, 0x1b, 0x8a, 0x82, 0xae, 0x50, 0x5c, 0x51, 0xd0, 0xe6, 0x73, 0x80, 0x13, 0x7f, 0x14,
-	0xc6, 0xbe, 0x08, 0x69, 0x8c, 0x10, 0x94, 0x92, 0x4c, 0x3b, 0x13, 0xab, 0x31, 0xfa, 0x1c, 0xcc,
-	0x71, 0x18, 0x85, 0xba, 0x3f, 0x4d, 0xac, 0x27, 0xcd, 0xbf, 0x0b, 0xf0, 0xf8, 0x80, 0x88, 0xfc,
-	0x66, 0x7a, 0xf1, 0x39, 0x65, 0x91, 0xca, 0x82, 0xc9, 0xbb, 0x09, 0xe1, 0x62, 0x95, 0xf6, 0xff,
-	0x1e, 0x20, 0xc9, 0x77, 0x4f, 0x2b, 0x5e, 0x5f, 0xbc, 0xff, 0x59, 0x85, 0xf8, 0x0a, 0x1e, 0xbd,
-	0x00, 0x90, 0xd7, 0xe0, 0x31, 0x3f, 0x1e, 0x65, 0xc2, 0x2e, 0x61, 0xcf, 0x94, 0xc4, 0x55, 0x89,
-	0xc7, 0x12, 0xde, 0x7c, 0x0f, 0x1b, 0x37, 0xd6, 0x9f, 0xfa, 0xb7, 0x0d, 0xd5, 0xcc, 0x67, 0xbc,
-	0x51, 0xd8, 0x34, 0x56, 0x75, 0xe7, 0x8c, 0x25, 0xc5, 0x1b, 0xd2, 0x49, 0x9c, 0x8b, 0xa7, 0x26,
-	0xcd, 0x7f, 0x0b, 0x60, 0x1d, 0x10, 0xd1, 0x96, 0x0f, 0xcd, 0x12, 0xe1, 0x1e, 0x42, 0x45, 0xbf,
-	0x41, 0xb9, 0x68, 0x65, 0x35, 0xef, 0x05, 0xd2, 0xd8, 0xca, 0xa3, 0x37, 0x1a, 0x5b, 0xfa, 0x52,
-	0xe5, 0x75, 0x85, 0x2f, 0x52, 0x83, 0x5e, 0x57, 0xd9, 0xf8, 0x20, 0x95, 0x4b, 0x77, 0x53, 0xf9,
-	0x0f, 0x03, 0x1e, 0x2d, 0x3d, 0x69, 0x2a, 0x71, 0x1f, 0x4c, 0x2e, 0xfc, 0x5c, 0xde, 0x6f, 0x17,
-	0xf3, 0xde, 0xc2, 0xb6, 0xe5, 0x19, 0x43, 0x2e, 0xc2, 0x21, 0xd6, 0x59, 0x96, 0xcb, 0x6d, 0xfd,
-	0x5e, 0x84, 0x6a, 0x0e, 0x95, 0x6e, 0x5a, 0xd1, 0xf5, 0x0a, 0x87, 0x5a, 0x50, 0x19, 0x26, 0x13,
-	0x2f, 0x8c, 0xcf, 0x33, 0x4f, 0x3d, 0x98, 0x55, 0xa9, 0xee, 0xc5, 0xee, 0x24, 0x13, 0x59, 0x1e,
-	0x2e, 0x0f, 0xf5, 0x00, 0xbd, 0x80, 0x5a, 0x44, 0x22, 0xca, 0xa6, 0x9a, 0x66, 0xa4, 0x5b, 0xcd,
-	0xd1, 0xfa, 0x0a, 0xa2, 0x98, 0x10, 0xe5, 0x63, 0xf4, 0x0c, 0xaa, 0x41, 0xc8, 0xdf, 0x6a, 0xaa,
-	0xd6, 0xbb, 0x31, 0x4f, 0xed, 0x86, 0xfc, 0xad, 0x22, 0x56, 0x82, 0x74, 0x24, 0xeb, 0x8c, 0x89,
-	0xd0, 0x2c, 0x73, 0x79, 0x9d, 0x47, 0x44, 0xe8, 0x3a, 0x63, 0x3d, 0xd8, 0x3e, 0x83, 0x7b, 0xd7,
-	0x1a, 0x06, 0x6d, 0xc2, 0x7a, 0xfb, 0xc0, 0x39, 0x1a, 0x78, 0xee, 0xa0, 0x3d, 0x70, 0xbd, 0xc1,
-	0x9b, 0x13, 0xc7, 0x3b, 0x3d, 0x72, 0x4f, 0x9c, 0x4e, 0x6f, 0xbf, 0xe7, 0x74, 0xeb, 0x1f, 0xa1,
-	0x32, 0x18, 0xed, 0xc3, 0xc3, 0x7a, 0x41, 0x0e, 0x3a, 0x27, 0xa7, 0xf5, 0x22, 0xaa, 0x40, 0xa9,
-	0xdb, 0x73, 0x5f, 0xd7, 0x0d, 0x04, 0xb0, 0xd6, 0x77, 0xfa, 0xc7, 0xf8, 0x4d, 0xbd, 0x24, 0xc3,
-	0x47, 0xce, 0xa0, 0x6e, 0x6e, 0xbf, 0x82, 0x7b, 0xd7, 0xbe, 0x36, 0xe8, 0x31, 0x58, 0x6e, 0xe7,
-	0x47, 0xa7, 0x7b, 0x7a, 0xe8, 0x60, 0xaf, 0x73, 0xdc, 0x9d, 0xdf, 0x61, 0x0d, 0x8a, 0xc7, 0xaf,
-	0xeb, 0x05, 0x54, 0x05, 0xd3, 0xc1, 0xf8, 0x18, 0xd7, 0x8b, 0xad, 0x3f, 0x0d, 0x28, 0xbb, 0xba,
-	0x21, 0xd0, 0xcf, 0xf0, 0xd0, 0x25, 0x71, 0x90, 0x35, 0xc1, 0x3e, 0xa3, 0x51, 0x9e, 0x1f, 0xdd,
-	0xe6, 0xcf, 0x8c, 0x61, 0x2d, 0x3e, 0xbe, 0x8e, 0xfc, 0x9b, 0x40, 0x07, 0xf0, 0xc5, 0x7c, 0x66,
-	0xa5, 0x0c, 0xba, 0xbf, 0x78, 0x73, 0x82, 0x85, 0xc3, 0x1b, 0x13, 0xfd, 0x06, 0x0f, 0x6e, 0x78,
-	0x5b, 0xd0, 0x37, 0x4b, 0x3b, 0xfc, 0x96, 0x67, 0xd4, 0xda, 0xbb, 0x03, 0x23, 0x75, 0x15, 0x83,
-	0xcf, 0x96, 0xd8, 0x06, 0xed, 0xac, 0xe8, 0x2e, 0xbd, 0xef, 0xd7, 0x77, 0xf2, 0xe2, 0x2b, 0xf3,
-	0x17, 0xc3, 0x4f, 0xc2, 0xb3, 0x35, 0x25, 0xc5, 0xd3, 0xff, 0x02, 0x00, 0x00, 0xff, 0xff, 0xf5,
-	0xbc, 0xbd, 0x46, 0xe1, 0x09, 0x00, 0x00,
+	// 1864 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xc4, 0x58, 0xcd, 0x72, 0x1b, 0xc7,
+	0x11, 0xce, 0xe2, 0x87, 0x00, 0x1a, 0x24, 0xb5, 0x1a, 0x2b, 0x14, 0x08, 0xd1, 0x92, 0x08, 0x45,
+	0x2e, 0x89, 0x66, 0x20, 0x8b, 0x8e, 0x6d, 0xc5, 0x56, 0x2c, 0xe3, 0x4f, 0x24, 0xca, 0x24, 0xc0,
+	0x9a, 0x05, 0x53, 0x61, 0x2e, 0xa8, 0x15, 0x30, 0x04, 0xb6, 0x84, 0xfd, 0xf1, 0xee, 0x80, 0x16,
+	0x9c, 0x2a, 0x1f, 0xf3, 0x02, 0x39, 0xf8, 0x92, 0x73, 0x0e, 0x39, 0xa5, 0x2a, 0xe7, 0xe4, 0x98,
+	0x17, 0xc8, 0x43, 0xa4, 0x2a, 0x4f, 0x91, 0x9a, 0x9f, 0x5d, 0x2c, 0x16, 0x0b, 0x6a, 0x59, 0x4e,
+	0x59, 0xb7, 0xdd, 0xe9, 0xfe, 0xba, 0x7b, 0xba, 0x7b, 0xba, 0x7b, 0x06, 0x76, 0x1c, 0xd7, 0xa6,
+	0xf6, 0x93, 0xcb, 0xa7, 0x4f, 0xbc, 0x6f, 0xa6, 0xdf, 0xcd, 0xfa, 0x1e, 0xb5, 0x5d, 0x7d, 0x44,
+	0xaa, 0x7c, 0x19, 0xa9, 0x7c, 0xb1, 0x7a, 0xf9, 0xb4, 0x2a, 0xd7, 0xcb, 0x77, 0x46, 0xb6, 0x3d,
+	0x9a, 0x90, 0x27, 0x9c, 0xfe, 0x6a, 0x7a, 0xf1, 0x84, 0x98, 0x0e, 0x9d, 0x09, 0xf6, 0xf2, 0x4e,
+	0x94, 0xe8, 0x51, 0x77, 0x3a, 0xa0, 0x92, 0x7a, 0x2f, 0x4a, 0xa5, 0x86, 0x49, 0x3c, 0xaa, 0x9b,
+	0x8e, 0x64, 0xb8, 0x1b, 0x65, 0xf8, 0xd6, 0xd5, 0x1d, 0x87, 0xb8, 0x9e, 0xa4, 0xef, 0x46, 0x6c,
+	0xd5, 0x47, 0xc4, 0xa2, 0x7d, 0x8f, 0xb8, 0x97, 0xc4, 0x95, 0x2c, 0x1f, 0x46, 0x59, 0x1c, 0x67,
+	0x62, 0x0c, 0x74, 0x6a, 0xd8, 0x56, 0xdf, 0xb4, 0x2d, 0x83, 0xda, 0xae, 0x61, 0x8d, 0x7c, 0x83,
+	0x22, 0xcc, 0x51, 0x86, 0xca, 0x1f, 0x60, 0xfb, 0x90, 0x50, 0x6d, 0x30, 0x26, 0xc3, 0xe9, 0x84,
+	0xb8, 0x67, 0x0e, 0xb3, 0x18, 0x93, 0x6f, 0xa6, 0xc4, 0xa3, 0x68, 0x17, 0xd6, 0x3d, 0x9f, 0xd2,
+	0x37, 0x86, 0x25, 0xe5, 0xbe, 0xf2, 0xa8, 0x80, 0x8b, 0xc1, 0x5a, 0x7b, 0x88, 0xbe, 0x00, 0x60,
+	0x88, 0xbe, 0xab, 0x5b, 0x23, 0x52, 0x4a, 0xdd, 0x57, 0x1e, 0x15, 0x0f, 0x76, 0xaa, 0x51, 0x9f,
+	0x56, 0x7b, 0x86, 0x49, 0x5e, 0x1a, 0x13, 0x4a, 0x5c, 0x5c, 0xe0, 0x1a, 0x18, 0x7b, 0xa5, 0x03,
+	0xe5, 0x38, 0xe5, 0x9e, 0x63, 0x5b, 0x1e, 0x41, 0x5b, 0xb0, 0x36, 0xe5, 0x2b, 0x5c, 0xaf, 0x82,
+	0xe5, 0x1f, 0x2a, 0x41, 0x6e, 0xa2, 0x53, 0x62, 0x0d, 0x66, 0x5c, 0x9f, 0x82, 0xfd, 0xdf, 0xca,
+	0x5f, 0x14, 0x2e, 0xb0, 0xe7, 0xea, 0x96, 0xa7, 0x0f, 0x98, 0x47, 0xea, 0xb3, 0xf6, 0x30, 0x10,
+	0xf8, 0x12, 0x8a, 0x74, 0x4e, 0xe2, 0x52, 0x8b, 0x07, 0xbf, 0x98, 0x1b, 0x1b, 0x72, 0x4e, 0x48,
+	0x44, 0xdb, 0xba, 0xb0, 0x71, 0x18, 0x88, 0xbe, 0x82, 0xfc, 0x60, 0x6c, 0x4c, 0x86, 0x2e, 0xb1,
+	0x4a, 0xa9, 0xfb, 0xe9, 0xc4, 0x42, 0x02, 0x54, 0xe5, 0xbf, 0x0a, 0xdc, 0x89, 0x1a, 0xda, 0xd1,
+	0xe7, 0x8e, 0x7f, 0x08, 0x9b, 0xe1, 0xb0, 0x06, 0xae, 0xdf, 0x08, 0xad, 0xb6, 0x87, 0xe8, 0x31,
+	0xa8, 0x21, 0xbb, 0xfa, 0x96, 0x6e, 0x8a, 0x10, 0x14, 0xf0, 0x8d, 0xd0, 0x3a, 0x13, 0x8c, 0x9e,
+	0x03, 0x38, 0xfa, 0xc8, 0xb0, 0x38, 0xb4, 0x94, 0x5e, 0x15, 0xa7, 0xd3, 0x80, 0x07, 0x87, 0xf8,
+	0x23, 0x51, 0xce, 0x5c, 0x2f, 0xca, 0xdf, 0xc3, 0x4e, 0xfc, 0x5e, 0x65, 0x58, 0x6e, 0x41, 0x76,
+	0x60, 0x4f, 0x2d, 0xca, 0xf7, 0x98, 0xc6, 0xe2, 0x07, 0x1d, 0xc1, 0x7a, 0x68, 0x0f, 0xde, 0xb5,
+	0x1c, 0xbd, 0x80, 0xac, 0xd4, 0x79, 0x8a, 0x2f, 0x25, 0x45, 0xe0, 0xe9, 0xb0, 0x0b, 0xe7, 0x9e,
+	0x0e, 0xad, 0xb6, 0x87, 0x95, 0x19, 0xdc, 0x5e, 0x94, 0xe1, 0xfd, 0x64, 0xe6, 0xff, 0x33, 0x03,
+	0x5b, 0x4b, 0xba, 0xaf, 0x95, 0x26, 0x8b, 0xb1, 0x4f, 0xfd, 0xa8, 0xd8, 0xa7, 0xaf, 0x15, 0x7b,
+	0xf4, 0x0c, 0x32, 0x74, 0xe6, 0x88, 0x94, 0xd9, 0x7c, 0xfb, 0xf6, 0x7b, 0x33, 0x87, 0x60, 0x8e,
+	0x40, 0x5f, 0xc2, 0x9a, 0x47, 0x75, 0x3a, 0xf5, 0x4a, 0x59, 0x8e, 0xfd, 0xe0, 0x6d, 0x58, 0x8d,
+	0x73, 0x63, 0x89, 0x42, 0x1f, 0x41, 0x66, 0x6c, 0x7b, 0xb4, 0xb4, 0x26, 0x0d, 0x16, 0x85, 0xb7,
+	0xea, 0x17, 0xde, 0xaa, 0x46, 0x99, 0x80, 0xdf, 0xea, 0x93, 0x29, 0xc1, 0x9c, 0x93, 0x21, 0xf8,
+	0x09, 0xca, 0x25, 0x41, 0x30, 0x4e, 0x86, 0x70, 0x74, 0x3a, 0x2e, 0xe5, 0x93, 0x20, 0x18, 0x27,
+	0xfa, 0x15, 0xac, 0x99, 0x84, 0x8e, 0xed, 0x61, 0xa9, 0x90, 0x00, 0x23, 0x79, 0xd1, 0x73, 0xc8,
+	0x78, 0xb6, 0x4b, 0x4b, 0xc0, 0x31, 0x8f, 0x96, 0x9d, 0xaf, 0xd9, 0x2e, 0x35, 0xac, 0x51, 0xc8,
+	0x1b, 0xc7, 0x86, 0x47, 0x31, 0x47, 0x55, 0x7e, 0x50, 0x60, 0x2b, 0x9e, 0x01, 0x7d, 0x09, 0x39,
+	0xc6, 0xd2, 0x7f, 0x35, 0xe3, 0x99, 0xb3, 0x79, 0xf0, 0x30, 0x5e, 0x76, 0x54, 0xf0, 0x1a, 0x43,
+	0xd5, 0x67, 0xe8, 0x37, 0x50, 0x18, 0x1a, 0x2e, 0x19, 0x04, 0x89, 0xb5, 0x79, 0x70, 0x2f, 0x5e,
+	0x42, 0xd3, 0x67, 0xc3, 0x73, 0x44, 0xe5, 0x1f, 0xa9, 0x68, 0xbd, 0x3e, 0x74, 0xed, 0xa9, 0x73,
+	0xcd, 0xf4, 0xfe, 0x31, 0x2d, 0x08, 0xd5, 0x00, 0x46, 0x4c, 0x67, 0x9f, 0xa7, 0x69, 0x9a, 0x6f,
+	0xa1, 0xb2, 0x0c, 0xe6, 0x76, 0x85, 0xec, 0xc4, 0x05, 0x8e, 0x62, 0xf9, 0xfa, 0xee, 0x72, 0xbc,
+	0xf2, 0x2f, 0x05, 0xd4, 0xa8, 0xf3, 0x56, 0xd4, 0xa3, 0x5d, 0x58, 0xd7, 0x2f, 0x09, 0xdb, 0x4b,
+	0x9f, 0xb7, 0x54, 0xd1, 0x39, 0x8b, 0x72, 0x8d, 0xf9, 0x06, 0x3d, 0x80, 0x0d, 0x6f, 0x3a, 0x18,
+	0x10, 0xcf, 0xeb, 0xbb, 0xcc, 0xb7, 0xdc, 0x1b, 0x0a, 0x5e, 0x97, 0x8b, 0x98, 0xad, 0xa1, 0x6d,
+	0xc8, 0x9b, 0x86, 0x25, 0x64, 0x64, 0x44, 0xf7, 0x35, 0x0d, 0x8b, 0xe3, 0x19, 0x49, 0x7f, 0x23,
+	0x48, 0x59, 0x49, 0xd2, 0xdf, 0x70, 0xd2, 0x5d, 0x00, 0x3a, 0x76, 0xed, 0xe9, 0x68, 0xec, 0x4c,
+	0xc5, 0x91, 0x54, 0x70, 0x68, 0xa5, 0xf2, 0x9f, 0xa5, 0x7e, 0x28, 0x13, 0x41, 0xd6, 0xd8, 0x41,
+	0xa4, 0x9a, 0x2a, 0xbc, 0x9a, 0xbe, 0x88, 0x89, 0xd3, 0x6a, 0x21, 0x61, 0x3f, 0x7a, 0x2d, 0x8b,
+	0xba, 0xb3, 0xc5, 0x42, 0x5b, 0x1e, 0xc0, 0xcd, 0x25, 0x16, 0xa4, 0x42, 0xfa, 0x35, 0x99, 0xc9,
+	0xc4, 0x63, 0x9f, 0xe8, 0x19, 0x64, 0x2f, 0xd9, 0xe9, 0x94, 0x99, 0x16, 0x93, 0x2c, 0x4b, 0x16,
+	0x08, 0xc0, 0xe7, 0xa9, 0x67, 0x4a, 0xe5, 0x5b, 0xb8, 0x19, 0xcc, 0x3b, 0xc1, 0xf6, 0x12, 0xcc,
+	0x59, 0x2f, 0x20, 0xef, 0x59, 0xba, 0xe3, 0x8d, 0x6d, 0x2a, 0x15, 0x3f, 0x88, 0x39, 0x68, 0x3e,
+	0x40, 0x93, 0xac, 0x38, 0x00, 0x55, 0xfe, 0x9d, 0x0e, 0x69, 0xf6, 0xe9, 0xe8, 0x63, 0xc8, 0x0c,
+	0xec, 0x21, 0xb9, 0xe2, 0xec, 0xfa, 0x90, 0x86, 0x3d, 0x24, 0x98, 0x33, 0xa3, 0x4f, 0x65, 0xc2,
+	0x2f, 0x9d, 0x96, 0x50, 0xd2, 0x06, 0xb8, 0x50, 0xba, 0xbf, 0x80, 0x2c, 0x71, 0x5d, 0xdb, 0x95,
+	0x03, 0xc4, 0xe3, 0x04, 0x1b, 0xa8, 0xb6, 0x18, 0x00, 0x0b, 0x1c, 0xfa, 0x0a, 0x32, 0x26, 0xa1,
+	0x3a, 0xcf, 0xae, 0xe2, 0xc1, 0x7e, 0x12, 0xfc, 0x09, 0xa1, 0x7a, 0x53, 0xa7, 0x3a, 0xe6, 0xc8,
+	0xf2, 0x2e, 0x64, 0xb9, 0x44, 0x36, 0x44, 0x9a, 0xc4, 0xf3, 0xf4, 0x11, 0x91, 0xde, 0xf6, 0x7f,
+	0xcb, 0x7f, 0x55, 0x20, 0xef, 0xa3, 0xd0, 0xaf, 0x01, 0x3c, 0xaa, 0xbb, 0xb4, 0x1f, 0xcc, 0xa1,
+	0xc5, 0x83, 0xf2, 0x52, 0xcd, 0xee, 0xf9, 0x53, 0x3e, 0x2e, 0x70, 0x6e, 0x9e, 0xf3, 0x9f, 0x40,
+	0x9e, 0x58, 0xc3, 0xf9, 0x69, 0xbb, 0x1a, 0x98, 0x23, 0xd6, 0x90, 0xc3, 0xf6, 0xfd, 0xf4, 0x12,
+	0x9d, 0x76, 0x6b, 0x09, 0x23, 0x5a, 0x83, 0x60, 0xaa, 0x8c, 0x01, 0xe6, 0x75, 0x0d, 0x55, 0x21,
+	0x73, 0xe1, 0xda, 0x66, 0x02, 0x3b, 0x39, 0x1f, 0xda, 0x83, 0x14, 0xb5, 0x13, 0x18, 0x97, 0xa2,
+	0x76, 0xe5, 0x53, 0x80, 0xf9, 0x80, 0x80, 0x10, 0xeb, 0x7c, 0xd2, 0x77, 0x59, 0xcc, 0xbf, 0x59,
+	0xe1, 0x99, 0x18, 0xa6, 0x21, 0xf2, 0x33, 0x8b, 0xc5, 0x4f, 0xe5, 0x4f, 0x0a, 0xdc, 0x92, 0xdd,
+	0x27, 0x88, 0x0e, 0xef, 0x3d, 0xcf, 0xa3, 0xbd, 0xe7, 0x41, 0x7c, 0xe7, 0x58, 0x40, 0xfd, 0xbf,
+	0x3a, 0xcf, 0xdf, 0x53, 0x70, 0x37, 0x7c, 0xf5, 0x60, 0x73, 0x97, 0x6b, 0x8a, 0xe1, 0x27, 0xf9,
+	0xe5, 0xe7, 0x1d, 0x0e, 0x56, 0x9f, 0xcb, 0x91, 0x40, 0x1c, 0xa5, 0x0f, 0x56, 0x8e, 0x04, 0x8b,
+	0xde, 0xe3, 0x18, 0xf4, 0x59, 0xa4, 0xed, 0xbc, 0xf5, 0xd8, 0xfb, 0xfd, 0xe6, 0x3b, 0xb8, 0xb7,
+	0xd2, 0x69, 0xb2, 0x94, 0xd5, 0xa0, 0xe0, 0x97, 0x1c, 0xbf, 0x4c, 0x27, 0x2a, 0x54, 0x73, 0xd4,
+	0xbc, 0x81, 0xc9, 0x3c, 0xe2, 0x3f, 0xac, 0x45, 0xb0, 0x59, 0xa1, 0xc6, 0x2e, 0xc4, 0x31, 0xd1,
+	0xda, 0x86, 0xbc, 0xb8, 0x2b, 0x07, 0x91, 0xca, 0xf1, 0xff, 0xf6, 0x90, 0xd5, 0x38, 0x5e, 0xae,
+	0x56, 0x66, 0x09, 0x2b, 0x51, 0x5c, 0x2e, 0x6b, 0xaf, 0xb2, 0x56, 0xbd, 0xc3, 0xfb, 0xd2, 0x9f,
+	0xd3, 0xbc, 0x19, 0x2e, 0xef, 0x54, 0xba, 0xf8, 0x04, 0xb2, 0x2c, 0x1e, 0xbe, 0x7b, 0x3f, 0x8b,
+	0xed, 0x82, 0xab, 0xd0, 0x55, 0xb6, 0x47, 0xc3, 0xa3, 0xc6, 0x00, 0x0b, 0x29, 0xf1, 0xee, 0x2e,
+	0xff, 0x90, 0x82, 0x42, 0xc0, 0xca, 0x0a, 0x4b, 0xc2, 0x02, 0xc8, 0xf9, 0xd0, 0x01, 0xe4, 0x07,
+	0xce, 0xb4, 0x6f, 0x58, 0x17, 0x7e, 0x79, 0xb9, 0x3d, 0xb7, 0x92, 0xc7, 0xa5, 0xda, 0x70, 0xa6,
+	0xfc, 0xb2, 0x93, 0x1b, 0x88, 0x0f, 0xf4, 0x05, 0x14, 0x4d, 0x62, 0xda, 0xee, 0x4c, 0xc0, 0xd2,
+	0x52, 0x55, 0x04, 0x76, 0xc2, 0x59, 0x38, 0x12, 0xcc, 0xe0, 0x1b, 0x7d, 0xc2, 0xca, 0x81, 0xf7,
+	0x5a, 0x40, 0x85, 0xbf, 0x4b, 0x51, 0x68, 0xd3, 0xf0, 0x5e, 0x8b, 0x7b, 0xf8, 0x50, 0x7e, 0x31,
+	0x3b, 0x2d, 0x42, 0x05, 0x2a, 0x1b, 0x6f, 0x67, 0x87, 0x50, 0x61, 0xa7, 0x25, 0x3e, 0xf6, 0xfe,
+	0xa8, 0xc0, 0x7b, 0x31, 0x33, 0x31, 0x7a, 0x08, 0xbb, 0x5a, 0x17, 0xf7, 0xfa, 0x3d, 0x5c, 0xeb,
+	0x68, 0xb5, 0x46, 0xaf, 0xdd, 0xed, 0xf4, 0x8f, 0xdb, 0x5a, 0xaf, 0x7f, 0xd6, 0xd1, 0x4e, 0x5b,
+	0x8d, 0xf6, 0xcb, 0x76, 0xab, 0xa9, 0xfe, 0x0c, 0xad, 0x43, 0xbe, 0x79, 0x86, 0x6b, 0x8c, 0xac,
+	0x2a, 0xe8, 0x7d, 0xd8, 0xae, 0x9f, 0x2f, 0x40, 0xb4, 0x5e, 0x8d, 0x09, 0x69, 0x9f, 0xb4, 0xd4,
+	0x14, 0xba, 0x03, 0xb7, 0x23, 0xe4, 0x56, 0xa7, 0x29, 0x88, 0xe9, 0xbd, 0x3a, 0x6c, 0x2c, 0xd4,
+	0x37, 0x74, 0x17, 0xca, 0xdc, 0x82, 0x66, 0x1b, 0xb7, 0x04, 0xf7, 0xa2, 0xea, 0x1c, 0xa4, 0x6b,
+	0x5a, 0x43, 0x55, 0x50, 0x1e, 0x32, 0xcd, 0x96, 0xd6, 0x50, 0x53, 0x7b, 0x13, 0xb8, 0xb9, 0x54,
+	0x63, 0xd1, 0x03, 0xb8, 0xc7, 0xe5, 0x68, 0x8d, 0xa3, 0x56, 0xf3, 0xec, 0xb8, 0x85, 0xe3, 0xf6,
+	0x71, 0x13, 0x36, 0xea, 0xe7, 0x61, 0x6b, 0x15, 0x74, 0x03, 0x8a, 0xf5, 0xf3, 0xb9, 0x85, 0x29,
+	0xb4, 0x09, 0x50, 0x3f, 0xef, 0x1f, 0xd7, 0x7a, 0xad, 0x4e, 0xe3, 0x5c, 0x4d, 0xef, 0xbd, 0x01,
+	0x35, 0x3a, 0x48, 0xa3, 0x5d, 0x78, 0xff, 0x10, 0x77, 0xcf, 0x4e, 0x17, 0x76, 0xb9, 0xa8, 0xaa,
+	0x08, 0x39, 0xe6, 0x85, 0xf3, 0x53, 0xa6, 0x44, 0xfc, 0x74, 0x6a, 0x5c, 0xc1, 0x06, 0x14, 0xea,
+	0xe7, 0xfd, 0x93, 0x56, 0xef, 0xa8, 0xdb, 0x54, 0xd3, 0x92, 0x76, 0xd4, 0xd5, 0x7a, 0x6a, 0x46,
+	0xfe, 0x9c, 0xd6, 0x7a, 0x47, 0x6a, 0x76, 0xef, 0x15, 0x6c, 0x2c, 0x9c, 0x72, 0x74, 0x1f, 0x76,
+	0x6a, 0x87, 0xad, 0x4e, 0x8f, 0xed, 0xa0, 0xa7, 0x71, 0xe1, 0x31, 0xde, 0x3a, 0x3e, 0x56, 0x15,
+	0xf6, 0xd1, 0x38, 0x3d, 0x53, 0x53, 0xdc, 0x6d, 0x6d, 0xed, 0x6b, 0x35, 0x8d, 0x00, 0xd6, 0x4e,
+	0x5a, 0x27, 0x5d, 0x7c, 0xae, 0x66, 0x18, 0xb9, 0xd3, 0xea, 0xa9, 0x59, 0x1e, 0x8f, 0x70, 0xd9,
+	0xe4, 0xf1, 0x08, 0x5c, 0xd8, 0xe8, 0x36, 0xa3, 0x1a, 0xd6, 0x20, 0xd5, 0xfd, 0x5a, 0x55, 0x50,
+	0x01, 0xb2, 0x2d, 0x8c, 0xbb, 0x58, 0x4d, 0x1d, 0xfc, 0x2d, 0x07, 0x39, 0x4d, 0x9c, 0x62, 0xf4,
+	0x3b, 0xd8, 0xd6, 0xf4, 0xcb, 0xe0, 0x9d, 0xe4, 0xa5, 0x6b, 0x9b, 0x81, 0x7c, 0x74, 0x55, 0x51,
+	0xf5, 0x11, 0xe5, 0xe5, 0xe1, 0xa1, 0x65, 0x3a, 0x74, 0x86, 0x0e, 0xe1, 0xe7, 0x51, 0xc9, 0xdc,
+	0x33, 0x68, 0x6b, 0xf9, 0xb8, 0x51, 0xd7, 0x18, 0xac, 0x14, 0xd4, 0x85, 0x1b, 0x4c, 0x50, 0x38,
+	0x9e, 0x89, 0x9e, 0x38, 0x56, 0x0a, 0xfc, 0x9e, 0xbf, 0xb3, 0xc4, 0x75, 0x18, 0xf4, 0x51, 0x6c,
+	0x9d, 0xbb, 0xa2, 0x83, 0x97, 0x9f, 0x5e, 0x03, 0x21, 0x6b, 0xab, 0x0d, 0x68, 0xf9, 0x45, 0x12,
+	0x7d, 0x78, 0xb5, 0xa0, 0x85, 0x47, 0xd3, 0xf2, 0x7e, 0x32, 0x66, 0xa9, 0xd0, 0x85, 0xf7, 0x62,
+	0xaa, 0x35, 0xda, 0x4f, 0x58, 0xd4, 0x85, 0xca, 0x5f, 0x5e, 0xab, 0x05, 0x20, 0x0f, 0x6e, 0x45,
+	0x1e, 0x94, 0xc4, 0xcd, 0x71, 0x3f, 0xe1, 0x7d, 0xea, 0x2a, 0xa5, 0x2b, 0xaf, 0x70, 0x17, 0x70,
+	0x23, 0xa2, 0x14, 0x3d, 0x7a, 0x9b, 0x04, 0xff, 0xa1, 0xab, 0xfc, 0x38, 0x01, 0xe7, 0x42, 0x04,
+	0x23, 0xaf, 0x7d, 0x2b, 0x22, 0x18, 0xff, 0x26, 0x58, 0xde, 0x4f, 0xc6, 0x2c, 0x14, 0xd6, 0xb3,
+	0xbf, 0x4f, 0xeb, 0x8e, 0xf1, 0x6a, 0x8d, 0x67, 0xf2, 0xc7, 0xff, 0x0b, 0x00, 0x00, 0xff, 0xff,
+	0xcc, 0xb4, 0x55, 0x16, 0x6e, 0x18, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -769,16 +1720,28 @@ const _ = grpc.SupportPackageIsVersion4
 type StorageClient interface {
 	//To save info about checkers
 	// protolint:disable:next MAX_LINE_LENGTH
-	SendResponseFromScheduler(ctx context.Context, in *SchedulerResponse, opts ...grpc.CallOption) (*empty.Empty, error)
+	SaveResponseFromScheduler(ctx context.Context, in *SchedulerResponse, opts ...grpc.CallOption) (*empty.Empty, error)
 	//To save info about agent
 	// protolint:disable:next MAX_LINE_LENGTH
-	SendResponseFromAgent(ctx context.Context, in *Metric, opts ...grpc.CallOption) (*empty.Empty, error)
-	//To send info about checkers
+	SaveResponseFromAgent(ctx context.Context, in *Metric, opts ...grpc.CallOption) (*empty.Empty, error)
+	// Save information from application monitoring
+	// protolint:disable:next MAX_LINE_LENGTH
+	SaveTransaction(ctx context.Context, in *TransactionInfo, opts ...grpc.CallOption) (*empty.Empty, error)
 	// protolint:disable:next MAX_LINE_LENGTH
 	GetSchedulerInformation(ctx context.Context, in *GetSchedulerInformationRequest, opts ...grpc.CallOption) (*GetSchedulerInformationResponse, error)
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetSchedulerUptime(ctx context.Context, in *GetSchedulerUptimeRequest, opts ...grpc.CallOption) (*GetSchedulerUptimeResponse, error)
 	//To send info about about agent
 	// protolint:disable:next MAX_LINE_LENGTH
 	GetAgentInformation(ctx context.Context, in *GetAgentInformationRequest, opts ...grpc.CallOption) (*GetAgentInformationResponse, error)
+	// Return grouped transactions via group
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetTransactionsGroup(ctx context.Context, in *GetTransactionGroupRequest, opts ...grpc.CallOption) (*GetTransactionGroupResponse, error)
+	// Returns list of transaction via filter
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetTransactions(ctx context.Context, in *GetTransactionsRequest, opts ...grpc.CallOption) (*GetTransactionsResponse, error)
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetTransactionById(ctx context.Context, in *GetTransactionByIdRequest, opts ...grpc.CallOption) (*GetTransactionByIdResponse, error)
 }
 
 type storageClient struct {
@@ -789,18 +1752,27 @@ func NewStorageClient(cc *grpc.ClientConn) StorageClient {
 	return &storageClient{cc}
 }
 
-func (c *storageClient) SendResponseFromScheduler(ctx context.Context, in *SchedulerResponse, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *storageClient) SaveResponseFromScheduler(ctx context.Context, in *SchedulerResponse, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/squzy.v1.storage.Storage/SendResponseFromScheduler", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/squzy.v1.storage.Storage/SaveResponseFromScheduler", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *storageClient) SendResponseFromAgent(ctx context.Context, in *Metric, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *storageClient) SaveResponseFromAgent(ctx context.Context, in *Metric, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/squzy.v1.storage.Storage/SendResponseFromAgent", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/squzy.v1.storage.Storage/SaveResponseFromAgent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageClient) SaveTransaction(ctx context.Context, in *TransactionInfo, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/squzy.v1.storage.Storage/SaveTransaction", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -816,9 +1788,45 @@ func (c *storageClient) GetSchedulerInformation(ctx context.Context, in *GetSche
 	return out, nil
 }
 
+func (c *storageClient) GetSchedulerUptime(ctx context.Context, in *GetSchedulerUptimeRequest, opts ...grpc.CallOption) (*GetSchedulerUptimeResponse, error) {
+	out := new(GetSchedulerUptimeResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.storage.Storage/GetSchedulerUptime", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *storageClient) GetAgentInformation(ctx context.Context, in *GetAgentInformationRequest, opts ...grpc.CallOption) (*GetAgentInformationResponse, error) {
 	out := new(GetAgentInformationResponse)
 	err := c.cc.Invoke(ctx, "/squzy.v1.storage.Storage/GetAgentInformation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageClient) GetTransactionsGroup(ctx context.Context, in *GetTransactionGroupRequest, opts ...grpc.CallOption) (*GetTransactionGroupResponse, error) {
+	out := new(GetTransactionGroupResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.storage.Storage/GetTransactionsGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageClient) GetTransactions(ctx context.Context, in *GetTransactionsRequest, opts ...grpc.CallOption) (*GetTransactionsResponse, error) {
+	out := new(GetTransactionsResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.storage.Storage/GetTransactions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *storageClient) GetTransactionById(ctx context.Context, in *GetTransactionByIdRequest, opts ...grpc.CallOption) (*GetTransactionByIdResponse, error) {
+	out := new(GetTransactionByIdResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.storage.Storage/GetTransactionById", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -829,71 +1837,116 @@ func (c *storageClient) GetAgentInformation(ctx context.Context, in *GetAgentInf
 type StorageServer interface {
 	//To save info about checkers
 	// protolint:disable:next MAX_LINE_LENGTH
-	SendResponseFromScheduler(context.Context, *SchedulerResponse) (*empty.Empty, error)
+	SaveResponseFromScheduler(context.Context, *SchedulerResponse) (*empty.Empty, error)
 	//To save info about agent
 	// protolint:disable:next MAX_LINE_LENGTH
-	SendResponseFromAgent(context.Context, *Metric) (*empty.Empty, error)
-	//To send info about checkers
+	SaveResponseFromAgent(context.Context, *Metric) (*empty.Empty, error)
+	// Save information from application monitoring
+	// protolint:disable:next MAX_LINE_LENGTH
+	SaveTransaction(context.Context, *TransactionInfo) (*empty.Empty, error)
 	// protolint:disable:next MAX_LINE_LENGTH
 	GetSchedulerInformation(context.Context, *GetSchedulerInformationRequest) (*GetSchedulerInformationResponse, error)
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetSchedulerUptime(context.Context, *GetSchedulerUptimeRequest) (*GetSchedulerUptimeResponse, error)
 	//To send info about about agent
 	// protolint:disable:next MAX_LINE_LENGTH
 	GetAgentInformation(context.Context, *GetAgentInformationRequest) (*GetAgentInformationResponse, error)
+	// Return grouped transactions via group
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetTransactionsGroup(context.Context, *GetTransactionGroupRequest) (*GetTransactionGroupResponse, error)
+	// Returns list of transaction via filter
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetTransactions(context.Context, *GetTransactionsRequest) (*GetTransactionsResponse, error)
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetTransactionById(context.Context, *GetTransactionByIdRequest) (*GetTransactionByIdResponse, error)
 }
 
 // UnimplementedStorageServer can be embedded to have forward compatible implementations.
 type UnimplementedStorageServer struct {
 }
 
-func (*UnimplementedStorageServer) SendResponseFromScheduler(ctx context.Context, req *SchedulerResponse) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SendResponseFromScheduler not implemented")
+func (*UnimplementedStorageServer) SaveResponseFromScheduler(ctx context.Context, req *SchedulerResponse) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SaveResponseFromScheduler not implemented")
 }
-func (*UnimplementedStorageServer) SendResponseFromAgent(ctx context.Context, req *Metric) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SendResponseFromAgent not implemented")
+func (*UnimplementedStorageServer) SaveResponseFromAgent(ctx context.Context, req *Metric) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SaveResponseFromAgent not implemented")
+}
+func (*UnimplementedStorageServer) SaveTransaction(ctx context.Context, req *TransactionInfo) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SaveTransaction not implemented")
 }
 func (*UnimplementedStorageServer) GetSchedulerInformation(ctx context.Context, req *GetSchedulerInformationRequest) (*GetSchedulerInformationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSchedulerInformation not implemented")
 }
+func (*UnimplementedStorageServer) GetSchedulerUptime(ctx context.Context, req *GetSchedulerUptimeRequest) (*GetSchedulerUptimeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSchedulerUptime not implemented")
+}
 func (*UnimplementedStorageServer) GetAgentInformation(ctx context.Context, req *GetAgentInformationRequest) (*GetAgentInformationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAgentInformation not implemented")
+}
+func (*UnimplementedStorageServer) GetTransactionsGroup(ctx context.Context, req *GetTransactionGroupRequest) (*GetTransactionGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionsGroup not implemented")
+}
+func (*UnimplementedStorageServer) GetTransactions(ctx context.Context, req *GetTransactionsRequest) (*GetTransactionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransactions not implemented")
+}
+func (*UnimplementedStorageServer) GetTransactionById(ctx context.Context, req *GetTransactionByIdRequest) (*GetTransactionByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionById not implemented")
 }
 
 func RegisterStorageServer(s *grpc.Server, srv StorageServer) {
 	s.RegisterService(&_Storage_serviceDesc, srv)
 }
 
-func _Storage_SendResponseFromScheduler_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Storage_SaveResponseFromScheduler_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SchedulerResponse)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StorageServer).SendResponseFromScheduler(ctx, in)
+		return srv.(StorageServer).SaveResponseFromScheduler(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/squzy.v1.storage.Storage/SendResponseFromScheduler",
+		FullMethod: "/squzy.v1.storage.Storage/SaveResponseFromScheduler",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StorageServer).SendResponseFromScheduler(ctx, req.(*SchedulerResponse))
+		return srv.(StorageServer).SaveResponseFromScheduler(ctx, req.(*SchedulerResponse))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Storage_SendResponseFromAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Storage_SaveResponseFromAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Metric)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StorageServer).SendResponseFromAgent(ctx, in)
+		return srv.(StorageServer).SaveResponseFromAgent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/squzy.v1.storage.Storage/SendResponseFromAgent",
+		FullMethod: "/squzy.v1.storage.Storage/SaveResponseFromAgent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StorageServer).SendResponseFromAgent(ctx, req.(*Metric))
+		return srv.(StorageServer).SaveResponseFromAgent(ctx, req.(*Metric))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Storage_SaveTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TransactionInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).SaveTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.storage.Storage/SaveTransaction",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).SaveTransaction(ctx, req.(*TransactionInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -916,6 +1969,24 @@ func _Storage_GetSchedulerInformation_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Storage_GetSchedulerUptime_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSchedulerUptimeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).GetSchedulerUptime(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.storage.Storage/GetSchedulerUptime",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).GetSchedulerUptime(ctx, req.(*GetSchedulerUptimeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Storage_GetAgentInformation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetAgentInformationRequest)
 	if err := dec(in); err != nil {
@@ -934,25 +2005,99 @@ func _Storage_GetAgentInformation_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Storage_GetTransactionsGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).GetTransactionsGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.storage.Storage/GetTransactionsGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).GetTransactionsGroup(ctx, req.(*GetTransactionGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Storage_GetTransactions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).GetTransactions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.storage.Storage/GetTransactions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).GetTransactions(ctx, req.(*GetTransactionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Storage_GetTransactionById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StorageServer).GetTransactionById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.storage.Storage/GetTransactionById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StorageServer).GetTransactionById(ctx, req.(*GetTransactionByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Storage_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "squzy.v1.storage.Storage",
 	HandlerType: (*StorageServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SendResponseFromScheduler",
-			Handler:    _Storage_SendResponseFromScheduler_Handler,
+			MethodName: "SaveResponseFromScheduler",
+			Handler:    _Storage_SaveResponseFromScheduler_Handler,
 		},
 		{
-			MethodName: "SendResponseFromAgent",
-			Handler:    _Storage_SendResponseFromAgent_Handler,
+			MethodName: "SaveResponseFromAgent",
+			Handler:    _Storage_SaveResponseFromAgent_Handler,
+		},
+		{
+			MethodName: "SaveTransaction",
+			Handler:    _Storage_SaveTransaction_Handler,
 		},
 		{
 			MethodName: "GetSchedulerInformation",
 			Handler:    _Storage_GetSchedulerInformation_Handler,
 		},
 		{
+			MethodName: "GetSchedulerUptime",
+			Handler:    _Storage_GetSchedulerUptime_Handler,
+		},
+		{
 			MethodName: "GetAgentInformation",
 			Handler:    _Storage_GetAgentInformation_Handler,
+		},
+		{
+			MethodName: "GetTransactionsGroup",
+			Handler:    _Storage_GetTransactionsGroup_Handler,
+		},
+		{
+			MethodName: "GetTransactions",
+			Handler:    _Storage_GetTransactions_Handler,
+		},
+		{
+			MethodName: "GetTransactionById",
+			Handler:    _Storage_GetTransactionById_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
