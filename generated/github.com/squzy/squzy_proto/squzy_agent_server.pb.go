@@ -7,6 +7,10 @@
 package proto
 
 import (
+	context "context"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -1974,4 +1978,299 @@ func file_proto_v1_squzy_agent_server_proto_init() {
 	file_proto_v1_squzy_agent_server_proto_rawDesc = nil
 	file_proto_v1_squzy_agent_server_proto_goTypes = nil
 	file_proto_v1_squzy_agent_server_proto_depIdxs = nil
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConnInterface
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion6
+
+// AgentServerClient is the client API for AgentServer service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type AgentServerClient interface {
+	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
+	GetByAgentName(ctx context.Context, in *GetByAgentNameRequest, opts ...grpc.CallOption) (*GetAgentListResponse, error)
+	GetAgentById(ctx context.Context, in *GetAgentByIdRequest, opts ...grpc.CallOption) (*AgentItem, error)
+	UnRegister(ctx context.Context, in *UnRegisterRequest, opts ...grpc.CallOption) (*UnRegisterResponse, error)
+	GetAgentList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAgentListResponse, error)
+	SendMetrics(ctx context.Context, opts ...grpc.CallOption) (AgentServer_SendMetricsClient, error)
+}
+
+type agentServerClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewAgentServerClient(cc grpc.ClientConnInterface) AgentServerClient {
+	return &agentServerClient{cc}
+}
+
+func (c *agentServerClient) Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
+	out := new(RegisterResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.agent.AgentServer/Register", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *agentServerClient) GetByAgentName(ctx context.Context, in *GetByAgentNameRequest, opts ...grpc.CallOption) (*GetAgentListResponse, error) {
+	out := new(GetAgentListResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.agent.AgentServer/GetByAgentName", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *agentServerClient) GetAgentById(ctx context.Context, in *GetAgentByIdRequest, opts ...grpc.CallOption) (*AgentItem, error) {
+	out := new(AgentItem)
+	err := c.cc.Invoke(ctx, "/squzy.v1.agent.AgentServer/GetAgentById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *agentServerClient) UnRegister(ctx context.Context, in *UnRegisterRequest, opts ...grpc.CallOption) (*UnRegisterResponse, error) {
+	out := new(UnRegisterResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.agent.AgentServer/UnRegister", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *agentServerClient) GetAgentList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAgentListResponse, error) {
+	out := new(GetAgentListResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.agent.AgentServer/GetAgentList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *agentServerClient) SendMetrics(ctx context.Context, opts ...grpc.CallOption) (AgentServer_SendMetricsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_AgentServer_serviceDesc.Streams[0], "/squzy.v1.agent.AgentServer/SendMetrics", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &agentServerSendMetricsClient{stream}
+	return x, nil
+}
+
+type AgentServer_SendMetricsClient interface {
+	Send(*SendMetricsRequest) error
+	CloseAndRecv() (*emptypb.Empty, error)
+	grpc.ClientStream
+}
+
+type agentServerSendMetricsClient struct {
+	grpc.ClientStream
+}
+
+func (x *agentServerSendMetricsClient) Send(m *SendMetricsRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *agentServerSendMetricsClient) CloseAndRecv() (*emptypb.Empty, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(emptypb.Empty)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// AgentServerServer is the server API for AgentServer service.
+type AgentServerServer interface {
+	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
+	GetByAgentName(context.Context, *GetByAgentNameRequest) (*GetAgentListResponse, error)
+	GetAgentById(context.Context, *GetAgentByIdRequest) (*AgentItem, error)
+	UnRegister(context.Context, *UnRegisterRequest) (*UnRegisterResponse, error)
+	GetAgentList(context.Context, *emptypb.Empty) (*GetAgentListResponse, error)
+	SendMetrics(AgentServer_SendMetricsServer) error
+}
+
+// UnimplementedAgentServerServer can be embedded to have forward compatible implementations.
+type UnimplementedAgentServerServer struct {
+}
+
+func (*UnimplementedAgentServerServer) Register(context.Context, *RegisterRequest) (*RegisterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+}
+func (*UnimplementedAgentServerServer) GetByAgentName(context.Context, *GetByAgentNameRequest) (*GetAgentListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByAgentName not implemented")
+}
+func (*UnimplementedAgentServerServer) GetAgentById(context.Context, *GetAgentByIdRequest) (*AgentItem, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAgentById not implemented")
+}
+func (*UnimplementedAgentServerServer) UnRegister(context.Context, *UnRegisterRequest) (*UnRegisterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnRegister not implemented")
+}
+func (*UnimplementedAgentServerServer) GetAgentList(context.Context, *emptypb.Empty) (*GetAgentListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAgentList not implemented")
+}
+func (*UnimplementedAgentServerServer) SendMetrics(AgentServer_SendMetricsServer) error {
+	return status.Errorf(codes.Unimplemented, "method SendMetrics not implemented")
+}
+
+func RegisterAgentServerServer(s *grpc.Server, srv AgentServerServer) {
+	s.RegisterService(&_AgentServer_serviceDesc, srv)
+}
+
+func _AgentServer_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AgentServerServer).Register(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.agent.AgentServer/Register",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AgentServerServer).Register(ctx, req.(*RegisterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AgentServer_GetByAgentName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByAgentNameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AgentServerServer).GetByAgentName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.agent.AgentServer/GetByAgentName",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AgentServerServer).GetByAgentName(ctx, req.(*GetByAgentNameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AgentServer_GetAgentById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAgentByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AgentServerServer).GetAgentById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.agent.AgentServer/GetAgentById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AgentServerServer).GetAgentById(ctx, req.(*GetAgentByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AgentServer_UnRegister_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UnRegisterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AgentServerServer).UnRegister(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.agent.AgentServer/UnRegister",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AgentServerServer).UnRegister(ctx, req.(*UnRegisterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AgentServer_GetAgentList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AgentServerServer).GetAgentList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.agent.AgentServer/GetAgentList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AgentServerServer).GetAgentList(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AgentServer_SendMetrics_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(AgentServerServer).SendMetrics(&agentServerSendMetricsServer{stream})
+}
+
+type AgentServer_SendMetricsServer interface {
+	SendAndClose(*emptypb.Empty) error
+	Recv() (*SendMetricsRequest, error)
+	grpc.ServerStream
+}
+
+type agentServerSendMetricsServer struct {
+	grpc.ServerStream
+}
+
+func (x *agentServerSendMetricsServer) SendAndClose(m *emptypb.Empty) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *agentServerSendMetricsServer) Recv() (*SendMetricsRequest, error) {
+	m := new(SendMetricsRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+var _AgentServer_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "squzy.v1.agent.AgentServer",
+	HandlerType: (*AgentServerServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Register",
+			Handler:    _AgentServer_Register_Handler,
+		},
+		{
+			MethodName: "GetByAgentName",
+			Handler:    _AgentServer_GetByAgentName_Handler,
+		},
+		{
+			MethodName: "GetAgentById",
+			Handler:    _AgentServer_GetAgentById_Handler,
+		},
+		{
+			MethodName: "UnRegister",
+			Handler:    _AgentServer_UnRegister_Handler,
+		},
+		{
+			MethodName: "GetAgentList",
+			Handler:    _AgentServer_GetAgentList_Handler,
+		},
+	},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "SendMetrics",
+			Handler:       _AgentServer_SendMetrics_Handler,
+			ClientStreams: true,
+		},
+	},
+	Metadata: "proto/v1/squzy_agent_server.proto",
 }

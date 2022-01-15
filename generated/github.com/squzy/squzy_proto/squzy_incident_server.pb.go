@@ -7,6 +7,10 @@
 package proto
 
 import (
+	context "context"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -1344,4 +1348,408 @@ func file_proto_v1_squzy_incident_server_proto_init() {
 	file_proto_v1_squzy_incident_server_proto_rawDesc = nil
 	file_proto_v1_squzy_incident_server_proto_goTypes = nil
 	file_proto_v1_squzy_incident_server_proto_depIdxs = nil
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConnInterface
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion6
+
+// IncidentServerClient is the client API for IncidentServer service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type IncidentServerClient interface {
+	CreateRule(ctx context.Context, in *CreateRuleRequest, opts ...grpc.CallOption) (*Rule, error)
+	GetRuleById(ctx context.Context, in *RuleIdRequest, opts ...grpc.CallOption) (*Rule, error)
+	GetRulesByOwnerId(ctx context.Context, in *GetRulesByOwnerIdRequest, opts ...grpc.CallOption) (*Rules, error)
+	RemoveRule(ctx context.Context, in *RuleIdRequest, opts ...grpc.CallOption) (*Rule, error)
+	ValidateRule(ctx context.Context, in *ValidateRuleRequest, opts ...grpc.CallOption) (*ValidateRuleResponse, error)
+	ProcessRecordFromStorage(ctx context.Context, in *StorageRecord, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	CloseIncident(ctx context.Context, in *IncidentIdRequest, opts ...grpc.CallOption) (*Incident, error)
+	ActivateRule(ctx context.Context, in *RuleIdRequest, opts ...grpc.CallOption) (*Rule, error)
+	DeactivateRule(ctx context.Context, in *RuleIdRequest, opts ...grpc.CallOption) (*Rule, error)
+	StudyIncident(ctx context.Context, in *IncidentIdRequest, opts ...grpc.CallOption) (*Incident, error)
+}
+
+type incidentServerClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewIncidentServerClient(cc grpc.ClientConnInterface) IncidentServerClient {
+	return &incidentServerClient{cc}
+}
+
+func (c *incidentServerClient) CreateRule(ctx context.Context, in *CreateRuleRequest, opts ...grpc.CallOption) (*Rule, error) {
+	out := new(Rule)
+	err := c.cc.Invoke(ctx, "/squzy.v1.incident.IncidentServer/CreateRule", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *incidentServerClient) GetRuleById(ctx context.Context, in *RuleIdRequest, opts ...grpc.CallOption) (*Rule, error) {
+	out := new(Rule)
+	err := c.cc.Invoke(ctx, "/squzy.v1.incident.IncidentServer/GetRuleById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *incidentServerClient) GetRulesByOwnerId(ctx context.Context, in *GetRulesByOwnerIdRequest, opts ...grpc.CallOption) (*Rules, error) {
+	out := new(Rules)
+	err := c.cc.Invoke(ctx, "/squzy.v1.incident.IncidentServer/GetRulesByOwnerId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *incidentServerClient) RemoveRule(ctx context.Context, in *RuleIdRequest, opts ...grpc.CallOption) (*Rule, error) {
+	out := new(Rule)
+	err := c.cc.Invoke(ctx, "/squzy.v1.incident.IncidentServer/RemoveRule", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *incidentServerClient) ValidateRule(ctx context.Context, in *ValidateRuleRequest, opts ...grpc.CallOption) (*ValidateRuleResponse, error) {
+	out := new(ValidateRuleResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.incident.IncidentServer/ValidateRule", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *incidentServerClient) ProcessRecordFromStorage(ctx context.Context, in *StorageRecord, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/squzy.v1.incident.IncidentServer/ProcessRecordFromStorage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *incidentServerClient) CloseIncident(ctx context.Context, in *IncidentIdRequest, opts ...grpc.CallOption) (*Incident, error) {
+	out := new(Incident)
+	err := c.cc.Invoke(ctx, "/squzy.v1.incident.IncidentServer/CloseIncident", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *incidentServerClient) ActivateRule(ctx context.Context, in *RuleIdRequest, opts ...grpc.CallOption) (*Rule, error) {
+	out := new(Rule)
+	err := c.cc.Invoke(ctx, "/squzy.v1.incident.IncidentServer/ActivateRule", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *incidentServerClient) DeactivateRule(ctx context.Context, in *RuleIdRequest, opts ...grpc.CallOption) (*Rule, error) {
+	out := new(Rule)
+	err := c.cc.Invoke(ctx, "/squzy.v1.incident.IncidentServer/DeactivateRule", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *incidentServerClient) StudyIncident(ctx context.Context, in *IncidentIdRequest, opts ...grpc.CallOption) (*Incident, error) {
+	out := new(Incident)
+	err := c.cc.Invoke(ctx, "/squzy.v1.incident.IncidentServer/StudyIncident", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// IncidentServerServer is the server API for IncidentServer service.
+type IncidentServerServer interface {
+	CreateRule(context.Context, *CreateRuleRequest) (*Rule, error)
+	GetRuleById(context.Context, *RuleIdRequest) (*Rule, error)
+	GetRulesByOwnerId(context.Context, *GetRulesByOwnerIdRequest) (*Rules, error)
+	RemoveRule(context.Context, *RuleIdRequest) (*Rule, error)
+	ValidateRule(context.Context, *ValidateRuleRequest) (*ValidateRuleResponse, error)
+	ProcessRecordFromStorage(context.Context, *StorageRecord) (*emptypb.Empty, error)
+	CloseIncident(context.Context, *IncidentIdRequest) (*Incident, error)
+	ActivateRule(context.Context, *RuleIdRequest) (*Rule, error)
+	DeactivateRule(context.Context, *RuleIdRequest) (*Rule, error)
+	StudyIncident(context.Context, *IncidentIdRequest) (*Incident, error)
+}
+
+// UnimplementedIncidentServerServer can be embedded to have forward compatible implementations.
+type UnimplementedIncidentServerServer struct {
+}
+
+func (*UnimplementedIncidentServerServer) CreateRule(context.Context, *CreateRuleRequest) (*Rule, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRule not implemented")
+}
+func (*UnimplementedIncidentServerServer) GetRuleById(context.Context, *RuleIdRequest) (*Rule, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRuleById not implemented")
+}
+func (*UnimplementedIncidentServerServer) GetRulesByOwnerId(context.Context, *GetRulesByOwnerIdRequest) (*Rules, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRulesByOwnerId not implemented")
+}
+func (*UnimplementedIncidentServerServer) RemoveRule(context.Context, *RuleIdRequest) (*Rule, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveRule not implemented")
+}
+func (*UnimplementedIncidentServerServer) ValidateRule(context.Context, *ValidateRuleRequest) (*ValidateRuleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValidateRule not implemented")
+}
+func (*UnimplementedIncidentServerServer) ProcessRecordFromStorage(context.Context, *StorageRecord) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProcessRecordFromStorage not implemented")
+}
+func (*UnimplementedIncidentServerServer) CloseIncident(context.Context, *IncidentIdRequest) (*Incident, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CloseIncident not implemented")
+}
+func (*UnimplementedIncidentServerServer) ActivateRule(context.Context, *RuleIdRequest) (*Rule, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ActivateRule not implemented")
+}
+func (*UnimplementedIncidentServerServer) DeactivateRule(context.Context, *RuleIdRequest) (*Rule, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeactivateRule not implemented")
+}
+func (*UnimplementedIncidentServerServer) StudyIncident(context.Context, *IncidentIdRequest) (*Incident, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StudyIncident not implemented")
+}
+
+func RegisterIncidentServerServer(s *grpc.Server, srv IncidentServerServer) {
+	s.RegisterService(&_IncidentServer_serviceDesc, srv)
+}
+
+func _IncidentServer_CreateRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRuleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IncidentServerServer).CreateRule(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.incident.IncidentServer/CreateRule",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IncidentServerServer).CreateRule(ctx, req.(*CreateRuleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IncidentServer_GetRuleById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RuleIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IncidentServerServer).GetRuleById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.incident.IncidentServer/GetRuleById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IncidentServerServer).GetRuleById(ctx, req.(*RuleIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IncidentServer_GetRulesByOwnerId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRulesByOwnerIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IncidentServerServer).GetRulesByOwnerId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.incident.IncidentServer/GetRulesByOwnerId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IncidentServerServer).GetRulesByOwnerId(ctx, req.(*GetRulesByOwnerIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IncidentServer_RemoveRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RuleIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IncidentServerServer).RemoveRule(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.incident.IncidentServer/RemoveRule",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IncidentServerServer).RemoveRule(ctx, req.(*RuleIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IncidentServer_ValidateRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ValidateRuleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IncidentServerServer).ValidateRule(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.incident.IncidentServer/ValidateRule",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IncidentServerServer).ValidateRule(ctx, req.(*ValidateRuleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IncidentServer_ProcessRecordFromStorage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StorageRecord)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IncidentServerServer).ProcessRecordFromStorage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.incident.IncidentServer/ProcessRecordFromStorage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IncidentServerServer).ProcessRecordFromStorage(ctx, req.(*StorageRecord))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IncidentServer_CloseIncident_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IncidentIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IncidentServerServer).CloseIncident(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.incident.IncidentServer/CloseIncident",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IncidentServerServer).CloseIncident(ctx, req.(*IncidentIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IncidentServer_ActivateRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RuleIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IncidentServerServer).ActivateRule(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.incident.IncidentServer/ActivateRule",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IncidentServerServer).ActivateRule(ctx, req.(*RuleIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IncidentServer_DeactivateRule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RuleIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IncidentServerServer).DeactivateRule(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.incident.IncidentServer/DeactivateRule",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IncidentServerServer).DeactivateRule(ctx, req.(*RuleIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _IncidentServer_StudyIncident_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IncidentIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IncidentServerServer).StudyIncident(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.incident.IncidentServer/StudyIncident",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IncidentServerServer).StudyIncident(ctx, req.(*IncidentIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _IncidentServer_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "squzy.v1.incident.IncidentServer",
+	HandlerType: (*IncidentServerServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateRule",
+			Handler:    _IncidentServer_CreateRule_Handler,
+		},
+		{
+			MethodName: "GetRuleById",
+			Handler:    _IncidentServer_GetRuleById_Handler,
+		},
+		{
+			MethodName: "GetRulesByOwnerId",
+			Handler:    _IncidentServer_GetRulesByOwnerId_Handler,
+		},
+		{
+			MethodName: "RemoveRule",
+			Handler:    _IncidentServer_RemoveRule_Handler,
+		},
+		{
+			MethodName: "ValidateRule",
+			Handler:    _IncidentServer_ValidateRule_Handler,
+		},
+		{
+			MethodName: "ProcessRecordFromStorage",
+			Handler:    _IncidentServer_ProcessRecordFromStorage_Handler,
+		},
+		{
+			MethodName: "CloseIncident",
+			Handler:    _IncidentServer_CloseIncident_Handler,
+		},
+		{
+			MethodName: "ActivateRule",
+			Handler:    _IncidentServer_ActivateRule_Handler,
+		},
+		{
+			MethodName: "DeactivateRule",
+			Handler:    _IncidentServer_DeactivateRule_Handler,
+		},
+		{
+			MethodName: "StudyIncident",
+			Handler:    _IncidentServer_StudyIncident_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "proto/v1/squzy_incident_server.proto",
 }

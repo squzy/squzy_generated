@@ -7,6 +7,10 @@
 package proto
 
 import (
+	context "context"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -2342,4 +2346,266 @@ func file_proto_v1_squzy_monitoring_proto_init() {
 	file_proto_v1_squzy_monitoring_proto_rawDesc = nil
 	file_proto_v1_squzy_monitoring_proto_goTypes = nil
 	file_proto_v1_squzy_monitoring_proto_depIdxs = nil
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConnInterface
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion6
+
+// SchedulersExecutorClient is the client API for SchedulersExecutor service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type SchedulersExecutorClient interface {
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetSchedulerList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetSchedulerListResponse, error)
+	GetSchedulerById(ctx context.Context, in *GetSchedulerByIdRequest, opts ...grpc.CallOption) (*Scheduler, error)
+	Add(ctx context.Context, in *AddRequest, opts ...grpc.CallOption) (*AddResponse, error)
+	Remove(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*RemoveResponse, error)
+	Run(ctx context.Context, in *RunRequest, opts ...grpc.CallOption) (*RunResponse, error)
+	Stop(ctx context.Context, in *StopRequest, opts ...grpc.CallOption) (*StopResponse, error)
+}
+
+type schedulersExecutorClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewSchedulersExecutorClient(cc grpc.ClientConnInterface) SchedulersExecutorClient {
+	return &schedulersExecutorClient{cc}
+}
+
+func (c *schedulersExecutorClient) GetSchedulerList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetSchedulerListResponse, error) {
+	out := new(GetSchedulerListResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.monitoring.SchedulersExecutor/GetSchedulerList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *schedulersExecutorClient) GetSchedulerById(ctx context.Context, in *GetSchedulerByIdRequest, opts ...grpc.CallOption) (*Scheduler, error) {
+	out := new(Scheduler)
+	err := c.cc.Invoke(ctx, "/squzy.v1.monitoring.SchedulersExecutor/GetSchedulerById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *schedulersExecutorClient) Add(ctx context.Context, in *AddRequest, opts ...grpc.CallOption) (*AddResponse, error) {
+	out := new(AddResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.monitoring.SchedulersExecutor/Add", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *schedulersExecutorClient) Remove(ctx context.Context, in *RemoveRequest, opts ...grpc.CallOption) (*RemoveResponse, error) {
+	out := new(RemoveResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.monitoring.SchedulersExecutor/Remove", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *schedulersExecutorClient) Run(ctx context.Context, in *RunRequest, opts ...grpc.CallOption) (*RunResponse, error) {
+	out := new(RunResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.monitoring.SchedulersExecutor/Run", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *schedulersExecutorClient) Stop(ctx context.Context, in *StopRequest, opts ...grpc.CallOption) (*StopResponse, error) {
+	out := new(StopResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.monitoring.SchedulersExecutor/Stop", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// SchedulersExecutorServer is the server API for SchedulersExecutor service.
+type SchedulersExecutorServer interface {
+	// protolint:disable:next MAX_LINE_LENGTH
+	GetSchedulerList(context.Context, *emptypb.Empty) (*GetSchedulerListResponse, error)
+	GetSchedulerById(context.Context, *GetSchedulerByIdRequest) (*Scheduler, error)
+	Add(context.Context, *AddRequest) (*AddResponse, error)
+	Remove(context.Context, *RemoveRequest) (*RemoveResponse, error)
+	Run(context.Context, *RunRequest) (*RunResponse, error)
+	Stop(context.Context, *StopRequest) (*StopResponse, error)
+}
+
+// UnimplementedSchedulersExecutorServer can be embedded to have forward compatible implementations.
+type UnimplementedSchedulersExecutorServer struct {
+}
+
+func (*UnimplementedSchedulersExecutorServer) GetSchedulerList(context.Context, *emptypb.Empty) (*GetSchedulerListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSchedulerList not implemented")
+}
+func (*UnimplementedSchedulersExecutorServer) GetSchedulerById(context.Context, *GetSchedulerByIdRequest) (*Scheduler, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSchedulerById not implemented")
+}
+func (*UnimplementedSchedulersExecutorServer) Add(context.Context, *AddRequest) (*AddResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Add not implemented")
+}
+func (*UnimplementedSchedulersExecutorServer) Remove(context.Context, *RemoveRequest) (*RemoveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Remove not implemented")
+}
+func (*UnimplementedSchedulersExecutorServer) Run(context.Context, *RunRequest) (*RunResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Run not implemented")
+}
+func (*UnimplementedSchedulersExecutorServer) Stop(context.Context, *StopRequest) (*StopResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Stop not implemented")
+}
+
+func RegisterSchedulersExecutorServer(s *grpc.Server, srv SchedulersExecutorServer) {
+	s.RegisterService(&_SchedulersExecutor_serviceDesc, srv)
+}
+
+func _SchedulersExecutor_GetSchedulerList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SchedulersExecutorServer).GetSchedulerList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.monitoring.SchedulersExecutor/GetSchedulerList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SchedulersExecutorServer).GetSchedulerList(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SchedulersExecutor_GetSchedulerById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSchedulerByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SchedulersExecutorServer).GetSchedulerById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.monitoring.SchedulersExecutor/GetSchedulerById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SchedulersExecutorServer).GetSchedulerById(ctx, req.(*GetSchedulerByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SchedulersExecutor_Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SchedulersExecutorServer).Add(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.monitoring.SchedulersExecutor/Add",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SchedulersExecutorServer).Add(ctx, req.(*AddRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SchedulersExecutor_Remove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SchedulersExecutorServer).Remove(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.monitoring.SchedulersExecutor/Remove",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SchedulersExecutorServer).Remove(ctx, req.(*RemoveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SchedulersExecutor_Run_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RunRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SchedulersExecutorServer).Run(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.monitoring.SchedulersExecutor/Run",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SchedulersExecutorServer).Run(ctx, req.(*RunRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SchedulersExecutor_Stop_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StopRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SchedulersExecutorServer).Stop(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.monitoring.SchedulersExecutor/Stop",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SchedulersExecutorServer).Stop(ctx, req.(*StopRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _SchedulersExecutor_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "squzy.v1.monitoring.SchedulersExecutor",
+	HandlerType: (*SchedulersExecutorServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetSchedulerList",
+			Handler:    _SchedulersExecutor_GetSchedulerList_Handler,
+		},
+		{
+			MethodName: "GetSchedulerById",
+			Handler:    _SchedulersExecutor_GetSchedulerById_Handler,
+		},
+		{
+			MethodName: "Add",
+			Handler:    _SchedulersExecutor_Add_Handler,
+		},
+		{
+			MethodName: "Remove",
+			Handler:    _SchedulersExecutor_Remove_Handler,
+		},
+		{
+			MethodName: "Run",
+			Handler:    _SchedulersExecutor_Run_Handler,
+		},
+		{
+			MethodName: "Stop",
+			Handler:    _SchedulersExecutor_Stop_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "proto/v1/squzy_monitoring.proto",
 }

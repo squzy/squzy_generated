@@ -7,6 +7,10 @@
 package proto
 
 import (
+	context "context"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -1086,4 +1090,410 @@ func file_proto_v1_squzy_notification_server_proto_init() {
 	file_proto_v1_squzy_notification_server_proto_rawDesc = nil
 	file_proto_v1_squzy_notification_server_proto_goTypes = nil
 	file_proto_v1_squzy_notification_server_proto_depIdxs = nil
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConnInterface
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion6
+
+// NotificationManagerClient is the client API for NotificationManager service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type NotificationManagerClient interface {
+	// protolint:disable:next MAX_LINE_LENGTH
+	CreateNotificationMethod(ctx context.Context, in *CreateNotificationMethodRequest, opts ...grpc.CallOption) (*NotificationMethod, error)
+	GetById(ctx context.Context, in *NotificationMethodIdRequest, opts ...grpc.CallOption) (*NotificationMethod, error)
+	GetNotificationMethods(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetListResponse, error)
+	DeleteById(ctx context.Context, in *NotificationMethodIdRequest, opts ...grpc.CallOption) (*NotificationMethod, error)
+	Activate(ctx context.Context, in *NotificationMethodIdRequest, opts ...grpc.CallOption) (*NotificationMethod, error)
+	Deactivate(ctx context.Context, in *NotificationMethodIdRequest, opts ...grpc.CallOption) (*NotificationMethod, error)
+	Add(ctx context.Context, in *NotificationMethodRequest, opts ...grpc.CallOption) (*NotificationMethod, error)
+	Remove(ctx context.Context, in *NotificationMethodRequest, opts ...grpc.CallOption) (*NotificationMethod, error)
+	GetList(ctx context.Context, in *GetListRequest, opts ...grpc.CallOption) (*GetListResponse, error)
+	Notify(ctx context.Context, in *NotifyRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+}
+
+type notificationManagerClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewNotificationManagerClient(cc grpc.ClientConnInterface) NotificationManagerClient {
+	return &notificationManagerClient{cc}
+}
+
+func (c *notificationManagerClient) CreateNotificationMethod(ctx context.Context, in *CreateNotificationMethodRequest, opts ...grpc.CallOption) (*NotificationMethod, error) {
+	out := new(NotificationMethod)
+	err := c.cc.Invoke(ctx, "/squzy.v1.notification.NotificationManager/CreateNotificationMethod", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationManagerClient) GetById(ctx context.Context, in *NotificationMethodIdRequest, opts ...grpc.CallOption) (*NotificationMethod, error) {
+	out := new(NotificationMethod)
+	err := c.cc.Invoke(ctx, "/squzy.v1.notification.NotificationManager/GetById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationManagerClient) GetNotificationMethods(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetListResponse, error) {
+	out := new(GetListResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.notification.NotificationManager/GetNotificationMethods", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationManagerClient) DeleteById(ctx context.Context, in *NotificationMethodIdRequest, opts ...grpc.CallOption) (*NotificationMethod, error) {
+	out := new(NotificationMethod)
+	err := c.cc.Invoke(ctx, "/squzy.v1.notification.NotificationManager/DeleteById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationManagerClient) Activate(ctx context.Context, in *NotificationMethodIdRequest, opts ...grpc.CallOption) (*NotificationMethod, error) {
+	out := new(NotificationMethod)
+	err := c.cc.Invoke(ctx, "/squzy.v1.notification.NotificationManager/Activate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationManagerClient) Deactivate(ctx context.Context, in *NotificationMethodIdRequest, opts ...grpc.CallOption) (*NotificationMethod, error) {
+	out := new(NotificationMethod)
+	err := c.cc.Invoke(ctx, "/squzy.v1.notification.NotificationManager/Deactivate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationManagerClient) Add(ctx context.Context, in *NotificationMethodRequest, opts ...grpc.CallOption) (*NotificationMethod, error) {
+	out := new(NotificationMethod)
+	err := c.cc.Invoke(ctx, "/squzy.v1.notification.NotificationManager/Add", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationManagerClient) Remove(ctx context.Context, in *NotificationMethodRequest, opts ...grpc.CallOption) (*NotificationMethod, error) {
+	out := new(NotificationMethod)
+	err := c.cc.Invoke(ctx, "/squzy.v1.notification.NotificationManager/Remove", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationManagerClient) GetList(ctx context.Context, in *GetListRequest, opts ...grpc.CallOption) (*GetListResponse, error) {
+	out := new(GetListResponse)
+	err := c.cc.Invoke(ctx, "/squzy.v1.notification.NotificationManager/GetList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationManagerClient) Notify(ctx context.Context, in *NotifyRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/squzy.v1.notification.NotificationManager/Notify", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// NotificationManagerServer is the server API for NotificationManager service.
+type NotificationManagerServer interface {
+	// protolint:disable:next MAX_LINE_LENGTH
+	CreateNotificationMethod(context.Context, *CreateNotificationMethodRequest) (*NotificationMethod, error)
+	GetById(context.Context, *NotificationMethodIdRequest) (*NotificationMethod, error)
+	GetNotificationMethods(context.Context, *emptypb.Empty) (*GetListResponse, error)
+	DeleteById(context.Context, *NotificationMethodIdRequest) (*NotificationMethod, error)
+	Activate(context.Context, *NotificationMethodIdRequest) (*NotificationMethod, error)
+	Deactivate(context.Context, *NotificationMethodIdRequest) (*NotificationMethod, error)
+	Add(context.Context, *NotificationMethodRequest) (*NotificationMethod, error)
+	Remove(context.Context, *NotificationMethodRequest) (*NotificationMethod, error)
+	GetList(context.Context, *GetListRequest) (*GetListResponse, error)
+	Notify(context.Context, *NotifyRequest) (*emptypb.Empty, error)
+}
+
+// UnimplementedNotificationManagerServer can be embedded to have forward compatible implementations.
+type UnimplementedNotificationManagerServer struct {
+}
+
+func (*UnimplementedNotificationManagerServer) CreateNotificationMethod(context.Context, *CreateNotificationMethodRequest) (*NotificationMethod, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateNotificationMethod not implemented")
+}
+func (*UnimplementedNotificationManagerServer) GetById(context.Context, *NotificationMethodIdRequest) (*NotificationMethod, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetById not implemented")
+}
+func (*UnimplementedNotificationManagerServer) GetNotificationMethods(context.Context, *emptypb.Empty) (*GetListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNotificationMethods not implemented")
+}
+func (*UnimplementedNotificationManagerServer) DeleteById(context.Context, *NotificationMethodIdRequest) (*NotificationMethod, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteById not implemented")
+}
+func (*UnimplementedNotificationManagerServer) Activate(context.Context, *NotificationMethodIdRequest) (*NotificationMethod, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Activate not implemented")
+}
+func (*UnimplementedNotificationManagerServer) Deactivate(context.Context, *NotificationMethodIdRequest) (*NotificationMethod, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Deactivate not implemented")
+}
+func (*UnimplementedNotificationManagerServer) Add(context.Context, *NotificationMethodRequest) (*NotificationMethod, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Add not implemented")
+}
+func (*UnimplementedNotificationManagerServer) Remove(context.Context, *NotificationMethodRequest) (*NotificationMethod, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Remove not implemented")
+}
+func (*UnimplementedNotificationManagerServer) GetList(context.Context, *GetListRequest) (*GetListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetList not implemented")
+}
+func (*UnimplementedNotificationManagerServer) Notify(context.Context, *NotifyRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Notify not implemented")
+}
+
+func RegisterNotificationManagerServer(s *grpc.Server, srv NotificationManagerServer) {
+	s.RegisterService(&_NotificationManager_serviceDesc, srv)
+}
+
+func _NotificationManager_CreateNotificationMethod_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateNotificationMethodRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationManagerServer).CreateNotificationMethod(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.notification.NotificationManager/CreateNotificationMethod",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationManagerServer).CreateNotificationMethod(ctx, req.(*CreateNotificationMethodRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationManager_GetById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NotificationMethodIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationManagerServer).GetById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.notification.NotificationManager/GetById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationManagerServer).GetById(ctx, req.(*NotificationMethodIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationManager_GetNotificationMethods_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationManagerServer).GetNotificationMethods(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.notification.NotificationManager/GetNotificationMethods",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationManagerServer).GetNotificationMethods(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationManager_DeleteById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NotificationMethodIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationManagerServer).DeleteById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.notification.NotificationManager/DeleteById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationManagerServer).DeleteById(ctx, req.(*NotificationMethodIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationManager_Activate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NotificationMethodIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationManagerServer).Activate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.notification.NotificationManager/Activate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationManagerServer).Activate(ctx, req.(*NotificationMethodIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationManager_Deactivate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NotificationMethodIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationManagerServer).Deactivate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.notification.NotificationManager/Deactivate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationManagerServer).Deactivate(ctx, req.(*NotificationMethodIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationManager_Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NotificationMethodRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationManagerServer).Add(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.notification.NotificationManager/Add",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationManagerServer).Add(ctx, req.(*NotificationMethodRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationManager_Remove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NotificationMethodRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationManagerServer).Remove(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.notification.NotificationManager/Remove",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationManagerServer).Remove(ctx, req.(*NotificationMethodRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationManager_GetList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationManagerServer).GetList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.notification.NotificationManager/GetList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationManagerServer).GetList(ctx, req.(*GetListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationManager_Notify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NotifyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationManagerServer).Notify(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.notification.NotificationManager/Notify",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationManagerServer).Notify(ctx, req.(*NotifyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _NotificationManager_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "squzy.v1.notification.NotificationManager",
+	HandlerType: (*NotificationManagerServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateNotificationMethod",
+			Handler:    _NotificationManager_CreateNotificationMethod_Handler,
+		},
+		{
+			MethodName: "GetById",
+			Handler:    _NotificationManager_GetById_Handler,
+		},
+		{
+			MethodName: "GetNotificationMethods",
+			Handler:    _NotificationManager_GetNotificationMethods_Handler,
+		},
+		{
+			MethodName: "DeleteById",
+			Handler:    _NotificationManager_DeleteById_Handler,
+		},
+		{
+			MethodName: "Activate",
+			Handler:    _NotificationManager_Activate_Handler,
+		},
+		{
+			MethodName: "Deactivate",
+			Handler:    _NotificationManager_Deactivate_Handler,
+		},
+		{
+			MethodName: "Add",
+			Handler:    _NotificationManager_Add_Handler,
+		},
+		{
+			MethodName: "Remove",
+			Handler:    _NotificationManager_Remove_Handler,
+		},
+		{
+			MethodName: "GetList",
+			Handler:    _NotificationManager_GetList_Handler,
+		},
+		{
+			MethodName: "Notify",
+			Handler:    _NotificationManager_Notify_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "proto/v1/squzy_notification_server.proto",
 }
