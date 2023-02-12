@@ -27,6 +27,7 @@ type CacheClient interface {
 	InsertScheduleWithId(ctx context.Context, in *InsertScheduleWithIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// protolint:disable:next MAX_LINE_LENGTH
 	GetScheduleById(ctx context.Context, in *GetScheduleWithIdRequest, opts ...grpc.CallOption) (*GetScheduleWithIdResponse, error)
+	DeleteScheduleById(ctx context.Context, in *DeleteScheduleWithIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type cacheClient struct {
@@ -55,6 +56,15 @@ func (c *cacheClient) GetScheduleById(ctx context.Context, in *GetScheduleWithId
 	return out, nil
 }
 
+func (c *cacheClient) DeleteScheduleById(ctx context.Context, in *DeleteScheduleWithIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/squzy.v1.cache.Cache/DeleteScheduleById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CacheServer is the server API for Cache service.
 // All implementations must embed UnimplementedCacheServer
 // for forward compatibility
@@ -63,6 +73,7 @@ type CacheServer interface {
 	InsertScheduleWithId(context.Context, *InsertScheduleWithIdRequest) (*emptypb.Empty, error)
 	// protolint:disable:next MAX_LINE_LENGTH
 	GetScheduleById(context.Context, *GetScheduleWithIdRequest) (*GetScheduleWithIdResponse, error)
+	DeleteScheduleById(context.Context, *DeleteScheduleWithIdRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedCacheServer()
 }
 
@@ -75,6 +86,9 @@ func (UnimplementedCacheServer) InsertScheduleWithId(context.Context, *InsertSch
 }
 func (UnimplementedCacheServer) GetScheduleById(context.Context, *GetScheduleWithIdRequest) (*GetScheduleWithIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetScheduleById not implemented")
+}
+func (UnimplementedCacheServer) DeleteScheduleById(context.Context, *DeleteScheduleWithIdRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteScheduleById not implemented")
 }
 func (UnimplementedCacheServer) mustEmbedUnimplementedCacheServer() {}
 
@@ -125,6 +139,24 @@ func _Cache_GetScheduleById_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Cache_DeleteScheduleById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteScheduleWithIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheServer).DeleteScheduleById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/squzy.v1.cache.Cache/DeleteScheduleById",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheServer).DeleteScheduleById(ctx, req.(*DeleteScheduleWithIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Cache_ServiceDesc is the grpc.ServiceDesc for Cache service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +171,10 @@ var Cache_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetScheduleById",
 			Handler:    _Cache_GetScheduleById_Handler,
+		},
+		{
+			MethodName: "DeleteScheduleById",
+			Handler:    _Cache_DeleteScheduleById_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
