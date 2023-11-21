@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-protoc -I./proto  --go_out=plugins=grpc:./generated proto/proto/v1/*.proto;
+protoc -I./proto --go_out=./generated --go-grpc_out=./generated proto/proto/v1/*.proto;
