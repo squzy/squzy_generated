@@ -27,6 +27,7 @@ type CacheClient interface {
 	InsertScheduleWithId(ctx context.Context, in *InsertScheduleWithIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// protolint:disable:next MAX_LINE_LENGTH
 	GetScheduleById(ctx context.Context, in *GetScheduleWithIdRequest, opts ...grpc.CallOption) (*GetScheduleWithIdResponse, error)
+	// protolint:disable:next MAX_LINE_LENGTH
 	DeleteScheduleById(ctx context.Context, in *DeleteScheduleWithIdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
@@ -73,6 +74,7 @@ type CacheServer interface {
 	InsertScheduleWithId(context.Context, *InsertScheduleWithIdRequest) (*emptypb.Empty, error)
 	// protolint:disable:next MAX_LINE_LENGTH
 	GetScheduleById(context.Context, *GetScheduleWithIdRequest) (*GetScheduleWithIdResponse, error)
+	// protolint:disable:next MAX_LINE_LENGTH
 	DeleteScheduleById(context.Context, *DeleteScheduleWithIdRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedCacheServer()
 }
